@@ -18,7 +18,7 @@ class Book(models.Model):
     PUBLISH_DATE            = models.DateField(null=False)                   #등록날짜
     UPDATE_DATE             = models.DateField(null=True)                    #수정날짜
     TAG                     = models.CharField(max_length=100, null=False)   #태그
-    RATING                  = models.DoubleField(null=False, default = 2.5)  #별점 (기본값 2.5점)
+    RATING                  = models.FloatField(null=False, default = 2.5)  #별점 (기본값 2.5점)
     Allah_BID               = models.IntegerField(null=False)                #알라딘 고유 책번호
 
 
