@@ -16,21 +16,22 @@ class Book(models.Model):
     TAG                     = models.CharField(max_length=100, null=False)   #태그
     RATING                  = models.FloatField(null=False, default = 2.5)   #별점 (기본값 2.5점)
     Allah_BID               = models.IntegerField(null=False)                #알라딘 고유 책번호
-
+    
+    def __str__(self):
+        return self.TITLE
 
     
 
 class User(models.Model): 
     '''DB column'''
-    UID                     = models.BigAutoField(primary_key=True)
-    #PID                     = models.ManyToManyField('Product')
-    pwToekn                 = models.CharField(max_length=255, null=False)
-    email                   = models.EmailField(max_length=100, null=False)
-    name                    = models.CharField(max_length=50, null=False)
-    address                 = models.CharField(max_length=100, null=False)
-    phone                   = models.CharField(max_length=20, null=False)
-    nickname                = models.CharField(max_length=10, null=False, default="ABC")
-    pushToken               = models.CharField(max_length=255, null=False)
+    UID                     = models.BigAutoField(primary_key=True)                         #Primary Key
+    email                   = models.EmailField(max_length=100, null=False)                 #이메일
+    pwToekn                 = models.CharField(max_length=255, null=False)                  #이메일 인증 토큰 혹은 인증 Refresh Token값이 들어갈 것 같다.
+    nickname                = models.CharField(max_length=10, null=False, default="북아무개") #닉네임 (기본값 '북아무개')
+    thumbnail               = models.CharField(max_length=255, null=True)                   #프로필 이미지
+    tag_array               = models.ArrayField(IntegerField(null=True), size=50)           #Tag Array 정수형 배열로 선언함 크기 50
+    pushNoti                = models.BooleanField(null=False, default=False)                #푸쉬 알림 승인 값
+    pushToken               = models.CharField(max_length=255, null=True)                   #푸쉬 토큰 저장용
 
     def __str__(self):
         return self.nickname
