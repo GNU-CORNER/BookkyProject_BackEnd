@@ -5,11 +5,12 @@ from .models import Book
 class BookPostSerializer(serializers.ModelSerializer): #API에서 불러온 정보를 Book 데이터에 인젝션을 위해서 만든 serializer
     class Meta:
         model = Book
-        fields = ['TITLE', 'VOL', 'AUTHOR', 'ISBN', 'PUBLISHER', 'PRICE', 'PAGE', 'SUBJECT', 'BOOK_INDEX','BOOK_INTRODUCTION','BOOK_SUMMARY' ,'INPUT_DATE']
+        fields = ['TITLE', 'SUBTITLE','VOL', 'AUTHOR', 'ISBN', 'PUBLISHER', 'PRICE', 'PAGE', 'SUBJECT', 'BOOK_INDEX','BOOK_INTRODUCTION','BOOK_SUMMARY' ,'INPUT_DATE']
 
 '''
     BID                     = models.BigAutoField(primary_key=True)          #Primary Key
     TITLE                   = models.CharField(max_length=50, null=False)    #책 제목
+    SUBTITLE                = models.CharField(max_length=50, null=True)   
     VOL                     = models.CharField(max_length=20, null=True)     #책 권차
     AUTHOR                  = models.CharField(max_length=20, null=False)    #저자
     ISBN                    = models.CharField(max_length=20, null=False)    #ISBN코드             데이터 인젝트시에 String을 Integer로 바꿔서 넣어야함
