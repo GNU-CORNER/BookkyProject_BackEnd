@@ -16,7 +16,9 @@ class Book(models.Model):
     TAG                     = models.CharField(max_length=100, null=False)   #태그
     RATING                  = models.FloatField(null=False, default = 2.5)   #별점 (기본값 2.5점)
     Allah_BID               = models.IntegerField(null=False)                #알라딘 고유 책번호
-
+    
+    def __str__(self):
+        return self.TITLE
 
     
 
