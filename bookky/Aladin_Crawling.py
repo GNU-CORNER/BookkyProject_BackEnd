@@ -1,3 +1,4 @@
+import os
 import  requests
 from tkinter import EXCEPTION
 from bs4 import BeautifulSoup
@@ -9,13 +10,14 @@ from selenium import webdriver
 
 def get_bookid():
 
-    f = open('Book_Data.json', 'w')
+    f = open(os.getcwd()+'\\bookky\\Book_Data.json', 'w')
 
     f.write("[\n")
 
-    
+                            
+    # All book -> 1~ 1451
 
-    for page in range(1,2):
+    for page in range(1,484):
 
         url = "https://www.aladin.co.kr/shop/wbrowse.aspx?BrowseTarget=List&ViewRowsCount=25&ViewType=Detail&PublishMonth=0&SortOrder=2&page=" + str(page) + "&Stockstatus=1&PublishDay=84&CID=351&CustReviewRankStart=&CustReviewRankEnd=&CustReviewCountStart=&CustReviewCountEnd=&PriceFilterMin=&PriceFilterMax=&SearchOption="
                
@@ -40,7 +42,7 @@ def get_bookid():
 def get_bookdetail(Bid,f):
 
     f.write("   {\n")
-    driver = webdriver.Chrome('chromedriver.exe')
+    driver = webdriver.Chrome(executable_path=os.getcwd()+'\\bookky\\chromedriver.exe')
     url = "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId="+str(Bid)
 
     driver.get(url)  
