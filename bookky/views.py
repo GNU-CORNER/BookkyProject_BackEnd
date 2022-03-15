@@ -23,4 +23,31 @@ def saveAPIDatafromCrawl():
     else:
         print(request.body)
         print(parseSerializer.errors)
-        return JsonResponse({'success':False, 'result':{}, status = status.HTTP_400_BAD_REQUEST})
+        return JsonResponse({'success':False, 'result':{}}, status = status.HTTP_400_BAD_REQUEST)
+
+def read_insert(request):
+    json_bookData = dict()
+
+    with open("test.json","r") as rt_json:
+        json_bookData = json.load(rt_json)
+    print(json_bookData)
+    
+    i = json_bookData 
+    data = {
+        'TITLE':i.get('TITLE'), 
+        'SUBTITLE':i.get('SUBTITLE'),
+        'AUTHOR':i.get('AUTHOR'),
+        'ISBN':i.get('ISBN'),
+        'PUBLISHER':i.get('PUBLISHER'),
+        'PRICE':i.get('PRICE'),
+        'PAGE':i.get('PAGE') ,
+        'BOOK_INDEX':i.get('BOOK_INDEX'),
+        'BOOK_INTRODUCTION':i.get('BOOK_INTRODUCTION'),
+        'Allah_BID' : int(i.get('Allah_BID'))
+    }
+    serializer = BookPostSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+    else:
+        print(serializer.errors)
+    return JsonResponse({})

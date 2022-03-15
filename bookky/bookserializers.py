@@ -5,7 +5,7 @@ from .models import Book
 class BookPostSerializer(serializers.ModelSerializer): #API에서 불러온 정보를 Book 데이터에 인젝션을 위해서 만든 serializer
     class Meta:
         model = Book
-        fields = ['TITLE', 'SUBTITLE','VOL', 'AUTHOR', 'ISBN', 'PUBLISHER', 'PRICE', 'PAGE', 'SUBJECT', 'BOOK_INDEX','BOOK_INTRODUCTION','BOOK_SUMMARY' ,'INPUT_DATE']
+        fields = ['TITLE', 'SUBTITLE','AUTHOR', 'ISBN', 'PUBLISHER', 'PRICE', 'PAGE', 'BOOK_INDEX','BOOK_INTRODUCTION','PUBLISH_DATE','Allah_BID']
 
 '''
     BID                     = models.BigAutoField(primary_key=True)          #Primary Key
