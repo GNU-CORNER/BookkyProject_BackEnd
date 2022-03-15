@@ -88,3 +88,29 @@ def userSign(request):
                 return JsonResponse({'success':True, 'result':{}},status=status.HTTP_200_OK)
         else:
             return JsonResponse({'success':False, 'result':{}},status=status.HTTP_400_BAD_REQUEST)
+
+
+def read_insert():
+    json_bookData = dict()
+
+    with open("test.json","r") as rt_json:
+        json_bookData = json.load(rt_json)
+    print(json_bookData)
+    
+    for i in json_bookData : 
+        data = {
+            'TITLE':i['TITLE'], 
+            'SUBTITLE':i['SUBTITLE'],
+            'AUTHOR':i['AUTHOR'],
+            'ISBN':i['ISBN'],
+            'PUBLISHER':i['PUBLISHER'],
+            'PRICE':i['PRICE'],
+            'PAGE':i['PAGE'] ,
+            'BOOK_INDEX':i['BOOK_INDEX'],
+            'BOOK_INTRODUCTION':i['BOOK_INTRODUCTION'],
+            'PUBLISH_DATE': datetime.datetime.strptime(i['PUBLISH_DATE'], '%Y-%m-%d')
+            }
+        serializer = BookPostSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+    
