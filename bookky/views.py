@@ -90,27 +90,31 @@ def userSign(request):
             return JsonResponse({'success':False, 'result':{}},status=status.HTTP_400_BAD_REQUEST)
 
 
-def read_insert():
+def read_insert(request):
     json_bookData = dict()
 
     with open("test.json","r") as rt_json:
         json_bookData = json.load(rt_json)
     print(json_bookData)
     
-    for i in json_bookData : 
+    for i in json_bookData :
         data = {
-            'TITLE':i['TITLE'], 
-            'SUBTITLE':i['SUBTITLE'],
-            'AUTHOR':i['AUTHOR'],
-            'ISBN':i['ISBN'],
-            'PUBLISHER':i['PUBLISHER'],
-            'PRICE':i['PRICE'],
-            'PAGE':i['PAGE'] ,
-            'BOOK_INDEX':i['BOOK_INDEX'],
-            'BOOK_INTRODUCTION':i['BOOK_INTRODUCTION'],
-            'PUBLISH_DATE': datetime.datetime.strptime(i['PUBLISH_DATE'], '%Y-%m-%d')
-            }
+            'TITLE':i.get('TITLE'), 
+            'SUBTITLE':i.get('SUBTITLE'),
+            'AUTHOR':i.get('AUTHOR'),
+            'ISBN':i.get('ISBN'),
+            'PUBLISHER':i.get('PUBLISHER'),
+            'PRICE':i.get('PRICE'),
+            'PAGE':i.get('PAGE') ,
+            'BOOK_INDEX':i.get('BOOK_INDEX'),
+            'BOOK_INTRODUCTION':i.get('BOOK_INTRODUCTION'),
+            'Allah_BID' : int(i.get('Allah_BID')),
+            'PUBLISH_DATE' : i.get('PUBLISH_DATE'),
+        }
         serializer = BookPostSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
+        else:
+            print(serializer.errors)
+    return JsonResponse({})
     
