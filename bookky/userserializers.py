@@ -10,7 +10,7 @@ class UserRegisterSerializer(serializers.ModelSerializer): #최초 회원가입�
 class UserUpdateSerializer(serializers.ModelSerializer): #사용자 업데이트에서 사용될 Serializer
     class Meta:
         model = User
-        fields = ['email', 'nickname', 'thumbnail', 'tag_array', 'pushNoti', 'pushToken']
+        fields = ['email', 'nickname', 'thumbnail', 'pushNoti', 'pushToken']
         
 '''
     UID                     = models.BigAutoField(primary_key=True)                         #Primary Key
