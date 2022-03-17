@@ -47,7 +47,6 @@ class AnyCommunity(models.Model):                                               
     createAt                = models.DateField(auto_now=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(null=True)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    commentCounts           = models.IntegerField(null=False, default = 0)                                                  #댓글수
     like                    = ArrayField(models.IntegerField(null=True), size = 10000000)                                   #좋아요, 숫자는 최대
 
     def __str__(self):
@@ -63,7 +62,6 @@ class MarketCommunity(models.Model):                                            
     createAt                = models.DateField(auto_now=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(null=True)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    commentCounts           = models.IntegerField(null=False, default = 0)                                                  #댓글수
     like                    = ArrayField(models.IntegerField(null=True), size = 10000000)                                   #좋아요, 숫자는 최대
 
     def __str__(self):
@@ -79,7 +77,6 @@ class QnACommunity(models.Model):                                               
     createAt                = models.DateField(auto_now=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(null=True)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    commentCounts           = models.IntegerField(null=False, default = 0)                                                  #댓글수
     like                    = ArrayField(models.IntegerField(null=True), size = 10000000)                                   #좋아요, 숫자는 최대
 
     def __str__(self):
@@ -144,7 +141,6 @@ class Review(models.Model):
     UID                     = models.ForeignKey("User", on_delete=models.CASCADE ,null=False)                               #유저 외래키
     contents                = models.TextField(verbose_name='내용')                                                          #내용
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    commentCounts           = models.IntegerField(null=False, default = 0)                                                  #댓글수
     createAt                = models.DateField(auto_now=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(null=True)                                                                   #수정날짜
     like                    = ArrayField(models.IntegerField(null=True), size = 10000000)                                   #좋아요, 숫자는 최대
