@@ -10,16 +10,16 @@ from selenium import webdriver
 
 def get_bookid():
 
-    f = open(os.getcwd()+'\\bookky\\Book_Data.json', 'w')
+    f = open(os.getcwd()+'\\bookky\\Book_Data.json', 'w', encoding='utf-8')
 
     f.write("[\n")
 
                             
-    # All book -> 1~ 1451
+    # All book -> 1 ~ 526 page
 
-    for page in range(1,484):
-
-        url = "https://www.aladin.co.kr/shop/wbrowse.aspx?BrowseTarget=List&ViewRowsCount=25&ViewType=Detail&PublishMonth=0&SortOrder=2&page=" + str(page) + "&Stockstatus=1&PublishDay=84&CID=351&CustReviewRankStart=&CustReviewRankEnd=&CustReviewCountStart=&CustReviewCountEnd=&PriceFilterMin=&PriceFilterMax=&SearchOption="
+    for page in range(1,526):
+        print(page,"작업중..\n")
+        url = "https://www.aladin.co.kr/shop/wbrowse.aspx?BrowseTarget=List&ViewRowsCount=25&ViewType=Detail&PublishMonth=147&SortOrder=5&page=" + str(page) + "&Stockstatus=2&PublishDay=84&CustReviewRankStart=0&CustReviewCountStart=0&PriceFilterMax=-1&CID=351&SearchOption="
                
         request = requests.get(url, verify=False)
         List = BeautifulSoup(request.content, "html.parser")
@@ -30,31 +30,39 @@ def get_bookid():
 
         for index in data_div:
             c = c+1
-            get_bookdetail(index.get('itemid'),f)
-            if c == Len-1:
-                break
+            get_bookdetail(str(index.get('itemid')),f)
             f.write(",\n")
 
     
-    f.write("\n]")
+    f.write("]")
     f.close()
         
 def get_bookdetail(Bid,f):
 
+
+    print(Bid)
     f.write("   {\n")
-    driver = webdriver.Chrome(executable_path=os.getcwd()+'\\bookky\\chromedriver.exe')
+
+    options = webdriver.ChromeOptions()
+    options.add_argument("--incognito")
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-setuid-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    driver = webdriver.Chrome(executable_path=os.getcwd()+'\\bookky\\chromedriver.exe', chrome_options=options)
     url = "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId="+str(Bid)
 
     driver.get(url)  
 
-    for i in range(1,31):
+    for i in range(1,20):
         driver.execute_script("window.scrollTo(0, "+str(i*1000)+")")
         sleep(0.1)
     
     req = driver.page_source
     data = BeautifulSoup(req, "html.parser")
 
-    driver.close( )
+
 
     book_title = data.select('a.Ere_bo_title')
     if len(book_title) != 0:
@@ -74,7 +82,7 @@ def get_bookdetail(Bid,f):
     else:
         f.write('       "AUTHOR" : null,\n')
     
-    book_ISBN = data.select('meta[property="books:isbn"]')
+    book_ISBN = data.select('meta[property="books:isbn"]') 
     if len(book_ISBN) != 0:
         f.write('       "ISBN" : "' + book_ISBN[0].get('content').strip() + '",\n')
     else:
@@ -112,9 +120,10 @@ def get_bookdetail(Bid,f):
         if not book_index:
             f.write('       "BOOK_INDEX" : null,\n')
         else:
-            f.write('       "BOOK_INDEX" : "' + book_index.get_text().strip() + '",\n')
+            f.write('       "BOOK_INDEX" : "' + book_index.get_text().strip().replace('\n',"^^") + '",\n')
+            
     else:
-        f.write('       "BOOK_INDEX" : "' + book_index.get_text().strip() + '",\n')
+        f.write('       "BOOK_INDEX" : "' + book_index.get_text().strip().replace('\n',"^^") + '",\n')
 
 
     book_introduction = data.select('div.Ere_prod_mconts_box')
@@ -125,7 +134,7 @@ def get_bookdetail(Bid,f):
     for i in book_introduction:
         location = str(i).find('LL">책소개')
         if location != -1:
-            introduction = i.find('div','Ere_prod_mconts_R').get_text()
+            introduction = i.find('div','Ere_prod_mconts_R').get_text().strip().replace('\n',"^^")
             f.write(introduction.strip() + '",\n')
             flag=0
             break
@@ -150,6 +159,9 @@ def get_bookdetail(Bid,f):
     f.write('       "Allah_BID" : "' + Bid + '"')
 
     f.write("   }")
+
+
+    driver.quit()
 
   
 
