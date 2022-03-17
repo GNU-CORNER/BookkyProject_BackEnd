@@ -22,11 +22,11 @@ def userSign(request):
 
     #회원가입, 로그인
     if (request.method == 'POST'):
-        userData = User.objects.filter(email=data['email'])
+        userData = User.objects
         if data['email'] is not None:
             if(len(userData.filter(email=data['email']))) != 0: #로그인 인증 인가를 통해서 생각 해봐야 할듯
                 tempToken = setToken(data['pwToken']) 
-                users = User.objects.get(email=data['email'])
+                users = User.objects.filter(email=data['email'])[0]
                 if(checkpw(tempToken, users)): #로그인 성공
                     filteredData = userData.filter(email=data['email'])
                     serializer = UserRegisterSerializer(filteredData, many=True)
