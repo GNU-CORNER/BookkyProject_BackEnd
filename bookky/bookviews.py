@@ -15,12 +15,13 @@ import time
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def book(request, slug):
+    print(request.headers.get('Authorization'))
     if request.headers.get('Authorization')is None:
-        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"Authroization키가 없음"}, status=status.HTTP_400_NOT_FOUND)
+        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"Authroization키가 없음"}, status=status.HTTP_400_BAD_REQUEST)
     else:
         tempToken = request.headers.get('Authorization',None)
-        if not valid_token(tempToken):
-            return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유저 정보가 없음"}, status=status.HTTP_400_NOT_FOUND)
+        if valid_token(tempToken) == False:
+            return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유저 정보가 없음"}, status=status.HTTP_401_UNAUTHORIZED)
         else :
             try:
                 bookData = Book.objects

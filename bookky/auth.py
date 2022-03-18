@@ -26,9 +26,9 @@ def valid_token(token):
         secretKey = dbsetting.SECRET_KEY
         user = jwt.decode(token, secretKey,algorithm=dbsetting.algorithm)
         print(user)
+        if(len(User.objects.filter(UID = user['UID'])) != 0):
+            return True
+        else :
+            return False
     except jwt.exceptions.DecodeError:
-        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"올바르지 않은 토큰 값"}, status=status.HTTP_400_NOT_FOUND)
-    if(len(User.objects.filter(UID = user['UID'])) != 0):
-        return True
-    else :
         return False
