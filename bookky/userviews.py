@@ -5,7 +5,7 @@ from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from .models import User
 from .userserializers import UserRegisterSerializer, UserUpdateSerializer
-from .auth import setToken, get_access, checkpw
+from .auth import setToken, get_access, checkToken
 import requests
 import datetime
 import urllib.request
@@ -24,10 +24,9 @@ def userSign(request):
     if (request.method == 'POST'):
         userData = User.objects
         if data['email'] is not None:
-            if(len(userData.filter(email=data['email']))) != 0: #로그인 인증 인가를 통해서 생각 해봐야 할듯
-                tempToken = setToken(data['pwToken']) 
-                users = User.objects.filter(email=data['email'])[0]
-                if(checkpw(tempToken, users)): #로그인 성공
+            if(len(userData.filter(email=data['email']))) != 0: #로그인 인증 인가를 통해서 생각 해봐야 할듯 
+                users = userData.get(email=data['email'])
+                if(checkToken(data['pwToken'], users)): #로그인 성공
                     filteredData = userData.filter(email=data['email'])
                     serializer = UserRegisterSerializer(filteredData, many=True)
                     accessToken = get_access(users)
@@ -37,7 +36,7 @@ def userSign(request):
                     return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)
             
             elif(len(userData.filter(email=data['email']))) == 0: #회원가입 request에 넘어온 UID값과 DB안의 UID와 비교하여 존재하지 않으면, 회원가입으로 생각함
-                data['pwToek'] = setToken(data['pwToek'])                          #토큰화 한 비밀번호를 넣는다
+                data['pwToken'] = setToken(data['pwToken'])                          #토큰화 한 비밀번호를 넣는다
                 userSerializer = UserRegisterSerializer(data = data)
                 if userSerializer.is_valid():
                     userSerializer.save()
