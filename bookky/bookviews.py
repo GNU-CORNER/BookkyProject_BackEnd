@@ -13,13 +13,12 @@ import urllib.request
 import json
 import time
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def book(request, slug):
     if request.headers.get('Authorization')is None:
         return JsonResponse({'success':False, 'result': {}, 'errorMessage':"Authroization키가 없음"}, status=status.HTTP_400_NOT_FOUND)
     else:
         tempToken = request.headers.get('Authorization',None)
-        print(tempToken)
         if not valid_token(tempToken):
             return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유저 정보가 없음"}, status=status.HTTP_400_NOT_FOUND)
         else :
@@ -28,8 +27,16 @@ def book(request, slug):
             except Book.DoesNotExist:
                 return JsonResponse({'success':False, 'result': {}, 'errorMessage':"Book에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"}, status=status.HTTP_404_NOT_FOUND)
             if (request.method == 'GET'):
+                quantity = 25
                 if slug ==  "0" :
-                    serializer = BookPostSerializer(bookData.all(), many=True)
+                    if request.GET.get('quantity') is not None:
+                        quantity = int(request.GET.get('quantity'))
+                    if request.GET.get('page') is not None:
+                        startpagination = (int(request.GET.get('page')) - 1) * quantity
+                        endpagination = int(request.GET.get('page')) * quantity
+                    books = bookData.all()
+                    books = books[startpagination : endpagination]    
+                    serializer = BookPostSerializer(books, many=True)
                     return JsonResponse({'success':True,'result' : serializer.data, 'errorMessage':""}, status=status.HTTP_200_OK)
                 else :
                     filtered_data = bookData.filter(BID = slug)
@@ -37,5 +44,8 @@ def book(request, slug):
                         return JsonResponse({'success':False, 'result':{}, 'errorMessage':"입력한 BID와 일치하는 정보가 없습니다."}, status=status.HTTP_204_NO_CONTENT)
                     else:
                         serializer = BookPostSerializer(filtered_data, many = True)
-                        return JsonResponse({'success':True, 'result' : serializer.data[0]}, status = status.HTTP_200_OK)
-    
+                        return JsonResponse({'success':True, 'result' : serializer.data[0]}, status = status.HTTP_200_OK)            
+            elif request.mtehod == 'PUT':
+                return
+            elif request.mtehod == 'DELETE':
+                return
