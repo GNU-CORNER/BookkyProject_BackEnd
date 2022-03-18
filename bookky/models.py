@@ -6,14 +6,14 @@ class Book(models.Model):
     BID                     = models.BigAutoField(primary_key=True)                         #Primary Key
     TITLE                   = models.CharField(max_length=255, null=False)                   #책 제목
     SUBTITLE                = models.CharField(max_length=255, null=True)                    #책 부제
-    AUTHOR                  = models.CharField(max_length=100, null=False)                   #저자
-    ISBN                    = models.CharField(max_length=30, null=False)                   #ISBN코드             데이터 인젝트시에 String을 Integer로 바꿔서 넣어야함
-    PUBLISHER               = models.CharField(max_length=100, null=False)                   #발행처
+    AUTHOR                  = models.CharField(max_length=100, null=True, blank=True)                   #저자
+    ISBN                    = models.CharField(max_length=30, null=True, blank=True)                   #ISBN코드             데이터 인젝트시에 String을 Integer로 바꿔서 넣어야함
+    PUBLISHER               = models.CharField(max_length=255, null=True, blank=True)                   #발행처
     PRICE                   = models.CharField(max_length=30, null=True)                    #가격                 데이터 인젝트시에 String을 Integer로 바꿔서 넣어야함
     PAGE                    = models.CharField(max_length=20, null=True)                    #페이지
     thumbnail               = models.CharField(max_length=255, null=True)                   #thumbnail API의 출력값 URL 변수명은 'TITLE_URL'
-    BOOK_INDEX              = models.TextField(verbose_name='목차')                          #목차
-    BOOK_INTRODUCTION       = models.TextField(verbose_name='소개')                          #책 소개
+    BOOK_INDEX              = models.TextField(verbose_name='목차', null=True, blank=True)                          #목차
+    BOOK_INTRODUCTION       = models.TextField(verbose_name='소개', null=True, blank=True)                          #책 소개
     PUBLISH_DATE            = models.CharField(max_length=30, null=True)                    #등록날짜
     TAG                     = ArrayField(models.IntegerField(null=True), size = 50, null=True)         #태그
     RATING                  = models.FloatField(null=False, default = 2.5)                  #별점 (기본값 2.5점)

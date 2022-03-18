@@ -32,7 +32,6 @@ def read_insert(request):
 
     with open("test.json","r") as rt_json:
         json_bookData = json.load(rt_json)
-    print(json_bookData)
     
     for i in json_bookData :
         data = {
