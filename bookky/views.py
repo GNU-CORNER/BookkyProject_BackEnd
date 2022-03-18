@@ -30,7 +30,7 @@ def saveAPIDatafromCrawl():
 def read_insert(request):
     json_bookData = dict()
 
-    with open("test.json","r") as rt_json:
+    with open("BookData.json","r") as rt_json:
         json_bookData = json.load(rt_json)
     
     for i in json_bookData :
