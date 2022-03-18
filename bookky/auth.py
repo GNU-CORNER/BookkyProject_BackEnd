@@ -3,7 +3,7 @@ import bcrypt
 from bookky_backend import dbsetting
 
 def setToken(rawData): # 비밀번호 토큰 생성
-    hashed_pw = bcrypt.hashpw(rawData.encode('uft-8'), bcrypt.gensalt()).decode('utf-8')
+    hashed_pw = bcrypt.hashpw(rawData.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     return hashed_pw
 
 def checkToken(hashed_data, userData): #비밀번호 대조
