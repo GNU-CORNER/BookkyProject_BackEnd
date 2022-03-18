@@ -30,7 +30,7 @@ def userSign(request):
                     filteredData = userData.filter(email=data['email'])
                     serializer = UserRegisterSerializer(filteredData, many=True)
                     accessToken = get_access(users)
-                    return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':accessToken}, status=status.HTTP_202_ACCEPTED)
+                    return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken)}, status=status.HTTP_202_ACCEPTED)
 
                 else: #로그인 실패
                     return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)

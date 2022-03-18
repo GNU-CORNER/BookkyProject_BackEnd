@@ -18,7 +18,8 @@ def book(request, slug):
     if request.headers.get('Authorization')is None:
         return JsonResponse({'success':False, 'result': {}, 'errorMessage':"Authroization키가 없음"}, status=status.HTTP_400_NOT_FOUND)
     else:
-        tempToken = request.headers.get('Authorization')
+        tempToken = request.headers.get('Authorization',None)
+        print(tempToken)
         if not valid_token(tempToken):
             return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유저 정보가 없음"}, status=status.HTTP_400_NOT_FOUND)
         else :
@@ -26,7 +27,6 @@ def book(request, slug):
                 bookData = Book.objects
             except Book.DoesNotExist:
                 return JsonResponse({'success':False, 'result': {}, 'errorMessage':"Book에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"}, status=status.HTTP_404_NOT_FOUND)
-        
             if (request.method == 'GET'):
                 if slug ==  "0" :
                     serializer = BookPostSerializer(bookData.all(), many=True)

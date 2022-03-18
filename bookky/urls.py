@@ -1,5 +1,5 @@
 from django.urls import path, include
-from bookky import views, userviews
+from bookky import views, userviews, bookviews
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -20,5 +20,6 @@ schema_view = get_schema_view(
 #url(r'^pnsApp/(?P<slug>[-a-zA-Z0-9_]+)$', views.pns_detail),
 urlpatterns = [ #POST형식으로 바꿔야함
     path('test', views.read_insert),
-    path('test1', userviews.userSign)
+    path('test1', userviews.userSign),
+    path('test2/<slug:slug>', bookviews.book)
 ]
