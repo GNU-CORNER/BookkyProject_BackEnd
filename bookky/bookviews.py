@@ -16,7 +16,8 @@ import time
 
 @api_view(['GET'])
 def book(request, slug): #책 정보 API
-    if authValidation(request) == True:
+    flag = authValidation(request)
+    if flag == True:
         try:
             bookData = Book.objects
         except Book.DoesNotExist:
@@ -46,7 +47,10 @@ def book(request, slug): #책 정보 API
                     return JsonResponse({'success':True, 'result' : serializer.data[0], 'errorMessage':""}, status = status.HTTP_200_OK)
         else:
             return JsonResponse({'success':False,'result' : {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다." }, status=status.HTTP_403_FORBIDDEN)
-                    
+    elif flag == 0:
+        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효하지 않은 토큰입니다."}, status=status.HTTP_401_UNAUTHORIZED) #JWT 토큰이 없을 때
+    elif flag == 2:
+        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"기간이 지난 토큰입니다."}, status=status.HTTP_403_FORBIDDEN) #JWT 토큰이 만기됨
 @api_view(['GET'])
 def bookSearch(request): #책 검색 API
     if authValidation(request) == True :

@@ -28,8 +28,12 @@ def valid_token(token): #ACCESS_TOKEN 만 확인 함
         secretKey = dbsetting.SECRET_KEY
         user = jwt.decode(token, secretKey,algorithm=dbsetting.algorithm)
         print(user)
-        if(len(User.objects.filter(UID = user['UID'])) != 0):
-            return 1
+        if user['token_type'] == "access_token":
+            print(user)
+            if(len(User.objects.filter(UID = user['UID'])) != 0):
+                return True
+            else :
+                return 0
         else :
             return 0
     except jwt.ExpiredSignatureError : #JWT 토큰의 만료시간이 지났을 경우
@@ -51,24 +55,23 @@ def re_generate_Token(access_token, refresh_token):
             if user['token_type'] == "refresh_token":
                 if(len(User.objects.filter(UID = user['UID'])) != 0):
                     new_access_token = get_access(user['UID'])
+                    print(new_access_token)
                     return new_access_token
         except jwt.ExpiredSignatureError: #JWT 갱신 토큰이 만료되었을 때
-            return False
+            print('asd')
+            return 2
         except jwt.exceptions.DecodeError: #JWT 갱신 토큰의 형식 에러, 혹은 잘못된 토큰
-            return False
+            print("asdf")
+            return 3
+    else:
+        return 4
 
 def authValidation(request):
     if request.headers.get('Authorization') is None:
         return JsonResponse({'success':False, 'result': {}, 'errorMessage':"Authroization키가 없음"}, status=status.HTTP_401_UNAUTHORIZED) #JWT 토큰이 없을 때
     else:
-        if request.headers.get('RefreshToken',None) is not None: # AccessToken이 만료됬고, RefreshToken이 만료되지 않았을 때, AccessToken을 재발급 해주는 시나리오 
-            refresh_access_token = re_generate_Token(request.headers.get('RefreshToken',None), request.headers.get('Authorization',None))
-            return JsonResponse({'success':True, 'result': {}, 'errorMessage':"", 'access_token':str(refresh_access_token)}, status=status.HTTP_202_ACCEPTED) 
-        else:
-            tempToken = request.headers.get('Authorization',None)
-            if valid_token(tempToken) == 0: #비정상 토큰
-                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효하지 않은 토큰입니다."}, status=status.HTTP_401_UNAUTHORIZED)
-            elif valid_token(tempToken) == 1: #토큰 인증 완료
-                return True
-            elif valid_token(tempToken) == 2: #토큰 만료
-                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"기간이 지난 토큰입니다."}, status=status.HTTP_403_FORBIDDEN)
+        tempToken = request.headers.get('Authorization',None)
+        return valid_token(tempToken)
+
+
+                
