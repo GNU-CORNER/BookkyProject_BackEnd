@@ -5,7 +5,7 @@ from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from .models import User
 from .userserializers import UserRegisterSerializer, UserUpdateSerializer
-from .auth import setToken, get_access, checkToken
+from .auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token
 import requests
 import datetime
 import urllib.request
@@ -29,9 +29,9 @@ def userSign(request):
                 if(checkToken(data['pwToken'], users)): #로그인 성공
                     filteredData = userData.filter(email=data['email'])
                     serializer = UserRegisterSerializer(filteredData, many=True)
-                    accessToken = get_access(users)
-                    return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken)}, status=status.HTTP_202_ACCEPTED)
-
+                    accessToken = get_access(users.UID)
+                    refreshToken = get_refreshToken(users.UID)
+                    return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
                 else: #로그인 실패
                     return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)
             
