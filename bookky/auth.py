@@ -1,5 +1,7 @@
+from datetime import datetime
 import jwt
 import bcrypt
+import datetime
 
 from django.http import JsonResponse
 from rest_framework import status
@@ -18,7 +20,7 @@ def checkToken(hashed_data, userData): #비밀번호 대조
 
 def get_access(user): #ACCESS_TOKEN 발급
     secretKey = dbsetting.SECRET_KEY
-    access_token = jwt.encode({'UID':user.UID}, secretKey, algorithm=dbsetting.algorithm).decode('utf-8')
+    access_token = jwt.encode({'exp' : datetime.datetime.utcnow() + datetime.timedelta(seconds=600), 'UID':user.UID}, secretKey, algorithm=dbsetting.algorithm).decode('utf-8')
     return access_token
 
 def valid_token(token):
@@ -30,5 +32,26 @@ def valid_token(token):
             return True
         else :
             return False
+    except jwt.ExpiredSignatureError :
+        return False
+    
     except jwt.exceptions.DecodeError:
         return False
+
+def get_refreshToken():
+    secretKey = dbsetting.SECRET_KEY
+    refresh_token = jwt.encode({'exp': datetime.datetime.utcnow() + datetime.timedelta(weeks=2)},secretKey,algorithm=dbsetting.algorithm).decode('utf-8')
+    return refresh_token
+
+def re_generate_Token(user, access_token, refresh_token):
+    secretKey = dbsetting.SECRET_KEY
+    if(valid_token(access_token) == False):
+        try:
+            jwt.decode(refresh_token, secretKey, algorithms=dbsetting.algorithm)
+            new_access_token = get_access(user)
+            return new_access_token
+        except jwt.ExpiredSignatureError:
+            return False
+        except jwt.exceptions.DecodeError:
+            return False
+    

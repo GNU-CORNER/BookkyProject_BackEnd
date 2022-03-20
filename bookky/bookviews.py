@@ -21,7 +21,7 @@ def book(request, slug): #책 정보 API
     else:
         tempToken = request.headers.get('Authorization',None)
         if not valid_token(tempToken):
-            return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유저 정보가 없음"}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효하지 않은 토큰입니다."}, status=status.HTTP_401_UNAUTHORIZED)
         else :
             try:
                 bookData = Book.objects
