@@ -6,7 +6,9 @@ import datetime
 from django.http import JsonResponse
 from rest_framework import status
 from bookky_backend import dbsetting
-from .models import User
+from .models import User, RefreshTokenStorage
+from .userserializers import RefreshTokenSerializer
+
 
 def setToken(rawData): # 비밀번호 토큰 생성
     hashed_pw = bcrypt.hashpw(rawData.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
@@ -45,26 +47,38 @@ def valid_token(token): #ACCESS_TOKEN 만 확인 함
 def get_refreshToken(uid):
     secretKey = dbsetting.SECRET_KEY
     refresh_token = jwt.encode({'token_type':"refresh_token", 'exp': datetime.datetime.utcnow() + datetime.timedelta(weeks=2), 'UID' : uid},secretKey,algorithm=dbsetting.algorithm).decode('utf-8') #갱신 토큰 기간 2주로 설정
-    return refresh_token
-
-def re_generate_Token(access_token, refresh_token):
-    secretKey = dbsetting.SECRET_KEY
-    if(valid_token(access_token) == 2): #Valid 함수로 2차 확인 후 재생성
-        try:
-            user = jwt.decode(refresh_token, secretKey, algorithms=dbsetting.algorithm)
-            if user['token_type'] == "refresh_token":
-                if(len(User.objects.filter(UID = user['UID'])) != 0):
-                    new_access_token = get_access(user['UID'])
-                    print(new_access_token)
-                    return new_access_token
-        except jwt.ExpiredSignatureError: #JWT 갱신 토큰이 만료되었을 때
-            print('asd')
-            return 2
-        except jwt.exceptions.DecodeError: #JWT 갱신 토큰의 형식 에러, 혹은 잘못된 토큰
-            print("asdf")
-            return 3
+    refreshData = {'UID' : uid, 'refresh_token':refresh_token}
+    authSerializer = RefreshTokenSerializer(data = refreshData) #RefreshToken 저장
+    if authSerializer.is_valid():
+        authSerializer.save()
+        return refresh_token
     else:
-        return 4
+        print(authSerializer.errors)
+    
+def re_generate_Token(access_token, refreshToken):
+    secretKey = dbsetting.SECRET_KEY
+    try:
+        tempData = RefreshTokenStorage.objects.filter(refresh_token= refreshToken)
+    except RefreshTokenStorage.DoesNotExist :
+        return 5
+    if valid_token(access_token) == 2:
+        if(tempData[0] != 0): #Valid 함수로 2차 확인 후 재생성
+            try:
+                user = jwt.decode(refreshToken, secretKey, algorithms=dbsetting.algorithm)
+                if user['token_type'] == "refresh_token":
+                    if(len(User.objects.filter(UID = tempData['UID'])) != 0):
+                        new_access_token = get_access(tempData['UID'])
+                        print(new_access_token)
+                        return new_access_token
+            except jwt.ExpiredSignatureError: #JWT 갱신 토큰이 만료되었을 때
+                return 2
+            except jwt.exceptions.DecodeError: #JWT 갱신 토큰의 형식 에러, 혹은 잘못된 토큰
+                return 3
+        else:
+            return 4
+    else:
+        return 3
+
 
 def authValidation(request):
     if request.headers.get('Authorization') is None:

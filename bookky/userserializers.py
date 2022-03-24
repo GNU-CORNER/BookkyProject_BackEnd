@@ -1,6 +1,6 @@
 from django.db.models import fields
 from rest_framework import serializers
-from .models import User
+from .models import User, RefreshTokenStorage
 
 class UserRegisterSerializer(serializers.ModelSerializer): #최초 회원가입에서 사용될 Serializer
     class Meta:
@@ -11,7 +11,11 @@ class UserUpdateSerializer(serializers.ModelSerializer): #사용자 업데이트
     class Meta:
         model = User
         fields = ['email', 'nickname', 'thumbnail', 'pushNoti', 'pushToken']
-        
+
+class RefreshTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RefreshTokenStorage
+        fields = ['UID', 'refresh_token']
 '''
     UID                     = models.BigAutoField(primary_key=True)                         #Primary Key
     email                   = models.EmailField(max_length=100, null=False)                 #이메일
