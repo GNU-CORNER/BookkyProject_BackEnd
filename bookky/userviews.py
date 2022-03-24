@@ -5,7 +5,7 @@ from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from .models import User
 from .userserializers import UserRegisterSerializer, UserUpdateSerializer
-from .auth import setToken, get_access, checkToken
+from .auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token
 import requests
 import datetime
 import urllib.request
@@ -29,9 +29,9 @@ def userSign(request):
                 if(checkToken(data['pwToken'], users)): #로그인 성공
                     filteredData = userData.filter(email=data['email'])
                     serializer = UserRegisterSerializer(filteredData, many=True)
-                    accessToken = get_access(users)
-                    return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken)}, status=status.HTTP_202_ACCEPTED)
-
+                    accessToken = get_access(users.UID)
+                    refreshToken = get_refreshToken(users.UID)
+                    return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
                 else: #로그인 실패
                     return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)
             
@@ -93,3 +93,19 @@ def checkEmail(request):#중복확인 API
                 return JsonResponse({'success':True, 'result':{'email' : data['email']}, 'errorMessage':"사용 가능한 이메일입니다."}, status=status.HTTP_200_OK)
         else:
             return JsonResponse({'success':False, 'result':{}, 'errorMessage':"email 입력 값이 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def refresh_token(request):
+    if request.method == 'POST':
+        if request.headers.get('RefreshToken',None) is not None: # AccessToken이 만료됬고, RefreshToken이 만료되지 않았을 때, AccessToken을 재발급 해주는 시나리오 
+            refresh_access_token = re_generate_Token(request.headers.get('Authorization',None), request.headers.get('RefreshToken',None))
+            print(refresh_access_token)
+            if refresh_access_token == 2:
+                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"기간이 지난 토큰입니다.", 'access_token':{}}, status=status.HTTP_403_FORBIDDEN) 
+            elif refresh_access_token == 3:
+                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효하지 않은 토큰입니다.", 'access_token':{}}, status=status.HTTP_401_FORBIDDEN)
+            elif refresh_access_token == 4:
+                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효한 토큰입니다.", 'access_token':{}}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'success':True, 'result': {}, 'errorMessage':"", 'access_token':str(refresh_access_token)}, status=status.HTTP_202_ACCEPTED) 
+    else:
+        return JsonResponse({'success':False, 'result': {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다.", 'access_token':{}}, status=status.HTTP_403_FORBIDDEN)
