@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from . import dbsetting
+from . import dbsetting, emailsetting
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -144,4 +144,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+EMAIL_BACKEND = emailsetting.EMAIL_BACKEND
+EMAIL_HOST = emailsetting.EMAIL_HOST
+EMAIL_USE_TLS = emailsetting.EMAIL_USE_TLS
+EMAIL_PORT = emailsetting.EMAIL_PORT
+EMAIL_HOST_USER = emailsetting.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = emailsetting.EMAIL_HOST_PASSWORD
