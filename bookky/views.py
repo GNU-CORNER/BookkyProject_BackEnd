@@ -22,7 +22,6 @@ def saveAPIDatafromCrawl():
         parseSerializer.save()
         return JsonResponse({'success':True, 'result':parseSerializer.data,'errorMessage':""}, status = status.HTTP_201_CREATED)
     else:
-        print(request.body)
         print(parseSerializer.errors)
         return JsonResponse({'success':False, 'result':{}, 'errorMessage':"올바르지 않는 Key값이 입력되었음."},status = status.HTTP_400_BAD_REQUEST)
 

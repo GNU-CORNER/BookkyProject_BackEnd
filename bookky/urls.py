@@ -21,5 +21,6 @@ schema_view = get_schema_view(
 urlpatterns = [ #POST형식으로 바꿔야함
     path('test', views.read_insert),
     path('test1', userviews.userSign),
-    path('test2/<slug:slug>', bookviews.book)
+    path('test2/<slug:slug>', bookviews.book),
+    path('test1/refresh', userviews.refresh_token)
 ]
