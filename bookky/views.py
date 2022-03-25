@@ -5,7 +5,7 @@ from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from .models import Book
 from .bookserializers import BookPostSerializer
-
+from django.core.mail import EmailMessage
 
 import requests
 import datetime
@@ -27,7 +27,10 @@ def saveAPIDatafromCrawl():
         return JsonResponse({'success':False, 'result':{}, 'errorMessage':"올바르지 않는 Key값이 입력되었음."},status = status.HTTP_400_BAD_REQUEST)
 
 def read_insert(request):
-
+    print(type(request.headers.get('Authorization',None)))
+    tokenA = request.headers.get('Authorization',None)
+    email = EmailMessage('안녕하세요 북키에요!', tokenA, to=['ldh990320ldh@gmail.com', 'kws7327@gmail.com', 'dlsgur3845@gmail.com', 'nugulhie@gmail.com', 'dnjs45077@gmail.com'])
+    email.send()
     return JsonResponse({})
 # def read_insert(request):
 #     json_bookData = dict()

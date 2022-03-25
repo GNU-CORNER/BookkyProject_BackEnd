@@ -88,7 +88,7 @@ def checkEmail(request):#중복확인 API
                 return JsonResponse({'success':False, 'result':{}, 'errorMessage':"이미 존재하는 이메일입니다."}, status=status.HTTP_200_OK)
             else:
                 temp = getAuthenticate(data['email'])
-                email = EmailMessage('북키 서비스 인증 메일입니다.', str(temp), to=[data['email']])
+                email = EmailMessage('북키 서비스 인증 메일입니다.', str(temp), to=[str(data['email'])])
                 email.send()
                 return JsonResponse({'success':True, 'result':{'email' : data['email']}, 'errorMessage':""}, status=status.HTTP_200_OK)
         else:

@@ -49,7 +49,7 @@ def valid_token(token): #ACCESS_TOKEN 만 확인 함
 def get_refreshToken(uid):
     secretKey = dbsetting.SECRET_KEY
     refresh_token = jwt.encode({'token_type':"refresh_token", 'exp': datetime.datetime.utcnow() + datetime.timedelta(weeks=2)},secretKey,algorithm=dbsetting.algorithm).decode('utf-8') #갱신 토큰 기간 2주로 설정
-    refreshData = {'refresh_token':refresh_token}
+    refreshData = {'UID' : uid, 'refresh_token':refresh_token}
     authSerializer = RefreshTokenSerializer(data = refreshData) #RefreshToken 저장
     if authSerializer.is_valid():
         authSerializer.save()
@@ -103,7 +103,7 @@ def getCode():
 def getAuthenticate(email):
     secretKey = dbsetting.SECRET_KEY
     temp = getCode()
-    authCode_token = jwt.encode({'token_type':"authentication", 'exp' : datetime.datetime.utcnow() + datetime.timedelta(seconds=180), 'authentication':temp}, secretKey, algorithm=dbsetting.algorithm).decode('utf-8') #만료시간 10분으로 지정
+    authCode_token = jwt.encode({'token_type':"authentication", 'exp' : datetime.datetime.utcnow() + datetime.timedelta(seconds=180), 'codeToken':temp}, secretKey, algorithm=dbsetting.algorithm).decode('utf-8') #만료시간 10분으로 지정
     authenticationData = {'email':email, 'authCode_token':authCode_token}
     authSerializer = AuthenticationCodeTokenSerializer(data = authenticationData)
     if authSerializer.is_valid():
@@ -118,8 +118,9 @@ def checkAuthentication(inputEmail, code):
     if len(data) != 0 : #데이터 1차 확인 (DB에 있는지?)
         try:
             secretKey = dbsetting.SECRET_KEY
-            authCode = jwt.decode(data[0]['authentication'], secretKey, algorithms=dbsetting.algorithm)
-            if code == authCode['authentication'] :
+            print(data[0].authCode_token)
+            authCode = jwt.decode(data[0].authCode_token, secretKey, algorithms=dbsetting.algorithm)
+            if str(code) == str(authCode['codeToken']) :
                 return True
             else :
                 return False        

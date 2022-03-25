@@ -186,7 +186,7 @@ class RefreshTokenStorage(models.Model) :
         return self.RTID
 
 class AuthenticationCodeStorage(models.Model) :
-    ATCID                   = models.IntegerField(primary_key=True)
+    ATCID                   = models.BigAutoField(primary_key=True)
     email                   = models.EmailField(max_length=100, null=False)
     authCode_token          = models.CharField(max_length=255, null=False, blank=False)
     createAt                = models.DateField(auto_now_add=True)
