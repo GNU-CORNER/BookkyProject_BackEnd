@@ -1,6 +1,7 @@
-from plistlib import UID
+import email
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+
 
 #전체적인 컬럼 이름은 API의 출력값 그대로 정했음
 class Book(models.Model):
@@ -175,10 +176,20 @@ class Tag(models.Model):
     def __str__(self):
         return self.nameTag
     
-class RefreshTokenStorage :
+class RefreshTokenStorage(models.Model) :
     RTID                    = models.BigAutoField(primary_key=True)
     UID                     = models.ForeignKey("User", on_delete=models.CASCADE ,null=False)
     refresh_token           = models.CharField(max_length=255, null=False, blank=False)
+    createAt                = models.DateField(auto_now=True)
     
     def __str__(self):
         return self.RTID
+
+class AuthenticationCodeStorage(models.Model) :
+    ATCID                   = models.IntegerField(primary_key=True)
+    email                   = models.EmailField(max_length=100, null=False)
+    authCode_token          = models.CharField(max_length=255, null=False, blank=False)
+    createAt                = models.DateField(auto_now_add=True)
+    
+    def __str__(self):
+        return email

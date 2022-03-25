@@ -5,12 +5,9 @@ from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from .models import User
 from .userserializers import UserRegisterSerializer, UserUpdateSerializer
-from .auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token
-import requests
-import datetime
-import urllib.request
-import json
-import time
+from .auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token, getAuthenticate, checkAuthentication
+from django.core.mail import EmailMessage
+
 
 #사용자 로그인, 회원가입, 회원정보 업데이트, 회원탈퇴 API
 @api_view(['POST', 'PUT', 'DELETE'])
@@ -80,19 +77,32 @@ def userSign(request):
 
 @api_view(['POST'])
 def checkEmail(request):#중복확인 API                     
-    try:
-        data = JSONParser().parse(request)
-    except User.DoesNotExist: #User 데이터베이스가 존재하지 않을 때, 혹은 DB와의 연결이 끊겼을 때 출력
-        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"User에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"},status=status.HTTP_404_NOT_FOUND)
+    data = JSONParser().parse(request)
     if(request.method == 'POST'):
-        userData = User.objects.filter(email=data['email'])
+        try:
+            userData = User.objects.filter(email=data['email'])
+        except User.DoesNotExist:
+            return JsonResponse({'success':False, 'result':{},'errorMessage':"DB연결이 끊겼거나 User 테이블이 존재하지 않음"}, status=status.HTTP_404_NOT_FOUND)
         if data['email'] is not None:
             if(len(userData.filter(email=data['email']))) != 0:
                 return JsonResponse({'success':False, 'result':{}, 'errorMessage':"이미 존재하는 이메일입니다."}, status=status.HTTP_200_OK)
             else:
-                return JsonResponse({'success':True, 'result':{'email' : data['email']}, 'errorMessage':"사용 가능한 이메일입니다."}, status=status.HTTP_200_OK)
+                temp = getAuthenticate(data['email'])
+                email = EmailMessage('북키 서비스 인증 메일입니다.', str(temp), to=[data['email']])
+                email.send()
+                return JsonResponse({'success':True, 'result':{'email' : data['email']}, 'errorMessage':""}, status=status.HTTP_200_OK)
         else:
             return JsonResponse({'success':False, 'result':{}, 'errorMessage':"email 입력 값이 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def checkCode(request):
+    data = JSONParser().parse(request)
+    if(request.method == 'POST'):
+        if checkAuthentication(data['email'], data['code']):
+            return JsonResponse({'success':True, 'result':{},'errorMessage':""}, status=status.HTTP_202_ACCEPTED)
+        else:
+            return JsonResponse({'success':False, 'result':{},'errorMessage':"Code가 올바르지 않습니다."},status=status.HTTP_406_NOT_ACCEPTABLE)
+    
 
 @api_view(['POST'])
 def refresh_token(request):

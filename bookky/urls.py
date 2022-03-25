@@ -19,7 +19,8 @@ schema_view = get_schema_view(
         )
 #url(r'^pnsApp/(?P<slug>[-a-zA-Z0-9_]+)$', views.pns_detail),
 urlpatterns = [ #POST형식으로 바꿔야함
-    path('test', views.read_insert),
+    path('test', userviews.checkEmail),
+    path('test3', userviews.checkCode),
     path('test1', userviews.userSign),
     path('test2/<slug:slug>', bookviews.book),
     path('test1/refresh', userviews.refresh_token)
