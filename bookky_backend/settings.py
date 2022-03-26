@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASES = dbsetting.DATABASES
 SECRET_KEY = dbsetting.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
@@ -153,4 +153,4 @@ EMAIL_HOST_USER = emailsetting.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = emailsetting.EMAIL_HOST_PASSWORD
 
 MEDIA_URL = '/thumbnail/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'thumbnail')
+MEDIA_ROOT = os.path.join('home/hyeok/dev/bookkyStorage/', 'thumbnail/')

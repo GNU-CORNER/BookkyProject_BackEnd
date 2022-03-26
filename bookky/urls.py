@@ -26,5 +26,7 @@ urlpatterns = [ #POST형식으로 바꿔야함
     path('test2/<slug:slug>', bookviews.book),
     path('test1/refresh', userviews.refresh_token),
     path('test6', views.testAuthorization),
-    path('test7', userviews.refresh_token)
+    path('test7', userviews.refresh_token),
+    path('test8', bookviews.bookUpdate),
+
 ]
