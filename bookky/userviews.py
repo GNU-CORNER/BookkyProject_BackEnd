@@ -24,17 +24,19 @@ def userSign(request):
             if(len(userData.filter(email=data['email']))) != 0: #로그인 인증 인가를 통해서 생각 해봐야 할듯 
                 users = userData.get(email=data['email'])
                 if(checkToken(data['pwToken'], users)): #로그인 성공
-                    filteredData = userData.get(email=data['email'])
+                    filteredData = userData.filter(email=data['email'])
                     serializer = UserRegisterSerializer(filteredData, many=True)
                     accessToken = get_access(users.UID)
                     refreshToken = get_refreshToken(users.UID)
                     if refreshToken :
-                        tempData = RefreshTokenStorage.objects.get(UID =users.UID)
-                        refreshToken = tempData.refresh_token
+                        tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
+                        refreshToken = tempData[0].refresh_token
                         return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
+                    elif refreshToken == 500:
+                        return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
                     return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
                 else: #로그인 실패
-                    return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)
+                    return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다.",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_400_BAD_REQUEST)
             
             elif(len(userData.filter(email=data['email']))) == 0: #회원가입 request에 넘어온 UID값과 DB안의 UID와 비교하여 존재하지 않으면, 회원가입으로 생각함
                 data['pwToken'] = setToken(data['pwToken'])                          #토큰화 한 비밀번호를 넣는다
@@ -50,7 +52,7 @@ def userSign(request):
 
     #회원정보 업데이트
     elif (request.method == 'PUT'):
-        userData = User.objects.get(email=data['email'])
+        userData = User.objects.filter(email=data['email'])
         if data['email'] is not None:
             if len(userData) == 0 :
                 return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_204_NO_CONTENT)
@@ -88,7 +90,7 @@ def checkEmail(request):#중복확인 API
         except User.DoesNotExist:
             return JsonResponse({'success':False, 'result':{},'errorMessage':"DB연결이 끊겼거나 User 테이블이 존재하지 않음"}, status=status.HTTP_404_NOT_FOUND)
         if data['email'] is not None:
-            if len(userData) != 0:
+            if(len(userData.filter(email=data['email']))) != 0:
                 return JsonResponse({'success':False, 'result':{}, 'errorMessage':"이미 존재하는 이메일입니다."}, status=status.HTTP_200_OK)
             else:
                 temp = getAuthenticate(data['email'])
@@ -113,7 +115,6 @@ def refresh_token(request):
     if request.method == 'POST':
         if request.headers.get('RefreshToken',None) is not None: # AccessToken이 만료됬고, RefreshToken이 만료되지 않았을 때, AccessToken을 재발급 해주는 시나리오 
             refresh_access_token = re_generate_Token(request.headers.get('Authorization',None), request.headers.get('RefreshToken',None))
-            print(refresh_access_token)
             if refresh_access_token == 2:
                 return JsonResponse({'success':False, 'result': {}, 'errorMessage':"기간이 지난 토큰입니다.", 'access_token':{}}, status=status.HTTP_403_FORBIDDEN) 
             elif refresh_access_token == 3:

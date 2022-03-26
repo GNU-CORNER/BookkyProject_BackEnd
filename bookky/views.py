@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from .models import Book
 from .bookserializers import BookPostSerializer
 from django.core.mail import EmailMessage
+from .auth import authValidation
 
 import requests
 import datetime
@@ -60,3 +61,12 @@ def read_insert(request):
 #             print(serializer.errors)
 #     return JsonResponse({})
     
+@api_view(['POST'])
+def testAuthorization(request):
+    flag = authValidation(request)
+    if flag == True:
+        return JsonResponse({'success':True})
+    elif flag == 0:
+        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효하지 않은 토큰입니다."}, status=status.HTTP_401_UNAUTHORIZED) #JWT 토큰이 없을 때
+    elif flag == 2:
+        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"기간이 지난 토큰입니다."}, status=status.HTTP_403_FORBIDDEN) #JWT 토큰이 만기됨
