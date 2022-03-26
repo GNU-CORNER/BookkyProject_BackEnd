@@ -67,7 +67,8 @@ def re_generate_Token(access_token, refreshToken):
         tempData = RefreshTokenStorage.objects.filter(refresh_token= refreshToken)
     except RefreshTokenStorage.DoesNotExist :
         return 5
-    if valid_token(access_token) == 2:
+    flag = valid_token(access_token)
+    if flag == 2:
         if(len(tempData) != 0): #Valid 함수로 2차 확인 후 재생성
             try:
                 user = jwt.decode(refreshToken, secretKey, algorithms=dbsetting.algorithm)
@@ -80,9 +81,9 @@ def re_generate_Token(access_token, refreshToken):
             except jwt.exceptions.DecodeError: #JWT 갱신 토큰의 형식 에러, 혹은 잘못된 토큰
                 print("asd")
                 return 3
-        else:
-            print("ggg")
-            return 4
+    elif flag == True:
+        print("ggg")
+        return 4
     else:
         return 3
 
@@ -107,6 +108,9 @@ def getCode():
 
 def getAuthenticate(email):
     secretKey = dbsetting.SECRET_KEY
+    tempData = AuthenticationCodeStorage.objects.filter(email = email)
+    if len(tempData) != 0:
+        tempData.delete()
     temp = getCode()
     authCode_token = jwt.encode({'token_type':"authentication", 'exp' : datetime.datetime.utcnow() + datetime.timedelta(seconds=180), 'codeToken':temp}, secretKey, algorithm=dbsetting.algorithm).decode('utf-8') #만료시간 10분으로 지정
     authenticationData = {'email':email, 'authCode_token':authCode_token}

@@ -88,7 +88,7 @@ def checkEmail(request):#중복확인 API
         try:
             userData = User.objects.filter(email=data['email'])
         except User.DoesNotExist:
-            return JsonResponse({'success':False, 'result':{},'errorMessage':"DB연결이 끊겼거나 User 테이블이 존재하지 않음"}, status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse({'success':False, 'result':{},'errorMessage':"DB연결이 끊겼거나 User 테이블이 존재하지 않음"}, status=status.HTTP_404_NOT_FOUND) #DB와 연결이 끊겼을 때
         if data['email'] is not None:
             if(len(userData.filter(email=data['email']))) != 0:
                 return JsonResponse({'success':False, 'result':{}, 'errorMessage':"이미 존재하는 이메일입니다."}, status=status.HTTP_200_OK)
@@ -104,23 +104,26 @@ def checkEmail(request):#중복확인 API
 def checkCode(request):
     data = JSONParser().parse(request)
     if(request.method == 'POST'):
-        if checkAuthentication(data['email'], data['code']):
-            return JsonResponse({'success':True, 'result':{},'errorMessage':""}, status=status.HTTP_202_ACCEPTED)
+        if checkAuthentication(data['email'], data['code']): 
+            return JsonResponse({'success':True, 'result':{},'errorMessage':""}, status=status.HTTP_202_ACCEPTED) #Code가 맞는경우
         else:
-            return JsonResponse({'success':False, 'result':{},'errorMessage':"Code가 올바르지 않습니다."},status=status.HTTP_406_NOT_ACCEPTABLE)
+            return JsonResponse({'success':False, 'result':{},'errorMessage':"Code가 올바르지 않습니다."},status=status.HTTP_406_NOT_ACCEPTABLE) #Code가 틀렸을 경우
     
 
 @api_view(['POST'])
 def refresh_token(request):
+    # AccessToken이 만료됬고, RefreshToken이 만료되지 않았을 때, AccessToken을 재발급 해주는 시나리오 
     if request.method == 'POST':
-        if request.headers.get('RefreshToken',None) is not None: # AccessToken이 만료됬고, RefreshToken이 만료되지 않았을 때, AccessToken을 재발급 해주는 시나리오 
+        if request.headers.get('RefreshToken',None) is not None: # request 헤더에 RefreshToken이라는 파라미터에 값이 실려 왔는가?
             refresh_access_token = re_generate_Token(request.headers.get('Authorization',None), request.headers.get('RefreshToken',None))
             if refresh_access_token == 2:
-                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"기간이 지난 토큰입니다.", 'access_token':{}}, status=status.HTTP_403_FORBIDDEN) 
+                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"기간이 지난 토큰입니다.", 'access_token':{}}, status=status.HTTP_403_FORBIDDEN)  #RefreshToken의 기간이 지남
             elif refresh_access_token == 3:
-                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효하지 않은 토큰입니다.", 'access_token':{}}, status=status.HTTP_401_UNAUTHORIZED)
+                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효하지 않은 토큰입니다.", 'access_token':{}}, status=status.HTTP_401_UNAUTHORIZED) #RefreshToken의 형식이 잘못됨
             elif refresh_access_token == 4:
-                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효한 토큰입니다.", 'access_token':{}}, status=status.HTTP_400_BAD_REQUEST)
-            return JsonResponse({'success':True, 'result': {}, 'errorMessage':"", 'access_token':str(refresh_access_token)}, status=status.HTTP_202_ACCEPTED) 
+                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효한 토큰입니다.", 'access_token':{}}, status=status.HTTP_400_BAD_REQUEST) #AccessToken의 만료기간이 남음
+            elif refresh_access_token == 5:
+                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"DB가 존재하지 않거나, 연결이 끊겼습니다.", 'access_token':{}}, status=status.HTTP_404_NOT_FOUND) #RefreshTokenStorage와의 연결이 끊김
+            return JsonResponse({'success':True, 'result': {}, 'errorMessage':"", 'access_token':str(refresh_access_token)}, status=status.HTTP_202_ACCEPTED)
     else:
-        return JsonResponse({'success':False, 'result': {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다.", 'access_token':{}}, status=status.HTTP_403_FORBIDDEN)
+        return JsonResponse({'success':False, 'result': {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다.", 'access_token':{}}, status=status.HTTP_403_FORBIDDEN) #POST가 아닌 방식으로 접근 했을 경우
