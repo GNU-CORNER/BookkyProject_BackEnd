@@ -3,7 +3,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
-from .models import User
+from .models import User, RefreshTokenStorage
 from .userserializers import UserRegisterSerializer, UserUpdateSerializer
 from .auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token, getAuthenticate, checkAuthentication
 from django.core.mail import EmailMessage
@@ -24,10 +24,14 @@ def userSign(request):
             if(len(userData.filter(email=data['email']))) != 0: #로그인 인증 인가를 통해서 생각 해봐야 할듯 
                 users = userData.get(email=data['email'])
                 if(checkToken(data['pwToken'], users)): #로그인 성공
-                    filteredData = userData.filter(email=data['email'])
+                    filteredData = userData.get(email=data['email'])
                     serializer = UserRegisterSerializer(filteredData, many=True)
                     accessToken = get_access(users.UID)
                     refreshToken = get_refreshToken(users.UID)
+                    if refreshToken :
+                        tempData = RefreshTokenStorage.objects.get(UID =users.UID)
+                        refreshToken = tempData.refresh_token
+                        return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
                     return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
                 else: #로그인 실패
                     return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)
@@ -46,7 +50,7 @@ def userSign(request):
 
     #회원정보 업데이트
     elif (request.method == 'PUT'):
-        userData = User.objects.filter(email=data['email'])
+        userData = User.objects.get(email=data['email'])
         if data['email'] is not None:
             if len(userData) == 0 :
                 return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_204_NO_CONTENT)
@@ -84,7 +88,7 @@ def checkEmail(request):#중복확인 API
         except User.DoesNotExist:
             return JsonResponse({'success':False, 'result':{},'errorMessage':"DB연결이 끊겼거나 User 테이블이 존재하지 않음"}, status=status.HTTP_404_NOT_FOUND)
         if data['email'] is not None:
-            if(len(userData.filter(email=data['email']))) != 0:
+            if len(userData) != 0:
                 return JsonResponse({'success':False, 'result':{}, 'errorMessage':"이미 존재하는 이메일입니다."}, status=status.HTTP_200_OK)
             else:
                 temp = getAuthenticate(data['email'])
