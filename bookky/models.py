@@ -1,4 +1,5 @@
 import email
+from email.policy import default
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
@@ -20,6 +21,7 @@ class Book(models.Model):
     TAG                     = ArrayField(models.IntegerField(null=True), size = 50, null=True)         #태그
     RATING                  = models.FloatField(null=False, default = 2.5)                  #별점 (기본값 2.5점)
     Allah_BID               = models.CharField(max_length=30, null=True)                    #알라딘 고유 책번호
+    thumbnailImage          = models.ImageField(null=True)
     
     def __str__(self):
         return self.BID

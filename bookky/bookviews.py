@@ -3,8 +3,10 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
+
+from bookky_backend.bookky_backend.settings import MEDIA_ROOT
 from .models import Book
-from .bookserializers import BookPostSerializer
+from .bookserializers import BookPostSerializer, BookUpdateSerializer
 from .auth import authValidation
 from django.db.models import Q
 
@@ -70,3 +72,17 @@ def bookSearch(request): #책 검색 API
                 return JsonResponse({'success':False,'result' : {}, 'errorMessage':"검색어가 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return JsonResponse({'success':False,'result' : {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다." }, status=status.HTTP_403_FORBIDDEN)
+        
+def bookUpdate(request):
+    json_bookData = dict()
+
+    with open("BookData1.json","r") as rt_json:
+        json_bookData = json.load(rt_json)
+    for i in json_bookData :
+        data = i.get('Allah_BID')
+        tempData = Book.objects.filter(Allah_bid = data)
+        serializer = BookUpdateSerializer(tempData[0], data=MEDIA_ROOT+data+".png")
+        if serializer.is_valid():
+            serializer.save()
+        else:
+            print(serializer.errors)
