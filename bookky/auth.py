@@ -31,9 +31,7 @@ def valid_token(token): #ACCESS_TOKEN 만 확인 함
     try:
         secretKey = dbsetting.SECRET_KEY
         user = jwt.decode(token, secretKey,algorithm=dbsetting.algorithm)
-        print(user)
         if user['token_type'] == "access_token":
-            print(user)
             if(len(User.objects.filter(UID = user['UID'])) != 0):
                 return True
             else :
@@ -48,14 +46,19 @@ def valid_token(token): #ACCESS_TOKEN 만 확인 함
 
 def get_refreshToken(uid):
     secretKey = dbsetting.SECRET_KEY
-    refresh_token = jwt.encode({'token_type':"refresh_token", 'exp': datetime.datetime.utcnow() + datetime.timedelta(weeks=2)},secretKey,algorithm=dbsetting.algorithm).decode('utf-8') #갱신 토큰 기간 2주로 설정
-    refreshData = {'UID' : uid, 'refresh_token':refresh_token}
-    authSerializer = RefreshTokenSerializer(data = refreshData) #RefreshToken 저장
-    if authSerializer.is_valid():
-        authSerializer.save()
-        return refresh_token
+    tempData = RefreshTokenStorage.objects.filter(UID= uid)
+    if len(tempData) == 0:
+        refresh_token = jwt.encode({'token_type':"refresh_token", 'exp': datetime.datetime.utcnow() + datetime.timedelta(weeks=2)},secretKey,algorithm=dbsetting.algorithm).decode('utf-8') #갱신 토큰 기간 2주로 설정
+        refreshData = {'UID' : uid, 'refresh_token':refresh_token}
+        authSerializer = RefreshTokenSerializer(data = refreshData) #RefreshToken 저장
+        if authSerializer.is_valid():
+            authSerializer.save()
+            return refresh_token
+        else:
+            print(authSerializer.errors)
+            return 500
     else:
-        print(authSerializer.errors)
+        return True
     
 def re_generate_Token(access_token, refreshToken):
     secretKey = dbsetting.SECRET_KEY
@@ -68,15 +71,16 @@ def re_generate_Token(access_token, refreshToken):
             try:
                 user = jwt.decode(refreshToken, secretKey, algorithms=dbsetting.algorithm)
                 if user['token_type'] == "refresh_token":
-                    if(len(User.objects.filter(UID = tempData[0]['UID'])) != 0):
-                        new_access_token = get_access(tempData[0]['UID'])
-                        print(new_access_token)
+                    if(len(User.objects.filter(UID = tempData[0].UID.UID)) != 0):
+                        new_access_token = get_access(tempData[0].UID.UID)
                         return new_access_token
             except jwt.ExpiredSignatureError: #JWT 갱신 토큰이 만료되었을 때
                 return 2
             except jwt.exceptions.DecodeError: #JWT 갱신 토큰의 형식 에러, 혹은 잘못된 토큰
+                print("asd")
                 return 3
         else:
+            print("ggg")
             return 4
     else:
         return 3
@@ -118,9 +122,10 @@ def checkAuthentication(inputEmail, code):
     if len(data) != 0 : #데이터 1차 확인 (DB에 있는지?)
         try:
             secretKey = dbsetting.SECRET_KEY
-            print(data[0].authCode_token)
             authCode = jwt.decode(data[0].authCode_token, secretKey, algorithms=dbsetting.algorithm)
             if str(code) == str(authCode['codeToken']) :
+                tempData = AuthenticationCodeStorage.objects.filter(email = inputEmail)
+                tempData.delete()
                 return True
             else :
                 return False        

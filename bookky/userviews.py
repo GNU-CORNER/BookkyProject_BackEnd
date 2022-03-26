@@ -3,7 +3,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
-from .models import User
+from .models import User, RefreshTokenStorage
 from .userserializers import UserRegisterSerializer, UserUpdateSerializer
 from .auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token, getAuthenticate, checkAuthentication
 from django.core.mail import EmailMessage
@@ -28,9 +28,15 @@ def userSign(request):
                     serializer = UserRegisterSerializer(filteredData, many=True)
                     accessToken = get_access(users.UID)
                     refreshToken = get_refreshToken(users.UID)
+                    if refreshToken :
+                        tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
+                        refreshToken = tempData[0].refresh_token
+                        return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
+                    elif refreshToken == 500:
+                        return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
                     return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
                 else: #로그인 실패
-                    return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)
+                    return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다.",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_400_BAD_REQUEST)
             
             elif(len(userData.filter(email=data['email']))) == 0: #회원가입 request에 넘어온 UID값과 DB안의 UID와 비교하여 존재하지 않으면, 회원가입으로 생각함
                 data['pwToken'] = setToken(data['pwToken'])                          #토큰화 한 비밀번호를 넣는다
@@ -109,11 +115,10 @@ def refresh_token(request):
     if request.method == 'POST':
         if request.headers.get('RefreshToken',None) is not None: # AccessToken이 만료됬고, RefreshToken이 만료되지 않았을 때, AccessToken을 재발급 해주는 시나리오 
             refresh_access_token = re_generate_Token(request.headers.get('Authorization',None), request.headers.get('RefreshToken',None))
-            print(refresh_access_token)
             if refresh_access_token == 2:
                 return JsonResponse({'success':False, 'result': {}, 'errorMessage':"기간이 지난 토큰입니다.", 'access_token':{}}, status=status.HTTP_403_FORBIDDEN) 
             elif refresh_access_token == 3:
-                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효하지 않은 토큰입니다.", 'access_token':{}}, status=status.HTTP_401_FORBIDDEN)
+                return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효하지 않은 토큰입니다.", 'access_token':{}}, status=status.HTTP_401_UNAUTHORIZED)
             elif refresh_access_token == 4:
                 return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효한 토큰입니다.", 'access_token':{}}, status=status.HTTP_400_BAD_REQUEST)
             return JsonResponse({'success':True, 'result': {}, 'errorMessage':"", 'access_token':str(refresh_access_token)}, status=status.HTTP_202_ACCEPTED) 
