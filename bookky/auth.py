@@ -51,6 +51,7 @@ def get_refreshToken(uid):
         refresh_token = jwt.encode({'token_type':"refresh_token", 'exp': datetime.datetime.utcnow() + datetime.timedelta(weeks=2)},secretKey,algorithm=dbsetting.algorithm).decode('utf-8') #갱신 토큰 기간 2주로 설정
         refreshData = {'UID' : uid, 'refresh_token':refresh_token}
         authSerializer = RefreshTokenSerializer(data = refreshData) #RefreshToken 저장
+
         if authSerializer.is_valid():
             authSerializer.save()
             return refresh_token
@@ -116,7 +117,7 @@ def getAuthenticate(email):
 
 def checkAuthentication(inputEmail, code):
     try:
-        data = AuthenticationCodeStorage.objects.filter(email = inputEmail)
+        data = AuthenticationCodeStorage.objects.get(email = inputEmail)
     except AuthenticationCodeStorage.DoesNotExist :
         return False
     if len(data) != 0 : #데이터 1차 확인 (DB에 있는지?)
