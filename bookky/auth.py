@@ -121,7 +121,7 @@ def getAuthenticate(email):
 
 def checkAuthentication(inputEmail, code):
     try:
-        data = AuthenticationCodeStorage.objects.get(email = inputEmail)
+        data = AuthenticationCodeStorage.objects.filter(email = inputEmail)
     except AuthenticationCodeStorage.DoesNotExist :
         return False
     if len(data) != 0 : #데이터 1차 확인 (DB에 있는지?)
