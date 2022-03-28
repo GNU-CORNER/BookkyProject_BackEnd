@@ -12,12 +12,12 @@ class UserUpdateSerializer(serializers.ModelSerializer): #사용자 업데이트
         model = User
         fields = ['email', 'nickname', 'thumbnail', 'pushNoti', 'pushToken']
 
-class RefreshTokenSerializer(serializers.ModelSerializer):
+class RefreshTokenSerializer(serializers.ModelSerializer): #갱신 토큰 Serializer
     class Meta:
         model = RefreshTokenStorage
         fields = ['UID', 'refresh_token']
         
-class AuthenticationCodeTokenSerializer(serializers.ModelSerializer):
+class AuthenticationCodeTokenSerializer(serializers.ModelSerializer): #인증 코드 Serializer
     class Meta:
         model = AuthenticationCodeStorage
         fields = ['email', 'authCode_token']

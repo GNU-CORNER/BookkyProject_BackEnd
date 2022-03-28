@@ -82,19 +82,19 @@ def userSign(request):
             return JsonResponse({'success':False, 'result':{}},status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-def checkEmail(request):#중복확인 API                     
+def checkEmail(request):#중복확인 및 이메일 인증 코드 발급                     
     data = JSONParser().parse(request)
     if(request.method == 'POST'):
         try:
-            userData = User.objects.filter(email=data['email'])
+            userData = User.objects.filter(email=data['email']) 
         except User.DoesNotExist:
             return JsonResponse({'success':False, 'result':{},'errorMessage':"DB연결이 끊겼거나 User 테이블이 존재하지 않음"}, status=status.HTTP_404_NOT_FOUND) #DB와 연결이 끊겼을 때
-        if data['email'] is not None:
-            if(len(userData.filter(email=data['email']))) != 0:
+        if data['email'] is not None: #해당 이메일이 UserDB에 존재하는지 확인 (중복확인)
+            if(len(userData.filter(email=data['email']))) != 0: #중복확인 불 통과
                 return JsonResponse({'success':False, 'result':{}, 'errorMessage':"이미 존재하는 이메일입니다."}, status=status.HTTP_200_OK)
-            else:
+            else: #중복확인 통과
                 temp = getAuthenticate(data['email'])
-                email = EmailMessage('북키 서비스 인증 메일입니다.', str(temp), to=[str(data['email'])])
+                email = EmailMessage('북키 서비스 인증 메일입니다.', str(temp), to=[str(data['email'])]) #인증코드 발송 코드 //Todo: 인증메일 양식 만들어야함
                 email.send()
                 return JsonResponse({'success':True, 'result':{'email' : data['email']}, 'errorMessage':""}, status=status.HTTP_200_OK)
         else:
