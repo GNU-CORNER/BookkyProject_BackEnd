@@ -3,6 +3,9 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
+from PIL import Image
+
+from bookky_backend import settings
 from .models import Book
 from .bookserializers import BookPostSerializer
 from .auth import authValidation
@@ -70,3 +73,40 @@ def bookSearch(request): #책 검색 API
                 return JsonResponse({'success':False,'result' : {}, 'errorMessage':"검색어가 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return JsonResponse({'success':False,'result' : {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다." }, status=status.HTTP_403_FORBIDDEN)
+        
+def bookUpdate(request):
+    json_bookData = dict()
+
+    with open("BookData1.json","r") as rt_json:
+        json_bookData = json.load(rt_json)
+    for i in json_bookData :
+        data = i.get('Allah_BID')
+        tempData = Book.objects.filter(Allah_BID = data)
+        print(tempData[0].thumbnailImage)
+        if(len(tempData) != 0):
+            print(str(settings.MEDIA_ROOT)+str(data)+".png")
+        
+            tempDic ={
+                'TITLE':tempData[0].TITLE, 
+                'SUBTITLE':tempData[0].SUBTITLE,
+                'AUTHOR':tempData[0].AUTHOR,
+                'ISBN':tempData[0].ISBN,
+                'PUBLISHER':tempData[0].PUBLISHER,
+                'PRICE':tempData[0].PRICE,
+                'PAGE':tempData[0].PAGE,
+                'BOOK_INDEX':tempData[0].BOOK_INDEX,
+                'BOOK_INTRODUCTION':tempData[0].BOOK_INTRODUCTION,
+                'Allah_BID' : tempData[0].Allah_BID,
+                'PUBLISH_DATE' : tempData[0].PUBLISH_DATE,
+                'thumbnail' : tempData[0].thumbnail,
+                'thumbnailImage': "http://203.255.3.144:8010/thumbnail/"+str(data)+".png"
+            }
+            print(tempDic['thumbnailImage'])
+            serializer = BookPostSerializer(tempData[0], data=tempDic)
+            if serializer.is_valid():
+                serializer.save()
+            else :
+                print(serializer.errors)
+        else:
+            continue
+    return JsonResponse({'success':True})

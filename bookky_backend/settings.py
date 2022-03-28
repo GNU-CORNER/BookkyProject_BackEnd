@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from . import dbsetting, emailsetting
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASES = dbsetting.DATABASES
 SECRET_KEY = dbsetting.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
@@ -150,3 +151,6 @@ EMAIL_USE_TLS = emailsetting.EMAIL_USE_TLS
 EMAIL_PORT = emailsetting.EMAIL_PORT
 EMAIL_HOST_USER = emailsetting.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = emailsetting.EMAIL_HOST_PASSWORD
+
+MEDIA_URL = '/thumbnail/'
+MEDIA_ROOT = os.path.join('home/hyeok/dev/bookkyStorage/', 'thumbnail/')
