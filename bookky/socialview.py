@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from .models import User
 from .userserializers import UserRegisterSerializer
 
-
+#소셜 계정 확인
 def socialEmailCheck(email):
     if len(User.objects.filter(email = email)) == 0:
         return True

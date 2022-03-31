@@ -1,5 +1,4 @@
 from time import sleep
-from django.shortcuts import render
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http.response import JsonResponse
@@ -11,14 +10,66 @@ from django.core.mail import EmailMessage
 
 
 #사용자 로그인, 회원가입, 회원정보 업데이트, 회원탈퇴 API
-@api_view(['POST', 'PUT', 'DELETE'])
-def userSign(request):                     
+@api_view(['GET','PUT', 'DELETE'])
+def user(request):                     
+    try:
+        data = JSONParser().parse(request)
+    except User.DoesNotExist: #User 데이터베이스가 존재하지 않을 때, 혹은 DB와의 연결이 끊겼을 때 출력
+        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"User에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"},status=status.HTTP_404_NOT_FOUND)
+    #회원정보 수정(닉네임, 썸네일)
+    if (request.method == 'PUT'):
+        userData = User.objects
+        if data['email'] is not None:
+            if len(userData.filter(email=data['email'])) == 0 :
+                return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_204_NO_CONTENT)
+            else:
+                userData = userData.get(email=data['email'])
+                userData.nickname = data['nickname']
+                #썸네일
+                userData.save()
+                return JsonResponse({'success':True,'result': userData, 'errorMessage':""}, safe=False, status=status.HTTP_200_OK)
+        else:
+            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"잘못된 Body형태가 넘어옴"},status=status.HTTP_400_BAD_REQUEST)
+
+    #회원탈퇴
+    elif (request.method == 'DELETE'):
+        userData = User.objects.filter(email=data['email'])
+        if data['email'] is not None:
+            if len(userData) == 0 :
+                return JsonResponse({'success':False,'result': {}, 'errorMessage':"해당 이메일의 정보 없음"}, safe=False, status=status.HTTP_204_NO_CONTENT)
+            else:
+                userData.delete()
+                return JsonResponse({'success':True, 'result':{}, 'errorMessage':""},status=status.HTTP_200_OK)
+        else:
+            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"잘못된 Body형태가 넘어옴"},status=status.HTTP_400_BAD_REQUEST)
+    
+    #회원정보
+    elif request.method == 'GET':
+        user = User.objects
+        if len(user.filter(email = data['email'])) !=0 :
+            userData = user.get(email = data['email'])
+            #Favorite테이블에서 해당 사용자의 UID를 기반으로 검색해서 데이터 셋 준비 (관심도서)
+            #각 Community테이블에서 사용자의 UID를 기반으로 검색해서 데이터 셋 준비 (내가쓴글)
+            #Review테이블에서 해당 사용자의 UID를 기반으로 검색해서 데이터 셋 준비 (내가 쓴 후기)
+            return JsonResponse({'success':True, 'result':{
+                'nickname' : userData.nickname,
+                'thumbnail' : "썸네일 담아서 주기",
+                'f_books' : [],#책 썸네일, 이름
+                'my_posts' :[], #커뮤니티 API가 나오면 양식에 맞추어 넣는다
+                'my_reviews':[] #사용자가 쓴 후기
+                #사용자의 데이터 전부 담는다
+                },'errorMessage':""}, status = status.HTTP_200_OK)
+        else:
+            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당하는 정보 없음"},status = status.HTTP_400_BAD_REQUEST)
+        
+@api_view(['POST'])
+def userSignIn(request):
     try:
         data = JSONParser().parse(request)
     except User.DoesNotExist: #User 데이터베이스가 존재하지 않을 때, 혹은 DB와의 연결이 끊겼을 때 출력
         return JsonResponse({'success':False, 'result': {}, 'errorMessage':"User에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"},status=status.HTTP_404_NOT_FOUND)
 
-    #회원가입, 로그인
+    #로그인
     if (request.method == 'POST'):
         userData = User.objects
         if data['email'] is not None:
@@ -37,10 +88,27 @@ def userSign(request):
                     elif refreshToken == 500:
                         return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
                     return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
-                else: #로그인 실패
+                else: #로그인 비밀번호 틀림
                     return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다.",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_400_BAD_REQUEST)
+            else: #해당 이메일 정보 없음
+                return JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당하는 유저가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
             #회원가입 (성공 시 AT, RT를 넘겨 바로 로그인)
-            elif(len(userData.filter(email=data['email']))) == 0: #회원가입 request에 넘어온 UID값과 DB안의 UID와 비교하여 존재하지 않으면, 회원가입으로 생각함
+        else:
+            return JsonResponse({'success' : False, "result": {}}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def userSignUp(request):
+    try:
+        data = JSONParser().parse(request)
+    except User.DoesNotExist: #User 데이터베이스가 존재하지 않을 때, 혹은 DB와의 연결이 끊겼을 때 출력
+        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"User에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"},status=status.HTTP_404_NOT_FOUND)
+
+    #회원가입
+    if (request.method == 'POST'):
+        userData = User.objects
+        if data['email'] is not None:
+            #회원가입 (성공 시 AT, RT를 넘겨 바로 로그인)
+            if(len(userData.filter(email=data['email']))) == 0: #회원가입 request에 넘어온 UID값과 DB안의 UID와 비교하여 존재하지 않으면, 회원가입으로 생각함
                 data['pwToken'] = setToken(data['pwToken'])                          #토큰화 한 비밀번호를 넣는다
                 userSerializer = UserRegisterSerializer(data = data)
                 if userSerializer.is_valid():
@@ -57,43 +125,15 @@ def userSign(request):
                     elif refreshToken == 500:
                         return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
                 else:
-                    return JsonResponse({'success' : False, "result": {}}, status=status.HTTP_400_BAD_REQUEST)
+                    return JsonResponse({'success' : False, "result": {}, 'errorMessage':"잘못된 형식의 데이터"}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당 이메일 사용자가 존재함"},status = status.HTTP_400_BAD_REQUEST)
         else:
             return JsonResponse({'success' : False, "result": {}}, status=status.HTTP_400_BAD_REQUEST)
-
-    #회원정보 업데이트
-    elif (request.method == 'PUT'):
-        userData = User.objects.filter(email=data['email'])
-        if data['email'] is not None:
-            if len(userData) == 0 :
-                return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_204_NO_CONTENT)
-            else:
-                filtTmp = UserUpdateSerializer(userData, many=True)
-                userData = userData.get()
-                serializer = UserUpdateSerializer(userData,data = data)
-                if serializer.is_valid():
-                    serializer.save()
-                    return JsonResponse({'success':True,'result': serializer.data}, safe=False, status=status.HTTP_200_OK)
-                else:
-                    return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return JsonResponse({'success':False, 'result':{}},status=status.HTTP_400_BAD_REQUEST)
-
-    #회원탈퇴
-    elif (request.method == 'DELETE'):
-        userData = User.objects.filter(email=data['email'])
-        if data['email'] is not None:
-            if len(userData) == 0 :
-                return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_204_NO_CONTENT)
-            else:
-                filteredData = userData.filter(email=data['email'])
-                filteredData.delete()
-                return JsonResponse({'success':True, 'result':{}},status=status.HTTP_200_OK)
-        else:
-            return JsonResponse({'success':False, 'result':{}},status=status.HTTP_400_BAD_REQUEST)
-
+    
+#중복확인 및 이메일 인증 코드 발급                     
 @api_view(['POST'])
-def checkEmail(request):#중복확인 및 이메일 인증 코드 발급                     
+def checkEmail(request):
     data = JSONParser().parse(request)
     if(request.method == 'POST'):
         try:
@@ -111,6 +151,7 @@ def checkEmail(request):#중복확인 및 이메일 인증 코드 발급
         else:
             return JsonResponse({'success':False, 'result':{}, 'errorMessage':"email 입력 값이 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
 
+#Code확인
 @api_view(['POST'])
 def checkCode(request):
     data = JSONParser().parse(request)
@@ -120,7 +161,7 @@ def checkCode(request):
         else:
             return JsonResponse({'success':False, 'result':{},'errorMessage':"Code가 올바르지 않습니다."},status=status.HTTP_406_NOT_ACCEPTABLE) #Code가 틀렸을 경우
     
-
+#AT토큰 갱신
 @api_view(['POST'])
 def refresh_token(request):
     # AccessToken이 만료됬고, RefreshToken이 만료되지 않았을 때, AccessToken을 재발급 해주는 시나리오 
@@ -154,5 +195,18 @@ def signOut(request):
              else: 
                 tempQuery = RefreshTokenStorage.objects.get(UID = userID)
                 tempQuery.delete()
-                return JsonResponse({'success':True, 'result':{}, 'errMessage':""}, status = status.HTTP_200_OK)
-                
+                return JsonResponse({'success':True, 'result':{}, 'errorMessage':""}, status = status.HTTP_200_OK)
+
+#관심분야 업데이트
+@api_view(['PUT'])
+def updateBoundary(request):
+    if request.method == 'PUT':
+        data = JSONParser.parse(request)
+        user = User.objects
+        if len(user.filter(email = data['email'])) != 0:
+            userData = user.get(email = data['email'])
+            userData.tag_array.append(data['tag_array'])
+            userData.save()
+            return JsonResponse({'success':True, 'result':userData, 'errorMessage':""},status = status.HTTP_200_OK)
+        else:
+            return JsonResponse({'success':False, 'result':{},'errorMessage':"해당 정보 없음"},status = status.HTTP_400_BAD_REQUEST)
