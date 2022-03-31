@@ -49,7 +49,7 @@ def valid_token(token):
 def get_refreshToken(uid):
     tempData = RefreshTokenStorage.objects.filter(UID= uid)
     if len(tempData) == 0:
-        refresh_token = jwt(None,2)
+        refresh_token = jwtEncoder(None,2)
         authSerializer = RefreshTokenSerializer(data = {'UID' : uid, 'refresh_token':refresh_token}) #RefreshToken 저장 #UID, RefreshToken 페어로 저장
         if authSerializer.is_valid():
             authSerializer.save()

@@ -4,64 +4,70 @@ from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from .models import User, RefreshTokenStorage
-from .userserializers import UserRegisterSerializer, UserUpdateSerializer
+from .userserializers import UserRegisterSerializer
 from .auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token, getAuthenticate, checkAuthentication, checkAuth_decodeToken
 from django.core.mail import EmailMessage
 
 
-#사용자 로그인, 회원가입, 회원정보 업데이트, 회원탈퇴 API
+#사용자 회원정보 업데이트, 회원탈퇴 API
 @api_view(['GET','PUT', 'DELETE'])
-def user(request):                     
-    try:
-        data = JSONParser().parse(request)
-    except User.DoesNotExist: #User 데이터베이스가 존재하지 않을 때, 혹은 DB와의 연결이 끊겼을 때 출력
-        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"User에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"},status=status.HTTP_404_NOT_FOUND)
-    #회원정보 수정(닉네임, 썸네일)
-    if (request.method == 'PUT'):
-        userData = User.objects
-        if data['email'] is not None:
-            if len(userData.filter(email=data['email'])) == 0 :
-                return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_204_NO_CONTENT)
-            else:
-                userData = userData.get(email=data['email'])
-                userData.nickname = data['nickname']
-                #썸네일
-                userData.save()
-                return JsonResponse({'success':True,'result': userData, 'errorMessage':""}, safe=False, status=status.HTTP_200_OK)
-        else:
-            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"잘못된 Body형태가 넘어옴"},status=status.HTTP_400_BAD_REQUEST)
+def user(request):
+    if request.headers.get('access_token') is None:
+        return JsonResponse({'success':False, 'result':{}, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        userID = checkAuth_decodeToken(request)
+        if userID == 1:
+            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
+        elif userID == 2:
+            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        else:                
+            #회원정보 수정(닉네임, 썸네일)
+            if (request.method == 'PUT'):
+                data = JSONParser().parse(request)                  
+                userData = User.objects
+                if len(userData.filter(UID=userID)) == 0 :
+                    return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_204_NO_CONTENT)
+                else:
+                    print(data)
+                    userData = userData.get(UID=userID)
+                    data['email'] = userData.email
+                    data['pwToken'] = userData.pwToken
+                    temp = UserRegisterSerializer(userData, data=data)
+                    if temp.is_valid():
+                        temp.save()
+                        temps = temp.data
+                        del temps['pwToken']
+                        return JsonResponse({'success':True,'result': temps, 'errorMessage':""}, safe=False, status=status.HTTP_200_OK)
+                    else:
+                        print(temp.errors)
+            #회원탈퇴
+            elif (request.method == 'DELETE'):
+                userData = User.objects.filter(UID=userID)
+                if len(userData) == 0 :
+                    return JsonResponse({'success':False,'result': {}, 'errorMessage':"해당 이메일의 정보 없음"}, safe=False, status=status.HTTP_204_NO_CONTENT)
+                else:
+                    userData.delete()
+                    return JsonResponse({'success':True, 'result':{}, 'errorMessage':""},status=status.HTTP_200_OK)
 
-    #회원탈퇴
-    elif (request.method == 'DELETE'):
-        userData = User.objects.filter(email=data['email'])
-        if data['email'] is not None:
-            if len(userData) == 0 :
-                return JsonResponse({'success':False,'result': {}, 'errorMessage':"해당 이메일의 정보 없음"}, safe=False, status=status.HTTP_204_NO_CONTENT)
-            else:
-                userData.delete()
-                return JsonResponse({'success':True, 'result':{}, 'errorMessage':""},status=status.HTTP_200_OK)
-        else:
-            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"잘못된 Body형태가 넘어옴"},status=status.HTTP_400_BAD_REQUEST)
-    
-    #회원정보
-    elif request.method == 'GET':
-        user = User.objects
-        if len(user.filter(email = data['email'])) !=0 :
-            userData = user.get(email = data['email'])
-            #Favorite테이블에서 해당 사용자의 UID를 기반으로 검색해서 데이터 셋 준비 (관심도서)
-            #각 Community테이블에서 사용자의 UID를 기반으로 검색해서 데이터 셋 준비 (내가쓴글)
-            #Review테이블에서 해당 사용자의 UID를 기반으로 검색해서 데이터 셋 준비 (내가 쓴 후기)
-            return JsonResponse({'success':True, 'result':{
-                'nickname' : userData.nickname,
-                'thumbnail' : "썸네일 담아서 주기",
-                'f_books' : [],#책 썸네일, 이름
-                'my_posts' :[], #커뮤니티 API가 나오면 양식에 맞추어 넣는다
-                'my_reviews':[] #사용자가 쓴 후기
-                #사용자의 데이터 전부 담는다
-                },'errorMessage':""}, status = status.HTTP_200_OK)
-        else:
-            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당하는 정보 없음"},status = status.HTTP_400_BAD_REQUEST)
-        
+            #회원정보
+            elif request.method == 'GET':
+                user = User.objects
+                if len(user.filter(UID = userID)) !=0 :
+                    userData = user.get(UID = userID)
+                    #Favorite테이블에서 해당 사용자의 UID를 기반으로 검색해서 데이터 셋 준비 (관심도서)
+                    #각 Community테이블에서 사용자의 UID를 기반으로 검색해서 데이터 셋 준비 (내가쓴글)
+                    #Review테이블에서 해당 사용자의 UID를 기반으로 검색해서 데이터 셋 준비 (내가 쓴 후기)
+                    return JsonResponse({'success':True, 'result':{
+                        'nickname' : userData.nickname,
+                        'thumbnail' : "썸네일 담아서 주기",
+                        'f_books' : [],#책 썸네일, 이름
+                        'my_posts' :[], #커뮤니티 API가 나오면 양식에 맞추어 넣는다
+                        'my_reviews':[] #사용자가 쓴 후기
+                        #사용자의 데이터 전부 담는다
+                        },'errorMessage':""}, status = status.HTTP_200_OK)
+                else:
+                    return JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당하는 정보 없음"},status = status.HTTP_400_BAD_REQUEST)
+
 @api_view(['POST'])
 def userSignIn(request):
     try:
@@ -114,7 +120,6 @@ def userSignUp(request):
                 if userSerializer.is_valid():
                     userSerializer.save()
                     #동기 처리가 필요함 
-                    sleep(0.3)
                     users = userData.get(email=data['email'])
                     accessToken = get_access(users.UID)
                     refreshToken = get_refreshToken(users.UID)
@@ -183,8 +188,8 @@ def refresh_token(request):
 #로그아웃
 @api_view(['POST'])
 def signOut(request):
-    if request.mtehod == "POST":
-        if request.headers.get('access_token') is None | request.headers.get(''):
+    if request.method == "POST":
+        if request.headers.get('access_token') is None:
             return JsonResponse({'success':False, 'result':{}, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
         else:
              userID = checkAuth_decodeToken(request)
