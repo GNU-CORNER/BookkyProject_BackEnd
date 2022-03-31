@@ -77,6 +77,8 @@ def re_generate_Token(request):
                         print("[code_64_re_generate_Token] 시간 : " + str(datetime.datetime.utcnow())+", UID : "+str(tempData[0].UID.UID)+" 토큰 재발급") #로그 처리
                         new_access_token = get_access(tempData[0].UID.UID)
                         return new_access_token
+                    else:
+                        return 3
             except jwt.ExpiredSignatureError: #JWT 갱신 토큰이 만료되었을 때
                 print("[code_64_re_generate_Token] 시간 : " + str(datetime.datetime.utcnow())+", UID : "+str(tempData[0].UID.UID)+" 갱신 토큰 만료")
                 return 2
