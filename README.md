@@ -4,7 +4,6 @@ BackEnd for BookkyProject
 ### :)
 
 #API Schma
-# BASE URL = “http://203.255.3.144:8002/v1”
 
 # BASE Response
 
@@ -29,7 +28,7 @@ BackEnd for BookkyProject
 
 ### 회원가입 [’POST’]
 
-- URL = “http://203.255.3.144:8002/v1/user/signup
+- URL = "/v1/user/signup"
 
 ```json
 {//body
@@ -57,7 +56,7 @@ BackEnd for BookkyProject
 
 ### 로그인 [’POST’]
 
-- URL = “http://203.255.3.144:8002/v1/user/signin
+- URL = “/v1/user/signin"
 
 ```json
 {//body
@@ -84,7 +83,7 @@ BackEnd for BookkyProject
 
 ### 로그아웃[’POST’]
 
-- URL =  “http://203.255.3.144:8002/v1/user/signout
+- URL =  “/v1/user/signout"
 
 ```json
 {//headers
@@ -103,7 +102,7 @@ BackEnd for BookkyProject
 
 ### 회원정보 수정[’PUT’]
 
-- URL = “http://203.255.3.144:8002/v1/user
+- URL = “/v1/user"
 
 ```json
 {//headers
@@ -137,7 +136,7 @@ BackEnd for BookkyProject
 
 ### 회원탈퇴[’DELETE’]
 
-- URL = “http://203.255.3.144:8002/v1/user
+- URL = “/v1/user"
 
 ```json
 {//headers 
@@ -155,7 +154,7 @@ BackEnd for BookkyProject
 
 ### 이메일 인증 코드 전송[’POST’]
 
-- URL = “http://203.255.3.144:8002/v1/user/email”
+- URL = “/v1/user/email”
 - 인증코드 만료시간 3분임
 
 ```json
@@ -176,7 +175,7 @@ BackEnd for BookkyProject
 
 ### 이메일 인증 코드 확인 [’POST’]
 
-- URL = “http://203.255.3.144:8002/v1/user/check”
+- URL = “/v1/user/check”
 
 ```json
 {
@@ -197,7 +196,7 @@ BackEnd for BookkyProject
 
 ### Access-Token 갱신[’POST’]
 
-- URL = “[http://203.255.3.144:8002/v1/auth/refresh](http://203.255.3.144:8002/v1/auth/refresh)”
+- URL = “/v1/auth/refresh”
 
 ```json
 {//header
