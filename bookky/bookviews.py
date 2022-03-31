@@ -3,7 +3,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
-from PIL import Image
+
 
 from bookky_backend import settings
 from .models import Book
