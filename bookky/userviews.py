@@ -90,7 +90,9 @@ def userSignIn(request):
                     if refreshToken :
                         tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
                         refreshToken = tempData[0].refresh_token
-                        return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
+                        temp = serializer.data[0]
+                        del temp['pwToken']
+                        return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
                     elif refreshToken == 500:
                         return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
                     return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
@@ -119,6 +121,8 @@ def userSignUp(request):
                 userSerializer = UserRegisterSerializer(data = data)
                 if userSerializer.is_valid():
                     userSerializer.save()
+                    temp = userSerializer.data
+                    del temp['pwToken']
                     #동기 처리가 필요함 
                     users = userData.get(email=data['email'])
                     accessToken = get_access(users.UID)
@@ -126,7 +130,7 @@ def userSignUp(request):
                     if refreshToken :
                         tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
                         refreshToken = tempData[0].refresh_token
-                        return JsonResponse({"success" : True, "result": userSerializer.data, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_201_CREATED)
+                        return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_201_CREATED)
                     elif refreshToken == 500:
                         return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
                 else:
