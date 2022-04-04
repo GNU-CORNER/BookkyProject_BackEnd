@@ -26,7 +26,7 @@ SECRET_KEY = dbsetting.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','api.bookky.org', 'app.bookky.org']
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = ['http://0.0.0.0:0']
 CORS_ALLOW_CREDENTIALS = True

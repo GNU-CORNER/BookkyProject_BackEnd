@@ -3,7 +3,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
-
+from drf_yasg.utils       import swagger_auto_schema
+from drf_yasg import openapi
 
 from bookky_backend import settings
 from .models import Book
@@ -17,6 +18,13 @@ import urllib.request
 import json
 import time
 
+@swagger_auto_schema(
+    method='get',
+    manual_parameters=[
+        openapi.Parameter('quantity',openapi.IN_QUERY,type=openapi.TYPE_INTEGER, description='원하는 수량'),
+        openapi.Parameter('page', openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='원하는 페이지')
+    ]
+)
 @api_view(['GET'])
 def book(request, slug): #책 정보 API
     # flag = authValidation(request)

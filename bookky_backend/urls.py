@@ -27,9 +27,12 @@ schema_url_patterns = [
     ]
 schema_view = get_schema_view( 
     openapi.Info( 
-        title="Bookky API", 
+        title="Bookky API",
+        description= "API for Bookky service" ,
         default_version='v1', 
         terms_of_service="https://www.google.com/policies/terms/",
+        contact = openapi.Contact(email="bookkymaster@bookky.org"),
+        license = openapi.License(name="CornerDevTeam"),
          ), 
     public=True, 
     permission_classes=(AllowAny,), 
