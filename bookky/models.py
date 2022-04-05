@@ -37,7 +37,7 @@ class User(models.Model):
     tag_array               = ArrayField(models.IntegerField(null=True), size=50, null=True)           #Tag Array 정수형 배열로 선언함 크기 50
     pushNoti                = models.BooleanField(null=False, default=False)                #푸쉬 알림 승인 값
     pushToken               = models.CharField(max_length=255, null=True)                   #푸쉬 토큰 저장용
-
+    loginMethod             = models.IntegerField(default=0, null=False)                    #0 = 자체 회원가입, 1 = Github, 2 = Google, 3 = Apple
     def __str__(self):
         return self.UID
 

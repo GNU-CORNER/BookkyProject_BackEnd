@@ -70,7 +70,7 @@ def user(request):
                     return JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당하는 정보 없음"},status = status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-def userSignIn(request):
+def userSignIn(request, slug):
     try:
         data = JSONParser().parse(request)
     except User.DoesNotExist: #User 데이터베이스가 존재하지 않을 때, 혹은 DB와의 연결이 끊겼을 때 출력
@@ -81,31 +81,47 @@ def userSignIn(request):
         userData = User.objects
         if data['email'] is not None:
             #로그인
-            if(len(userData.filter(email=data['email']))) != 0: #로그인 인증 인가를 통해서 생각 해봐야 할듯 
+            if emailCheck(data['email']) == False: #로그인 인증 인가를 통해서 생각 해봐야 할듯 
                 users = userData.get(email=data['email'])
-                if(checkToken(data['pwToken'], users)): #로그인 성공
-                    filteredData = userData.filter(email=data['email'])
-                    serializer = UserRegisterSerializer(filteredData, many=True)
-                    accessToken = get_access(users.UID)
-                    refreshToken = get_refreshToken(users.UID)
-                    if refreshToken :
-                        tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
-                        refreshToken = tempData[0].refresh_token
-                        temp = serializer.data[0]
-                        del temp['pwToken']
-                        return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_200_OK)
-                    elif refreshToken == 500:
-                        return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
-                else: #로그인 비밀번호 틀림
-                    return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다.",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_400_BAD_REQUEST)
-            else: #해당 이메일 정보 없음
-                return JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당하는 유저가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-            #회원가입 (성공 시 AT, RT를 넘겨 바로 로그인)
+                if slug == 0:
+                    if(checkToken(data['pwToken'], users)): #로그인 성공
+                        filteredData = userData.filter(email=data['email'])
+                        serializer = UserRegisterSerializer(filteredData, many=True)
+                        accessToken = get_access(users.UID)
+                        refreshToken = get_refreshToken(users.UID)
+                        if refreshToken :
+                            tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
+                            refreshToken = tempData[0].refresh_token
+                            temp = serializer.data[0]
+                            del temp['pwToken']
+                            return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_200_OK)
+                        elif refreshToken == 500:
+                            return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
+                        else: #로그인 비밀번호 틀림
+                            return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다.",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_400_BAD_REQUEST)
+                
+                elif slug == 2 or slug == 3:
+                    if(users.pwToken == data['pwToken']): #로그인 성공
+                        filteredData = userData.filter(email=data['email'])
+                        serializer = UserRegisterSerializer(filteredData, many=True)
+                        accessToken = get_access(users.UID)
+                        refreshToken = get_refreshToken(users.UID)
+                        if refreshToken :
+                            tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
+                            refreshToken = tempData[0].refresh_token
+                            temp = serializer.data[0]
+                            del temp['pwToken']
+                            return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_200_OK)
+                        elif refreshToken == 500:
+                            return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
+                    else: #해당 이메일 정보 없음
+                        return JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당하는 유저가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
+                #Github 로그인
         else:
             return JsonResponse({'success' : False, "result": {}}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-def userSignUp(request):
+def userSignUp(request, slug):
     try:
         data = JSONParser().parse(request)
     except User.DoesNotExist: #User 데이터베이스가 존재하지 않을 때, 혹은 DB와의 연결이 끊겼을 때 출력
@@ -116,9 +132,11 @@ def userSignUp(request):
         userData = User.objects
         if data['email'] is not None:
             #회원가입 (성공 시 AT, RT를 넘겨 바로 로그인)
-            if(len(userData.filter(email=data['email']))) == 0: #회원가입 request에 넘어온 UID값과 DB안의 UID와 비교하여 존재하지 않으면, 회원가입으로 생각함
-                data['pwToken'] = setToken(data['pwToken'])                          #토큰화 한 비밀번호를 넣는다
+            if emailCheck(data['email']) : #회원가입 request에 넘어온 UID값과 DB안의 UID와 비교하여 존재하지 않으면, 회원가입으로 생각함
+                if slug == 0 :
+                    data['pwToken'] = setToken(data['pwToken'])                          #토큰화 한 비밀번호를 넣는다
                 userSerializer = UserRegisterSerializer(data = data)
+                data['loginMethod'] = slug
                 if userSerializer.is_valid():
                     userSerializer.save()
                     temp = userSerializer.data
@@ -219,3 +237,9 @@ def updateBoundary(request):
             return JsonResponse({'success':True, 'result':userData, 'errorMessage':""},status = status.HTTP_200_OK)
         else:
             return JsonResponse({'success':False, 'result':{},'errorMessage':"해당 정보 없음"},status = status.HTTP_400_BAD_REQUEST)
+        
+def emailCheck(email):
+    if len(User.objects.filter(email = email)) == 0:
+        return True
+    else:
+        return False
