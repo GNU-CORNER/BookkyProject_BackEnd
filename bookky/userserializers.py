@@ -5,12 +5,7 @@ from .models import User, RefreshTokenStorage, AuthenticationCodeStorage
 class UserRegisterSerializer(serializers.ModelSerializer): #최초 회원가입에서 사용될 Serializer
     class Meta:
         model = User
-        fields = ['email', 'pwToken', 'nickname']
-
-class UserUpdateSerializer(serializers.ModelSerializer): #사용자 업데이트에서 사용될 Serializer
-    class Meta:
-        model = User
-        fields = ['email', 'nickname', 'thumbnail', 'pushNoti', 'pushToken']
+        fields = ['email', 'pwToken', 'nickname', 'pushToken', 'pushNoti', 'thumbnail']
 
 class RefreshTokenSerializer(serializers.ModelSerializer): #갱신 토큰 Serializer
     class Meta:
