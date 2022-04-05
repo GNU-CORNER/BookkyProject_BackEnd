@@ -26,7 +26,7 @@ def user(request):
                 data = JSONParser().parse(request)                  
                 userData = User.objects
                 if len(userData.filter(UID=userID)) == 0 :
-                    return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_204_NO_CONTENT)
+                    return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_400_BAD_REQUEST)
                 else:
                     print(data)
                     userData = userData.get(UID=userID)
@@ -40,6 +40,7 @@ def user(request):
                         return JsonResponse({'success':True,'result': temps, 'errorMessage':""}, safe=False, status=status.HTTP_200_OK)
                     else:
                         print(temp.errors)
+                        return JsonResponse({'success':False,'result':{}, 'errorMessage':"서버 에러"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             #회원탈퇴
             elif (request.method == 'DELETE'):
                 userData = User.objects.filter(UID=userID)
@@ -92,10 +93,9 @@ def userSignIn(request):
                         refreshToken = tempData[0].refresh_token
                         temp = serializer.data[0]
                         del temp['pwToken']
-                        return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
+                        return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_200_OK)
                     elif refreshToken == 500:
                         return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
-                    return JsonResponse({"success" : True, "result": serializer.data[0], 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_202_ACCEPTED)
                 else: #로그인 비밀번호 틀림
                     return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다.",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_400_BAD_REQUEST)
             else: #해당 이메일 정보 없음
@@ -166,7 +166,7 @@ def checkCode(request):
     data = JSONParser().parse(request)
     if(request.method == 'POST'):
         if checkAuthentication(data['email'], data['code']): 
-            return JsonResponse({'success':True, 'result':{},'errorMessage':""}, status=status.HTTP_202_ACCEPTED) #Code가 맞는경우
+            return JsonResponse({'success':True, 'result':{},'errorMessage':""}, status=status.HTTP_200_OK) #Code가 맞는경우
         else:
             return JsonResponse({'success':False, 'result':{},'errorMessage':"Code가 올바르지 않습니다."},status=status.HTTP_406_NOT_ACCEPTABLE) #Code가 틀렸을 경우
     
@@ -185,7 +185,7 @@ def refresh_token(request):
                 return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효한 토큰입니다.", 'access_token':{}}, status=status.HTTP_400_BAD_REQUEST) #AccessToken의 만료기간이 남음
             elif refresh_access_token == 5:
                 return JsonResponse({'success':False, 'result': {}, 'errorMessage':"DB가 존재하지 않거나, 연결이 끊겼습니다.", 'access_token':{}}, status=status.HTTP_404_NOT_FOUND) #RefreshTokenStorage와의 연결이 끊김
-            return JsonResponse({'success':True, 'result': {}, 'errorMessage':"", 'access_token':str(refresh_access_token)}, status=status.HTTP_202_ACCEPTED)
+            return JsonResponse({'success':True, 'result': {}, 'errorMessage':"", 'access_token':str(refresh_access_token)}, status=status.HTTP_200_OK)
     else:
         return JsonResponse({'success':False, 'result': {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다.", 'access_token':{}}, status=status.HTTP_403_FORBIDDEN) #POST가 아닌 방식으로 접근 했을 경우
     
