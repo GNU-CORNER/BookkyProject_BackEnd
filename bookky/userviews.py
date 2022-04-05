@@ -7,11 +7,17 @@ from .models import User, RefreshTokenStorage
 from .userserializers import UserRegisterSerializer
 from .auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token, getAuthenticate, checkAuthentication, checkAuth_decodeToken
 from django.core.mail import EmailMessage
-
+from drf_yasg.utils       import swagger_auto_schema
+from drf_yasg import openapi
 
 #사용자 회원정보 업데이트, 회원탈퇴 API
 @api_view(['GET','PUT', 'DELETE'])
 def user(request):
+    """
+    ```json
+    Swagger Test
+    ```
+    """
     if request.headers.get('access_token') is None:
         return JsonResponse({'success':False, 'result':{}, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
     else:
@@ -69,8 +75,71 @@ def user(request):
                 else:
                     return JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당하는 정보 없음"},status = status.HTTP_400_BAD_REQUEST)
 
+@swagger_auto_schema(
+    method='post',  
+    request_body=openapi.Schema(
+        '해당 내용의 titile',
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'email': openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
+            'pwToken': openapi.Schema('사용자 비밀번호', type=openapi.TYPE_STRING),  
+        },
+        required=['email', 'pwToken']  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    ),
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'email' : openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
+                        'nickname' : openapi.Schema('사용자 닉네임', type=openapi.TYPE_STRING),
+                        'pushToken' : openapi.Schema('사용자 pushToken', type=openapi.TYPE_STRING),
+                        'pushNoti' : openapi.Schema('사용자 push알림 여부', type=openapi.TYPE_BOOLEAN),
+                        'thumbnail' : openapi.Schema('사용자 썸네일', type=openapi.TYPE_STRING)
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
+                'access_token' : openapi.Schema('AccessToken', type=openapi.TYPE_STRING),
+                'refresh_token' : openapi.Schema('RefreshToken', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
 @api_view(['POST'])
-def userSignIn(request, slug):
+def userSignIn(request):
+    """
+
+    로그인
+
+    # Body
+    ```json
+    {
+    	"email" : String,  //사용자 이메일
+    	"pwToken" : String	//사용자 비밀번호 (서버에서 알아서 인코딩 되니깐 RAW데이터로 보내도 됨)
+    }
+    ```
+
+    # Response
+    ```json
+    {
+      	"success": Boolean,
+    		"result" : {
+    			"email" : String,
+    			"nickname" : String,
+    			"pushToken" : String,
+    			"pushNoti" : Boolean,
+            "thumbnail" : String
+    		},
+    	"errorMessage": String,
+    	"access_token" : String,
+    	"refresh_token" : String
+    }
+    ```
+
+    """
     try:
         data = JSONParser().parse(request)
     except User.DoesNotExist: #User 데이터베이스가 존재하지 않을 때, 혹은 DB와의 연결이 끊겼을 때 출력
@@ -120,8 +189,71 @@ def userSignIn(request, slug):
         else:
             return JsonResponse({'success' : False, "result": {}}, status=status.HTTP_400_BAD_REQUEST)
 
+@swagger_auto_schema(
+    method='post',  
+    request_body=openapi.Schema(
+        '해당 내용의 titile',
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'email': openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
+            'nickname':openapi.Schema('사용자 닉네임', type=openapi.TYPE_STRING),
+            'pwToken': openapi.Schema('사용자 비밀번호', type=openapi.TYPE_STRING),  
+        },
+        required=['email', 'nickname', 'pwToken']  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    ),
+    responses={
+        201: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'email' : openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
+                        'nickname' : openapi.Schema('사용자 닉네임', type=openapi.TYPE_STRING),
+                        'pushToken' : openapi.Schema('사용자 pushToken', type=openapi.TYPE_STRING),
+                        'pushNoti' : openapi.Schema('사용자 push알림 여부', type=openapi.TYPE_BOOLEAN)
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
+                'access_token' : openapi.Schema('AccessToken', type=openapi.TYPE_STRING),
+                'refresh_token' : openapi.Schema('RefreshToken', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
 @api_view(['POST'])
-def userSignUp(request, slug):
+def userSignUp(request):
+    """
+
+    회원가입
+
+# Body
+```json
+{
+	"email" : String,  //사용자 이메일
+	"nickname" : String, //사용자 닉네임
+	"pwToken" : String	//사용자 비밀번호 (서버에서 알아서 인코딩 되니깐 RAW데이터로 보내도 됨)
+}
+```
+
+# Response
+```json
+{
+	"success": Boolean,
+	"result" : {
+		"email" : String,
+		"nickname" : String,
+		"pushToken" : String,
+		"pushNoti" : Boolean,
+		"thumbnail" : String
+	},
+	"errorMessage": String,
+	"access_token" : String,
+	"refresh_token" : String
+}
+```
+    """
     try:
         data = JSONParser().parse(request)
     except User.DoesNotExist: #User 데이터베이스가 존재하지 않을 때, 혹은 DB와의 연결이 끊겼을 때 출력
@@ -158,9 +290,60 @@ def userSignUp(request, slug):
         else:
             return JsonResponse({'success' : False, "result": {}}, status=status.HTTP_400_BAD_REQUEST)
     
+
+@swagger_auto_schema(
+    method='post',  
+    request_body=openapi.Schema(
+        '해당 내용의 titile',
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'email': openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
+        },
+        required=['email']  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    ),
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'email' : openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
+            }
+        )
+    }
+)
 #중복확인 및 이메일 인증 코드 발급                     
 @api_view(['POST'])
 def checkEmail(request):
+    """
+    이메일 인증코드 발급 & 중복확인
+
+    - 인증코드 만료시간 3분임
+
+# Body
+```json
+{
+    "email": String //중복처리까지 같이 함
+}
+```
+
+# Response
+```json
+{
+    "success": Boolean, //False 이면 중복
+    "result": {
+        "email": String
+    },
+    "errorMessage": String
+}
+```
+
+    """
     data = JSONParser().parse(request)
     if(request.method == 'POST'):
         try:
@@ -178,19 +361,113 @@ def checkEmail(request):
         else:
             return JsonResponse({'success':False, 'result':{}, 'errorMessage':"email 입력 값이 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
 
+@swagger_auto_schema(
+    method='post',  
+    request_body=openapi.Schema(
+        '해당 내용의 titile',
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'email': openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
+            'code': openapi.Schema('인증번호', type=openapi.TYPE_INTEGER)
+        },
+        required=['email', 'code']  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    ),
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={}
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
+            }
+        )
+    }
+)
 #Code확인
 @api_view(['POST'])
 def checkCode(request):
+    """
+    인증코드 확인
+
+# Body
+```json
+{
+    "email": String,
+    "code": Integer
+}
+```
+
+# Response
+```json
+{
+    "success": Boolean,
+    "result": {},
+    "errorMessage": String
+}
+```
+
+    """
     data = JSONParser().parse(request)
     if(request.method == 'POST'):
         if checkAuthentication(data['email'], data['code']): 
             return JsonResponse({'success':True, 'result':{},'errorMessage':""}, status=status.HTTP_200_OK) #Code가 맞는경우
         else:
             return JsonResponse({'success':False, 'result':{},'errorMessage':"Code가 올바르지 않습니다."},status=status.HTTP_406_NOT_ACCEPTABLE) #Code가 틀렸을 경우
-    
+
+# @swagger_auto_schema(
+#     method='post',  
+#     request_header=openapi.Schema(
+#         '해당 내용의 titile',
+#         type=openapi.TYPE_OBJECT,
+#         properties={
+#             'access_token' : openapi.Schema('AccessToken', TYPE_STRING),
+#             'refresh_token' : openapi.Schema('RefreshToken', TYPE_STRING)
+#         },
+#         required=['access_token']  # 필수값을 지정 할 Schema를 입력해주면 된다.
+#     ),
+#     responses={
+#         200: openapi.Schema(
+#             type=openapi.TYPE_OBJECT,
+#             properties={
+#                 'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+#                 'result': openapi.Schema(
+#                     type=openapi.TYPE_OBJECT,
+#                     properties={}
+#                 ),
+#                 'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
+#                 'access_token' : openapi.Schema('AccessToken', TYPE_STRING),
+#                 'refresh_token' : openapi.Schema('RefreshToken', TYPE_STRING)
+#             }
+#         )
+#     }
+# )
 #AT토큰 갱신
 @api_view(['POST'])
 def refresh_token(request):
+    """
+    토큰 갱신
+
+# Header
+```json
+{
+	"access-token" : String,
+	"refresh-token" : String
+}
+```
+
+# Response
+```json
+{
+    "success": Boolean,
+    "result": {},
+    "errorMessage": String,
+    "access_token": String
+}
+```
+    """
     # AccessToken이 만료됬고, RefreshToken이 만료되지 않았을 때, AccessToken을 재발급 해주는 시나리오 
     if request.method == 'POST':
         if request.headers.get('refresh_token',None) is not None: # request 헤더에 RefreshToken이라는 파라미터에 값이 실려 왔는가?
@@ -210,6 +487,27 @@ def refresh_token(request):
 #로그아웃
 @api_view(['POST'])
 def signOut(request):
+    """
+    로그아웃
+
+# Body
+```json
+{//headers
+			"access-token" : String,  //접근 토큰
+			"refresh-token" : String	//갱신 토큰
+}
+```
+
+# Response
+```json
+{
+    "success": Boolean,
+    "result": {},
+    "errorMessage": String
+}
+```
+
+    """
     if request.method == "POST":
         if request.headers.get('access_token') is None:
             return JsonResponse({'success':False, 'result':{}, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)

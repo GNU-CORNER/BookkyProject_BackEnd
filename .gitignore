@@ -10183,3 +10183,4 @@ thumbnail/290850901.png
 bookky_backend/dbsetting.py
 bookky_backend/emailsetting.py
 .DS_Store
+nohup.out
