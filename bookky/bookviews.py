@@ -20,6 +20,7 @@ import time
 
 @swagger_auto_schema(
     method='get',
+    operation_description= "slug = 0은 TAG구분없이 보냄, slug = 1은 dummyAPI로 태그로 구분해서 보냄",
     manual_parameters=[
         openapi.Parameter('quantity',openapi.IN_QUERY,type=openapi.TYPE_INTEGER, description='원하는 수량'),
         openapi.Parameter('page', openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='원하는 페이지')
@@ -27,8 +28,6 @@ import time
 )
 @api_view(['GET'])
 def book(request, slug): #책 정보 API
-    # flag = authValidation(request)
-    # if flag == True:
     try:
         bookData = Book.objects
     except Book.DoesNotExist:
@@ -49,6 +48,54 @@ def book(request, slug): #책 정보 API
             books = books[startpagination : endpagination]    
             serializer = BookPostSerializer(books, many=True)
             return JsonResponse({'success':True,'result' : serializer.data, 'errorMessage':""}, status=status.HTTP_200_OK)
+        elif slug == "1": #dummy 책api
+            quantity = 25 #기본 quntity 값은 25개
+            startpagination = 0 #기본 startpagination 값은 0
+            endpagination = quantity #기본 endpagination 값은 qunatity값과 동일, page 값이 들어오면 pagination 지원
+            books = bookData.all()
+            if request.GET.get('quantity') is not None: #URL에 'quantity' Query가 들어있으면 값 입력
+                quantity = int(request.GET.get('quantity')) 
+            if request.GET.get('page') is not None: #URL에 'page' Query가 들어있으면 값 입력
+                startpagination = (int(request.GET.get('page')) - 1) * quantity
+                endpagination = int(request.GET.get('page')) * quantity
+                if startpagination > len(books):
+                    startpagination = startpagination - len(books)
+                if endpagination > len(books):
+                    endpagination = len(books) - 1
+            if request.GET.get('TAG') is not None: #URL에 'page' Query가 들어있으면 값 입력
+                books = bookData.filter(PUBLISHER = request.GET.get('TAG'))
+            books = books[startpagination : endpagination]   
+            serializer = BookPostSerializer(books, many=True)
+            return JsonResponse({
+                'success':True,
+                'result' :
+                
+                    [
+                        {
+                            'tag' :'Python',
+                            'data' : serializer.data,         
+                        },
+                        {
+                            'tag' :'React',
+                            'data' : serializer.data, 
+                        },
+                        {
+                            'tag':'Linux',
+                            'data':serializer.data, 
+                        },
+                        {
+                            'tag':'Deep Learning',
+                            'data':serializer.data,        
+                        },
+                        {
+                            'tag':'Database', 
+                            'data' : serializer.data,
+                        }
+                    ],
+                
+                'errorMessage':""
+                }, 
+                status=status.HTTP_200_OK)
         else :
             filtered_data = bookData.filter(BID = slug)
             if len(filtered_data) == 0:
@@ -58,10 +105,7 @@ def book(request, slug): #책 정보 API
                 return JsonResponse({'success':True, 'result' : serializer.data[0], 'errorMessage':""}, status = status.HTTP_200_OK)
     else:
         return JsonResponse({'success':False,'result' : {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다." }, status=status.HTTP_403_FORBIDDEN)
-    # elif flag == 0:
-    #     return JsonResponse({'success':False, 'result': {}, 'errorMessage':"유효하지 않은 토큰입니다."}, status=status.HTTP_401_UNAUTHORIZED) #JWT 토큰이 없을 때
-    # elif flag == 2:
-    #     return JsonResponse({'success':False, 'result': {}, 'errorMessage':"기간이 지난 토큰입니다."}, status=status.HTTP_403_FORBIDDEN) #JWT 토큰이 만기됨
+
 @api_view(['GET'])
 def bookSearch(request): #책 검색 API
     if authValidation(request) == True :

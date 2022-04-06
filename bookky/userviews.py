@@ -10,9 +10,17 @@ from django.core.mail import EmailMessage
 from drf_yasg.utils       import swagger_auto_schema
 from drf_yasg import openapi
 
+def emailCheck(email):
+    if len(User.objects.filter(email = email)) == 0:
+        return True
+    else:
+        return False
+
+
 @swagger_auto_schema(
     method='delete',
-    manual_parameters=[openapi.Parameter('access_token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
+    operation_description="회원탈퇴",
+    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
     responses={
         200: openapi.Schema(
             type=openapi.TYPE_OBJECT,
@@ -31,9 +39,9 @@ from drf_yasg import openapi
 )
 @swagger_auto_schema(
     method='put',  
-    manual_parameters=[openapi.Parameter('access_token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
+    operation_description="회원정보 수정",
+    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
     request_body=openapi.Schema(
-        '해당 내용의 titile',
         type=openapi.TYPE_OBJECT,
         properties={'email': openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
         },
@@ -64,9 +72,11 @@ def user(request):
 ```
     """
     if request.headers.get('access_token') is None:
+        print(request.headers)
         return JsonResponse({'success':False, 'result':{}, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
     else:
         userID = checkAuth_decodeToken(request)
+        print(userID)
         if userID == 1:
             return JsonResponse({'success':False, 'result':{}, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
         elif userID == 2:
@@ -79,7 +89,6 @@ def user(request):
                 if len(userData.filter(UID=userID)) == 0 :
                     return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_400_BAD_REQUEST)
                 else:
-                    print(data)
                     userData = userData.get(UID=userID)
                     data['email'] = userData.email
                     data['pwToken'] = userData.pwToken
@@ -201,10 +210,9 @@ def userSignIn(request):
         userData = User.objects
         if data['email'] is not None:
             #로그인
-            slug = str(data['loginMethod'])
-            if emailCheck(data['email']) == False: #로그인 인증 인가를 통해서 생각 해봐야 할듯 
+            if len(userData.filter(email = data['email'])) != 0: #로그인 인증 인가를 통해서 생각 해봐야 할듯 
                 users = userData.get(email=data['email'])
-                if slug == "0":
+                if data['loginMethod'] is not None:
                     if(checkToken(data['pwToken'], users)): #로그인 성공
                         filteredData = userData.filter(email=data['email'])
                         serializer = UserRegisterSerializer(filteredData, many=True)
@@ -218,30 +226,15 @@ def userSignIn(request):
                             return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_200_OK)
                         elif refreshToken == 500:
                             return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
-                        else: #로그인 비밀번호 틀림
-                            return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다.",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_400_BAD_REQUEST)
-                
-                elif slug == "2" or slug == "3":
-                    if(users.pwToken == data['pwToken']): #로그인 성공
-                        filteredData = userData.filter(email=data['email'])
-                        serializer = UserRegisterSerializer(filteredData, many=True)
-                        accessToken = get_access(users.UID)
-                        refreshToken = get_refreshToken(users.UID)
-                        if refreshToken :
-                            tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
-                            refreshToken = tempData[0].refresh_token
-                            temp = serializer.data[0]
-                            del temp['pwToken']
-                            return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_200_OK)
-                        elif refreshToken == 500:
-                            return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
-                    else: #해당 이메일 정보 없음
-                        return JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당하는 유저가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
+                    else: #로그인 비밀번호 틀림
+                        return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다.",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_400_BAD_REQUEST)
+                else:
+                    return JsonResponse({'success':False, 'result':{},'errorMessage':"LoginMethod가 없습니다..",'access_token':"",'refresh_token':""},status=status.HTTP_403_FORBIDDEN)
+            else: #해당 이메일 정보 없음
+                return JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당하는 유저가 없습니다.",'access_token':"", 'refresh_token' : ""}, status = status.HTTP_400_BAD_REQUEST)
                 #Github 로그인
-            else:
-                return JsonResponse({'success' : False, "result": {}}, status=status.HTTP_400_BAD_REQUEST)
         else:
-                return JsonResponse({'success' : False, "result": {}}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'success' : False, "result": {},'errorMessage':"email정보가 없음",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_400_BAD_REQUEST)
 
 @swagger_auto_schema(
     method='post',  
@@ -321,39 +314,39 @@ def userSignUp(request):
 
     #회원가입
     if (request.method == 'POST'):
-        print(data)
         userData = User.objects
-        if data['email'] is not None:
-            slug = str(data['loginMethod'])
+        if data['email'] is not None and data['nickname'] is not None:
             #회원가입 (성공 시 AT, RT를 넘겨 바로 로그인)
-            if emailCheck(data['email']) : #회원가입 request에 넘어온 UID값과 DB안의 UID와 비교하여 존재하지 않으면, 회원가입으로 생각함
-                if slug == "0" :
+            if len(userData.filter(email = data['email'])) == 0 : #회원가입 request에 넘어온 UID값과 DB안의 UID와 비교하여 존재하지 않으면, 회원가입으로 생각함
+                if data['loginMethod'] is not None :
                     data['pwToken'] = setToken(data['pwToken'])                          #토큰화 한 비밀번호를 넣는다
-                userSerializer = UserRegisterSerializer(data = data)
-                if userSerializer.is_valid():
-                    userSerializer.save()
-                    temp = userSerializer.data
-                    del temp['pwToken']
-                    #동기 처리가 필요함 
-                    users = userData.get(email=data['email'])
-                    accessToken = get_access(users.UID)
-                    refreshToken = get_refreshToken(users.UID)
-                    if refreshToken :
-                        tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
-                        refreshToken = tempData[0].refresh_token
-                        return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_201_CREATED)
-                    elif refreshToken == 500:
-                        return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
+                    userSerializer = UserRegisterSerializer(data = data)
+                    if userSerializer.is_valid():
+                        userSerializer.save()
+                        temp = userSerializer.data
+                        del temp['pwToken']
+                        #동기 처리가 필요함 
+                        users = userData.get(email=data['email'])
+                        accessToken = get_access(users.UID)
+                        refreshToken = get_refreshToken(users.UID)
+                        if refreshToken :
+                            tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
+                            refreshToken = tempData[0].refresh_token
+                            return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_201_CREATED)
+                        elif refreshToken == 500:
+                            return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
+                        else:
+                            return JsonResponse({'success':False, 'result':{},'errorMessage':"",'access_token':"", 'refresh_token':""}, status = status.HTTP_400_BAD_REQUEST)
+                    else:
+                        print(userSerializer.errors)
+                        return JsonResponse({'success' : False, "result": {}, 'errorMessage':"잘못된 형식의 데이터",'access_token':"", 'refresh_token':""}, status=status.HTTP_400_BAD_REQUEST)
                 else:
-                    print(userSerializer.errors)
-                    return JsonResponse({'success' : False, "result": {}, 'errorMessage':"잘못된 형식의 데이터"}, status=status.HTTP_400_BAD_REQUEST)
+                    return JsonResponse({'success' : False, "result": {}, 'errorMessage':"LoginMethod가 없음",'access_token':"", 'refresh_token':""}, status=status.HTTP_400_BAD_REQUEST)
             else:
-                JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당 이메일 사용자가 존재함"},status = status.HTTP_400_BAD_REQUEST)
+                return JsonResponse({'success':False,'result':{}, 'errorMessage':"",'access_token':"", 'refresh_token':""},status = status.HTTP_400_BAD_REQUEST)
         else:
-            return JsonResponse({'success' : False, "result": {}}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'success' : False, "result": {}, 'errorMessage':"",'access_token':"", 'refresh_token':""}, status=status.HTTP_400_BAD_REQUEST)
     
-
-
 
 @swagger_auto_schema(
     method='get',
@@ -475,8 +468,8 @@ def checkCode(request):
 @swagger_auto_schema(
     method='post',  
     manual_parameters=[
-        openapi.Parameter('access_token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING),
-        openapi.Parameter('refresh_token', openapi.IN_HEADER, description="갱신 토큰", type=openapi.TYPE_STRING)
+        openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING),
+        openapi.Parameter('refresh-token', openapi.IN_HEADER, description="갱신 토큰", type=openapi.TYPE_STRING)
         ],
     # 필수값을 지정 할 Schema를 입력해주면 된다.
     responses={
@@ -535,7 +528,29 @@ def refresh_token(request):
             return JsonResponse({'success':True, 'result': {}, 'errorMessage':"", 'access_token':str(refresh_access_token)}, status=status.HTTP_200_OK)
     else:
         return JsonResponse({'success':False, 'result': {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다.", 'access_token':{}}, status=status.HTTP_403_FORBIDDEN) #POST가 아닌 방식으로 접근 했을 경우
-    
+
+@swagger_auto_schema(
+    method='post',  
+    manual_parameters=[
+        openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING),
+        openapi.Parameter('refresh-token', openapi.IN_HEADER, description="갱신 토큰", type=openapi.TYPE_STRING)
+        ],
+    # 필수값을 지정 할 Schema를 입력해주면 된다.
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
 #로그아웃
 @api_view(['POST'])
 def signOut(request):
@@ -588,12 +603,6 @@ def updateBoundary(request):
         else:
             return JsonResponse({'success':False, 'result':{},'errorMessage':"해당 정보 없음"},status = status.HTTP_400_BAD_REQUEST)
         
-def emailCheck(email):
-    if len(User.objects.filter(email = email)) == 0:
-        return True
-    else:
-        return False
-
 
 
 @swagger_auto_schema(
@@ -607,8 +616,8 @@ def nicknameCheck(request):
     data = request.GET.get('nickname')
     if data is not None:
         if len(User.objects.filter(nickname=data)) == 0:
-            JsonResponse({'success':True, 'result':{'nickname':data}, 'errorMessage':""}, status = status.HTTP_200_OK)
+            return JsonResponse({'success':True, 'result':{'nickname':data}, 'errorMessage':""}, status = status.HTTP_200_OK)
         else:
-            JsonResponse({'success':False, 'result':{}, 'errorMessage':"존재하는 이메일"}, status = status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"존재하는 이메일"}, status = status.HTTP_400_BAD_REQUEST)
     else:
-        JsonResponse({'success':False, 'result':{}, 'errorMessage':"nickname이 존재하지 않음"}, status = status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'success':False, 'result':{}, 'errorMessage':"nickname이 존재하지 않음"}, status = status.HTTP_400_BAD_REQUEST)
