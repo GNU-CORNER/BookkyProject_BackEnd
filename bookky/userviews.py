@@ -3,7 +3,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
-from .models import User, RefreshTokenStorage
+from .models import User, RefreshTokenStorage, Tag
 from .userserializers import UserRegisterSerializer
 from .auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token, getAuthenticate, checkAuthentication, checkAuth_decodeToken
 from django.core.mail import EmailMessage
@@ -223,13 +223,20 @@ def userSignIn(request):
                             refreshToken = tempData[0].refresh_token
                             temp = serializer.data[0]
                             del temp['pwToken']
+                            if temp['tag_array'] is not None:
+                                tempTag = []
+                                tagQuery = Tag.objects
+                                for i in temp['tag_array']:
+                                    temps = tagQuery.get(TID = i)                                
+                                    tempTag.append(temps.nameTag)
+                                temp['tag_array'] = tempTag
                             return JsonResponse({"success" : True, "result": temp, 'errorMessage':"", 'access_token':str(accessToken), 'refresh_token' : str(refreshToken) }, status=status.HTTP_200_OK)
                         elif refreshToken == 500:
                             return JsonResponse({'success':False, "result": {}, 'errorMessage':"serverError",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_404_NOT_FOUND)
                     else: #로그인 비밀번호 틀림
                         return JsonResponse({"success" : False, "result": {}, 'errorMessage':"비밀번호가 틀렸습니다.",'access_token':"", 'refresh_token' : ""}, status=status.HTTP_400_BAD_REQUEST)
                 else:
-                    return JsonResponse({'success':False, 'result':{},'errorMessage':"LoginMethod가 없습니다..",'access_token':"",'refresh_token':""},status=status.HTTP_403_FORBIDDEN)
+                    return JsonResponse({'success':False, 'result':{},'errorMessage':"LoginMethod가 없습니다..",'access_token':"",'refresh_token':""},status=status.HTTP_400_BAD_REQUEST)
             else: #해당 이메일 정보 없음
                 return JsonResponse({'success':False, 'result':{}, 'errorMessage':"해당하는 유저가 없습니다.",'access_token':"", 'refresh_token' : ""}, status = status.HTTP_400_BAD_REQUEST)
                 #Github 로그인
@@ -589,19 +596,65 @@ def signOut(request):
                 tempQuery.delete()
                 return JsonResponse({'success':True, 'result':{}, 'errorMessage':""}, status = status.HTTP_200_OK)
 
+@swagger_auto_schema(
+    method='put',  
+    manual_parameters=[
+        openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING),
+    ],
+    request_body=openapi.Schema(
+        '해당 내용의 titile',
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'tags': openapi.Schema('태그', type=openapi.TYPE_STRING),
+        },
+        required=['email', 'code']  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    ),
+    # 필수값을 지정 할 Schema를 입력해주면 된다.
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'email' : openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
+                'access_token': openapi.Schema('인가 토큰', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
 #관심분야 업데이트
 @api_view(['PUT'])
 def updateBoundary(request):
     if request.method == 'PUT':
-        data = JSONParser.parse(request)
-        user = User.objects
-        if len(user.filter(email = data['email'])) != 0:
-            userData = user.get(email = data['email'])
-            userData.tag_array.append(data['tag_array'])
-            userData.save()
-            return JsonResponse({'success':True, 'result':userData, 'errorMessage':""},status = status.HTTP_200_OK)
+        data = JSONParser().parse(request)
+        flag = checkAuth_decodeToken(request)
+        errorFlag = False
+        if flag == 0:
+            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
+        elif flag == 1:
+            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
+        elif flag == 2:
+            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
         else:
-            return JsonResponse({'success':False, 'result':{},'errorMessage':"해당 정보 없음"},status = status.HTTP_400_BAD_REQUEST)
+            if data['tags'] is not None:
+                tagQuery = Tag.objects
+                for i in data['tags']:
+                    if tagQuery.get(TID = int(i)) is None:
+                        errorFlag = True
+                        break
+                if errorFlag:
+                    return JsonResponse({'success':False, 'result':{},'errorMessage':"존재하지 않는 태그 값"}, status = status.HTTP_400_BAD_REQUEST)
+                userData = User.objects.get(UID=flag)
+                userData.tag_array = data['tags']
+                userData.save()
+                return JsonResponse({'success':True, 'result':userData, 'errorMessage':""},status = status.HTTP_200_OK)
+            else:
+                return JsonResponse({'success':False, 'result':{},'errorMessage':"Body에 태그 값이 없습니다"}, status = status.HTTP_400_BAD_REQUEST)
         
 
 

@@ -6,3 +6,8 @@ class BookPostSerializer(serializers.ModelSerializer): #API에서 불러온 정�
     class Meta:
         model = Book
         fields = ['BID','TITLE', 'SUBTITLE','AUTHOR', 'ISBN', 'PUBLISHER', 'PRICE', 'PAGE', 'BOOK_INDEX','BOOK_INTRODUCTION', 'PUBLISH_DATE', 'Allah_BID', 'thumbnailImage']
+
+class BookGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ['BID', 'TITLE','AUTHOR', 'thumbnailImage']

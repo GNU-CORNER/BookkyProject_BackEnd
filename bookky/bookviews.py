@@ -6,8 +6,9 @@ from rest_framework.decorators import api_view
 from drf_yasg.utils       import swagger_auto_schema
 from drf_yasg import openapi
 
+from .auth import checkAuth_decodeToken
 from bookky_backend import settings
-from .models import Book
+from .models import Book, FavoriteBook, Tag
 from .bookserializers import BookPostSerializer
 from .auth import authValidation
 from django.db.models import Q
@@ -23,7 +24,8 @@ import time
     operation_description= "slug = 0은 TAG구분없이 보냄, slug = 1은 dummyAPI로 태그로 구분해서 보냄",
     manual_parameters=[
         openapi.Parameter('quantity',openapi.IN_QUERY,type=openapi.TYPE_INTEGER, description='원하는 수량'),
-        openapi.Parameter('page', openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='원하는 페이지')
+        openapi.Parameter('page', openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='원하는 페이지'),
+        openapi.Parameter('access-token', openapi.IN_HEADER, type=openapi.TYPE_STRING, description='회원이라면 토큰 넣고 비회원이면 넣지 않는다.')
     ]
 )
 @api_view(['GET'])
@@ -33,22 +35,7 @@ def book(request, slug): #책 정보 API
     except Book.DoesNotExist:
         return JsonResponse({'success':False, 'result': {}, 'errorMessage':"Book에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"}, status=status.HTTP_404_NOT_FOUND)
     if (request.method == 'GET'):
-        if slug ==  "0" :
-            quantity = 25 #기본 quntity 값은 25개
-            startpagination = 0 #기본 startpagination 값은 0
-            endpagination = quantity #기본 endpagination 값은 qunatity값과 동일, page 값이 들어오면 pagination 지원
-            books = bookData.all()
-            if request.GET.get('quantity') is not None: #URL에 'quantity' Query가 들어있으면 값 입력
-                quantity = int(request.GET.get('quantity')) 
-            if request.GET.get('page') is not None: #URL에 'page' Query가 들어있으면 값 입력
-                startpagination = (int(request.GET.get('page')) - 1) * quantity
-                endpagination = int(request.GET.get('page')) * quantity
-            if request.GET.get('TAG') is not None: #URL에 'page' Query가 들어있으면 값 입력
-                books = bookData.filter(PUBLISHER = request.GET.get('TAG'))
-            books = books[startpagination : endpagination]    
-            serializer = BookPostSerializer(books, many=True)
-            return JsonResponse({'success':True,'result' : serializer.data, 'errorMessage':""}, status=status.HTTP_200_OK)
-        elif slug == "1": #dummy 책api
+        if slug == "0": #dummy 책api
             quantity = 25 #기본 quntity 값은 25개
             startpagination = 0 #기본 startpagination 값은 0
             endpagination = quantity #기본 endpagination 값은 qunatity값과 동일, page 값이 들어오면 pagination 지원
@@ -98,13 +85,28 @@ def book(request, slug): #책 정보 API
                 status=status.HTTP_200_OK)
         else :
             filtered_data = bookData.filter(BID = slug)
+            is_favorite = False
             if len(filtered_data) == 0:
-                return JsonResponse({'success':False, 'result':{}, 'errorMessage':"입력한 BID와 일치하는 정보가 없습니다."}, status=status.HTTP_204_NO_CONTENT)
+                return JsonResponse({'success':False, 'result':{}, 'errorMessage':"입력한 BID와 일치하는 정보가 없습니다.", 'isFavorite':is_favorite}, status=status.HTTP_204_NO_CONTENT)
             else:
+                if request.headers.get('access_token',None) is not None:
+                    userID = checkAuth_decodeToken(request)
+                    print(userID)
+                    if userID == 1:
+                        return JsonResponse({'success':False, 'result':{}, 'errorMessage':"잘못된 AT토큰입니다.",'isFavorite':is_favorite}, status = status.HTTP_401_UNAUTHORIZED)
+                    elif userID == 2:
+                        return JsonResponse({'success':False, 'result':{}, 'errorMessage':"만료된 토큰입니다.",'isFavorite':is_favorite}, status = status.HTTP_403_FORBIDDEN)
+                    else:        
+                        queryData = FavoriteBook.objects.filter(UID = userID)
+                        queryData = queryData.filter(BID = slug)
+                        if len(queryData) != 0:
+                            is_favorite = True
                 serializer = BookPostSerializer(filtered_data, many = True)
-                return JsonResponse({'success':True, 'result' : serializer.data[0], 'errorMessage':""}, status = status.HTTP_200_OK)
+                temp = serializer.data[0]
+                temp['tagName'] = findBooksTagName(slug)
+                return JsonResponse({'success':True, 'result' : {'bookList':serializer.data[0],'isFavorite':is_favorite}, 'errorMessage':""}, status = status.HTTP_200_OK)
     else:
-        return JsonResponse({'success':False,'result' : {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다." }, status=status.HTTP_403_FORBIDDEN)
+        return JsonResponse({'success':False,'result' : {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다.",'isFavorite':is_favorite}, status=status.HTTP_403_FORBIDDEN)
 
 @api_view(['GET'])
 def bookSearch(request): #책 검색 API
@@ -162,3 +164,15 @@ def bookUpdate(request):
         else:
             continue
     return JsonResponse({'success':True})
+
+
+def findBooksTagName(BID):
+    bookQuery = Book.objects.get(BID = BID)
+    tagQuery = Tag.objects
+    tempList = bookQuery.TAG
+    tagNames = []
+    for i in tempList:
+        temp = tagQuery.get(TID = i)
+        tagNames.append(temp.nameTag)
+    return tagNames
+    

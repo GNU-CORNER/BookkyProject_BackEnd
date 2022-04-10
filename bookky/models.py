@@ -174,7 +174,7 @@ class Notification(models.Model):
 class Tag(models.Model):
     TID                     = models.BigAutoField(primary_key=True)                                                         #Primary Key
     nameTag                 = models.CharField(max_length=255, null=False)                                                  #내용
-
+    contents                = ArrayField(models.CharField(max_length=100, null=True), size = 10000000, null=True)                                   #좋아요, 숫자는 최대
     def __str__(self):
         return self.nameTag
     

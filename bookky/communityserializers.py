@@ -2,22 +2,22 @@ from django.db.models import fields
 from rest_framework import serializers
 from .models import MarketCommunity, HotCommunity, QnACommunity, AnyCommunity
 
-class AnyCommunitySerializer:
+class AnyCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = AnyCommunity
         fields = ['BID', 'UID', 'contents', 'postImage']
 
-class MarketCommunitySerializer:
+class MarketCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketCommunity
         fields = ['BID', 'UID', 'contents', 'postImage']
         
-class QnACommunitySerializer:
+class QnACommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = QnACommunity
         fields = ['BID', 'UID', 'contents', 'postImage']
 
-class HotCommunitySerializer:
+class HotCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = HotCommunity
         fields = ['ACID', 'MCID', 'QCID']
