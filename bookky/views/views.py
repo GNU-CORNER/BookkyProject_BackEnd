@@ -3,11 +3,11 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
-from .models import Book, Tag
-from .tagserializers import TagSerializer
-from .bookserializers import BookPostSerializer, BookGetSerializer
+from bookky.models import Book, Tag
+from bookky.serializers.tagserializers import TagSerializer
+from bookky.serializers.bookserializers import BookPostSerializer, BookGetSerializer
 from django.core.mail import EmailMessage
-from .auth import authValidation
+from bookky.auth.auth import authValidation
 
 import requests
 import datetime

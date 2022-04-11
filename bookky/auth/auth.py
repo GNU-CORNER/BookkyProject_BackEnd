@@ -7,8 +7,8 @@ import random
 from django.http import JsonResponse
 from rest_framework import status
 from bookky_backend import dbsetting
-from .models import User, RefreshTokenStorage, AuthenticationCodeStorage
-from .userserializers import RefreshTokenSerializer, AuthenticationCodeTokenSerializer
+from bookky.models import User, RefreshTokenStorage, AuthenticationCodeStorage
+from bookky.serializers.userserializers import RefreshTokenSerializer, AuthenticationCodeTokenSerializer
 
 # 비밀번호 토큰 생성
 def setToken(rawData): 

@@ -6,11 +6,11 @@ from rest_framework.decorators import api_view
 from drf_yasg.utils       import swagger_auto_schema
 from drf_yasg import openapi
 
-from .auth import checkAuth_decodeToken
+from bookky.auth.auth import checkAuth_decodeToken
 from bookky_backend import settings
-from .models import Book, FavoriteBook, Tag
-from .bookserializers import BookPostSerializer
-from .auth import authValidation
+from bookky.models import Book, FavoriteBook, Tag
+from bookky.serializers.bookserializers import BookPostSerializer
+from bookky.auth.auth import authValidation
 from django.db.models import Q
 
 import requests
@@ -26,14 +26,48 @@ import time
         openapi.Parameter('quantity',openapi.IN_QUERY,type=openapi.TYPE_INTEGER, description='원하는 수량'),
         openapi.Parameter('page', openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='원하는 페이지'),
         openapi.Parameter('access-token', openapi.IN_HEADER, type=openapi.TYPE_STRING, description='회원이라면 토큰 넣고 비회원이면 넣지 않는다.')
-    ]
+    ],
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'bookList' : openapi.Schema('사용자가 선택한 태그', type=openapi.TYPE_ARRAY, items=openapi.Items(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                            'TITLE':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                            'SUBTITLE':openapi.Schema('책 부제', type=openapi.TYPE_STRING),
+                            'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                            'ISBN':openapi.Schema('책 ISBN코드', type=openapi.TYPE_STRING),
+                            'PUBLISHER':openapi.Schema('책 출판사', type=openapi.TYPE_STRING),
+                            'PRICE':openapi.Schema('책 가격', type=openapi.TYPE_STRING),
+                            'PAGE':openapi.Schema('책 페이지 수', type=openapi.TYPE_STRING),
+                            'BOOK_INDEX':openapi.Schema('책 목차', type=openapi.TYPE_STRING),
+                            'BOOK_INTRODUCTION':openapi.Schema('책 소개', type=openapi.TYPE_STRING),
+                            'Allah_BID' : openapi.Schema('책 알라딘 코드', type=openapi.TYPE_STRING),
+                            'PUBLISH_DATE' : openapi.Schema('책 출판일', type=openapi.TYPE_STRING),
+                            'thumbnail' : openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
+                            'thumbnailImage': openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
+                            }
+                        )),
+                        'isFavorite' : openapi.Schema('사용자가 선택한 태그', type=openapi.TYPE_BOOLEAN),
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
 )
 @api_view(['GET'])
 def book(request, slug): #책 정보 API
+    exceptDict = None
     try:
         bookData = Book.objects
     except Book.DoesNotExist:
-        return JsonResponse({'success':False, 'result': {}, 'errorMessage':"Book에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"}, status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"Book에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"}, status=status.HTTP_404_NOT_FOUND)
     if (request.method == 'GET'):
         if slug == "0": #dummy 책api
             quantity = 25 #기본 quntity 값은 25개
@@ -55,31 +89,7 @@ def book(request, slug): #책 정보 API
             serializer = BookPostSerializer(books, many=True)
             return JsonResponse({
                 'success':True,
-                'result' :
-                
-                    [
-                        {
-                            'tag' :'Python',
-                            'data' : serializer.data,         
-                        },
-                        {
-                            'tag' :'React',
-                            'data' : serializer.data, 
-                        },
-                        {
-                            'tag':'Linux',
-                            'data':serializer.data, 
-                        },
-                        {
-                            'tag':'Deep Learning',
-                            'data':serializer.data,        
-                        },
-                        {
-                            'tag':'Database', 
-                            'data' : serializer.data,
-                        }
-                    ],
-                
+                'result' :{'bookList':serializer.data},
                 'errorMessage':""
                 }, 
                 status=status.HTTP_200_OK)
@@ -87,15 +97,15 @@ def book(request, slug): #책 정보 API
             filtered_data = bookData.filter(BID = slug)
             is_favorite = False
             if len(filtered_data) == 0:
-                return JsonResponse({'success':False, 'result':{}, 'errorMessage':"입력한 BID와 일치하는 정보가 없습니다.", 'isFavorite':is_favorite}, status=status.HTTP_204_NO_CONTENT)
+                return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"입력한 BID와 일치하는 정보가 없습니다."}, status=status.HTTP_204_NO_CONTENT)
             else:
                 if request.headers.get('access_token',None) is not None:
                     userID = checkAuth_decodeToken(request)
                     print(userID)
                     if userID == 1:
-                        return JsonResponse({'success':False, 'result':{}, 'errorMessage':"잘못된 AT토큰입니다.",'isFavorite':is_favorite}, status = status.HTTP_401_UNAUTHORIZED)
+                        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
                     elif userID == 2:
-                        return JsonResponse({'success':False, 'result':{}, 'errorMessage':"만료된 토큰입니다.",'isFavorite':is_favorite}, status = status.HTTP_403_FORBIDDEN)
+                        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
                     else:        
                         queryData = FavoriteBook.objects.filter(UID = userID)
                         queryData = queryData.filter(BID = slug)
@@ -106,7 +116,7 @@ def book(request, slug): #책 정보 API
                 temp['tagName'] = findBooksTagName(slug)
                 return JsonResponse({'success':True, 'result' : {'bookList':serializer.data[0],'isFavorite':is_favorite}, 'errorMessage':""}, status = status.HTTP_200_OK)
     else:
-        return JsonResponse({'success':False,'result' : {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다.",'isFavorite':is_favorite}, status=status.HTTP_403_FORBIDDEN)
+        return JsonResponse({'success':False,'result' : exceptDict, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다."}, status=status.HTTP_403_FORBIDDEN)
 
 @api_view(['GET'])
 def bookSearch(request): #책 검색 API
@@ -124,9 +134,9 @@ def bookSearch(request): #책 검색 API
                 serializer = BookPostSerializer(searchData, many = True)
                 return JsonResponse({'success':True,'result' : serializer.data, 'errorMessage':""}, status=status.HTTP_200_OK)
             else :
-                return JsonResponse({'success':False,'result' : {}, 'errorMessage':"검색어가 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
+                return JsonResponse({'success':False,'result' : exceptDict, 'errorMessage':"검색어가 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return JsonResponse({'success':False,'result' : {}, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다." }, status=status.HTTP_403_FORBIDDEN)
+            return JsonResponse({'success':False,'result' : exceptDict, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다." }, status=status.HTTP_403_FORBIDDEN)
         
 def bookUpdate(request):
     json_bookData = dict()

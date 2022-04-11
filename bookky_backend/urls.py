@@ -23,7 +23,7 @@ from drf_yasg import openapi
 from rest_framework.permissions import AllowAny
 
 schema_url_patterns = [ 
-    path('v1/', include('bookky.urls')), 
+    path('v1/', include('bookky.urls.urls')), 
     ]
 schema_view = get_schema_view( 
     openapi.Info( 
@@ -41,7 +41,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('v1/', include('bookky.urls')),
+    path('v1/', include('bookky.urls.urls')),
     path('swagger/?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-v1'),

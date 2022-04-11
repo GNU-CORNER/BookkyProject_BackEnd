@@ -1,6 +1,6 @@
 from django.db.models import fields
 from rest_framework import serializers
-from .models import MarketCommunity, HotCommunity, QnACommunity, AnyCommunity
+from bookky.models import MarketCommunity, HotCommunity, QnACommunity, AnyCommunity
 
 class AnyCommunitySerializer(serializers.ModelSerializer):
     class Meta:
