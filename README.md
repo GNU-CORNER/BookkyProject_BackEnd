@@ -9,9 +9,9 @@ BackEnd for BookkyProject
 
 ```json
 {
-		"success" : Boolean,
-		"result" : {},
-		"errorMessage" : String
+	"success" : Boolean,
+	"result" : {},
+	"errorMessage" : String
 }
 ```
 
@@ -19,197 +19,350 @@ BackEnd for BookkyProject
 
 ```json
 {
-		"access-token" : String,
-		"refresh-token" : String
-}
-```
-
-# USER-API
-
-### 회원가입 [’POST’]
-
-- URL = "/v1/user/signup"
-
-```json
-{//body
-	"email" : String,  //사용자 이메일
-	"nickname" : String, //사용자 닉네임
-	"pwToken" : String	//사용자 비밀번호 (서버에서 알아서 인코딩 되니깐 RAW데이터로 보내도 됨)
-}
-```
-
-```json
-{
-		"success": Boolean,
-		"result" : {
-		    "email" : String,
-				"nickname" : String,
-				"pushToken" : String,
-				"pushNoti" : Boolean,
-				"thumbnail" : String
-		},
-		"errorMessage": String,
-		"access_token" : String,
-		"refresh_token" : String
-}
-```
-
-### 로그인 [’POST’]
-
-- URL = “/v1/user/signin"
-
-```json
-{//body
-			"email" : String,  //사용자 이메일
-			"pwToken" : String	//사용자 비밀번호 (서버에서 알아서 인코딩 되니깐 RAW데이터로 보내도 됨)
-}
-```
-
-```json
-{
-  	"success": Boolean,
-		"result" : {
-				"email" : String,
-				"nickname" : String,
-				"pushToken" : String,
-				"pushNoti" : Boolean,
-        "thumbnail" : String
-		},
-		"errorMessage": String,
-		"access_token" : String,
-		"refresh_token" : String
-}
-```
-
-### 로그아웃[’POST’]
-
-- URL =  “/v1/user/signout"
-
-```json
-{//headers
-			"access-token" : String,  //접근 토큰
-			"refresh-token" : String	//갱신 토큰
-}
-```
-
-```json
-{
-    "success": Boolean,
-    "result": {},
-    "errorMessage": String
-}
-```
-
-### 회원정보 수정[’PUT’]
-
-- URL = “/v1/user"
-
-```json
-{//headers
-			"access-token" : String
-}
-{//body "원하는 값만 넣어서 업데이트 가능"
-			//Optional
-	  "nickname": String, 
-			//Optional
-	  "thumbnail": String, 
-			//Optional
-	  "pushNoti": Boolean,
-			//Optional
-	  "pushToken": String
-}
-```
-
-```json
-{
-    "success": Boolean,
-    "result": {
-        "email": String,
-        "nickname": String,
-        "pushToken": String,
-        "pushNoti": Boolean,
-        "thumbnail": String
-    },
-    "errorMessage": String
-}
-```
-
-### 회원탈퇴[’DELETE’]
-
-- URL = “/v1/user"
-
-```json
-{//headers 
-			"access-token" : String
-}
-```
-
-```json
-{
-    "success": Boolean,
-    "result": {},
-    "errorMessage": String
-}
-```
-
-### 이메일 인증 코드 전송[’POST’]
-
-- URL = “/v1/user/email”
-- 인증코드 만료시간 3분임
-
-```json
-{
-    "email": String //중복처리까지 같이 함
-}
-```
-
-```json
-{
-    "success": Boolean, //False 이면 중복
-    "result": {
-        "email": String
-    },
-    "errorMessage": String
-}
-```
-
-### 이메일 인증 코드 확인 [’POST’]
-
-- URL = “/v1/user/check”
-
-```json
-{
-    "email": String,
-    "code": Integer
-}
-```
-
-```json
-{
-    "success": Boolean,
-    "result": {},
-    "errorMessage": String
-}
-```
-
-# Authorization-API
-
-### Access-Token 갱신[’POST’]
-
-- URL = “/v1/auth/refresh”
-
-```json
-{//header
 	"access-token" : String,
 	"refresh-token" : String
 }
 ```
 
+### 토큰 갱신 (POST)
+- URL = /auth/refresh
+- Require = HEADER(access-token, refresh-token)
+
+- RESPONSE
 ```json
 {
-    "success": Boolean,
-    "result": {},
-    "errorMessage": String,
-    "access_token": String
+  "success": BOOLEAN,
+  "result": {
+    "access_token": STRING
+  },
+  "errorMessage": STRING
+}
+```
+
+### 책 디테일 (GET)
+- URL = /books/{slug}
+- Require = QUERY(SLUG)
+- Description = slug = 0은 TAG구분없이 보냄, slug != 0은 해당 slug의 BID값에 맞는 책을 넘겨줌
+
+- RESPONSE
+```json
+{
+  "success": BOOLEAN,
+  "result": {
+    "bookList": [
+      {
+        "TITLE": STRING,
+        "SUBTITLE": STRING,
+        "AUTHOR": STRING,
+        "ISBN": STRING,
+        "PUBLISHER": STRING,
+        "PRICE": STRING,
+        "PAGE": STRING,
+        "BOOK_INDEX": STRING,
+        "BOOK_INTRODUCTION": STRING,
+        "Allah_BID": STRING,
+        "PUBLISH_DATE": STRING,
+        "thumbnail": STRING,
+        "thumbnailImage": STRING
+      }
+    ],
+    "isFavorite": BOOLEAN
+  },
+  "errorMessage": STRING
+}
+```
+
+### 홈 데이터 (GET)
+- URL = /home
+- Optional = HEADER(access-token)
+- 회원일때 access-token 포함
+
+- RESPONSE
+```json
+{
+  "success": BOOLEAN,
+  "result": {
+    "bookList": [
+      {
+        "tag": STRING,
+        "data": [
+          {
+            "BID": INTEGER,
+            "TITLE": STRING,
+            "AUTHOR": STRING,
+            "thumbnailImage": STRING
+          }
+        ]
+      }
+    ],
+    "communityList": [
+      {}
+    ],
+    "userData": {
+      "UID": INTEGER,
+      "tag_array": [
+        STRING
+      ],
+      "nickname": STRING,
+      "thumbnail": STRING
+    }
+  },
+  "errorMessage": STRING
+}
+```
+
+### 태그 데이터 (GET)
+- URL = /tags
+```json
+
+- RESPONSE
+{
+  "success": BOOLEAN,
+  "result": {
+    "tag": [
+      {
+        "TID": INTEGER,
+        "nameTag": STRING
+      }
+    ]
+  },
+  "errorMessage": STRING
+}
+```
+
+### 유저 수정 (PUT)
+- URL = /user
+- Require = HEADER(access-token)
+
+- BODY
+```json
+{
+  "email": STRING
+}
+```
+
+- RESPONSE
+```json
+{
+  "success": BOOLEAN,
+  "result": {
+    "userData": {
+      "email": STRING
+    }
+  },
+  "errorMessage": STRING
+}
+```
+
+### 유저 탈퇴 (DELETE)
+- URL = /user
+- Require = HEADER(access-token)
+
+- RESPONSE
+```json
+{
+  "success": BOOLEAN,
+  "result": {},
+  "errorMessage": STRING
+}
+```
+
+### 인증코드 확인 (POST)
+- URL = /user/check
+- BODY
+```json
+{
+  "email": STRING,
+  "code": INTEGER
+}
+```
+
+- RESPONSE
+```json
+{
+  "success": BOOLEAN,
+  "result": {},
+  "errorMessage": STRING
+}
+```
+
+### 인증코드 발송 (GET)
+- URL = /user/email
+- 보내고 나서 3분 유효기간 시작, 호출 즉시 시작됨
+- Require = QUERY(email)
+
+
+- RESPONSE
+```json
+{
+  "success": BOOLEAN,
+  "result": {
+    "email": STRING
+  },
+  "errorMessage": STRING
+}
+```
+
+### 관심도서 등록 (POST)
+- URL = /user/favoritebook
+- Require = Header(access-token)
+
+- BODY
+```json
+{
+  "BID": INTEGER
+}
+```
+
+- Response
+```json
+{
+  "success": BOOLEAN,
+  "result": {
+    "favoriteItem": {
+      "BID": INTEGER,
+      "UID": INTEGER
+    }
+  },
+  "errorMessage": STRING
+}
+```
+
+### 관심도서 삭제 (DELETE)
+- URL = /user/favoritebook
+- Require = Header(access-token)
+
+- BODY
+```json
+{
+  "BID": INTEGER
+}
+```
+
+- Response
+```json
+{
+  "success": BOOLEAN,
+  "result": {},
+  "errorMessage": STRING
+}
+```
+
+### 닉네임 중복 확인 (GET)
+- URL = /user/nickname
+- Require = QUERY(nickname)
+
+- Response
+```json
+{
+  "success": BOOLEAN,
+  "result": {
+    "nickname": STRING
+  },
+  "errorMessage": STRING
+}
+```
+
+### 로그인 (POST)
+- URL = /user/signin
+
+- BODY
+```json
+{
+  "email": STRING,
+  "pwToken": STRING,
+  "loginMethod": INTEGER
+}
+```
+
+- RESPONSE
+```json
+{
+  "success": BOOLEAN,
+  "result": {
+    "userData": {
+      "email": STRING,
+      "nickname": STRING,
+      "pushToken": STRING,
+      "pushNoti": BOOLEAN,
+      "thumbnail": STRING,
+      "loginMethod": INTEGER
+    },
+    "access_token": STRING,
+    "refresh_token": STRING
+  },
+  "errorMessage": STRING
+}
+```
+
+### 회원가입 (POST)
+- URL = /user/signup
+
+- BODY
+```json
+{
+  "email": STRING,
+  "nickname": STRING,
+  "pwToken": STRING,
+  "loginMethod": INTEGER
+}
+```
+
+- RESPONSE
+```json
+{
+  "success": BOOLEAN,
+  "result": {
+    "userData": {
+      "email": STRING,
+      "nickname": STRING,
+      "pushToken": STRING,
+      "pushNoti": BOOLEAN,
+      "thumbnail": STRING,
+      "loginMethod": INTEGER
+    },
+    "access_token": STRING,
+    "refresh_token": STRING
+  },
+  "errorMessage": STRING
+}
+```
+
+### 로그아웃(POST)
+- URL = /user/signout
+- Require = HEADER(access-token, refresh-token)
+
+- RESPONSE
+```json
+{
+  "success": BOOLEAN,
+  "result": {},
+  "errorMessage": STRING
+}
+```
+
+### 사용자 관심분야 (PUT)
+- URL = /user/tag
+- Require = Header(access-token)
+
+- BODY
+```json
+{
+  "tag": [
+    INTEGER
+  ]
+}
+```
+
+- RESPONSE
+```json
+{
+  "success": BOOLEAN,
+  "result": {
+    "tag": [
+      STRING
+    ]
+  },
+  "errorMessage": STRING
 }
 ```
