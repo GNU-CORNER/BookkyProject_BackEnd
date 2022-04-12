@@ -79,11 +79,9 @@ def user(request):
 ```
     """
     if request.headers.get('access_token') is None:
-        print(request.headers)
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
     else:
         userID = checkAuth_decodeToken(request)
-        print(userID)
         if userID == 1:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
         elif userID == 2:

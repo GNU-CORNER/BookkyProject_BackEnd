@@ -214,7 +214,6 @@ def getHomeData(request):
             return JsonResponse({'success':False, 'result':{}, 'errorMessage':"DB와 연결 끊김"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
         userStack = [1,19, 29]
         if request.headers.get('access_token', None) is not None: #회원일 때
-            print(request.headers.get('access_token',None))
             if len(request.headers.get('access_token', None)) != 0:
                 flag = checkAuth_decodeToken(request)
                 if flag == 1:
@@ -286,31 +285,31 @@ def updateBoundary(request):
         flag = checkAuth_decodeToken(request)
         errorFlag = False
         if flag == 0:
-            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST, safe=False)
         elif flag == 1:
-            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN, safe=False)
         elif flag == 2:
-            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN, safe=False)
         else:
-            if data['tags'] is not None and len(data['tags']) != 0:
+            if data['tag'] is not None and len(data['tag']) != 0:
                 tagQuery = Tag.objects
-                for i in data['tags']:
+                for i in data['tag']:
                     if tagQuery.get(TID = int(i)) is None:
                         errorFlag = True
                         break
                 if errorFlag:
-                    return JsonResponse({'success':False, 'result':exceptDict,'errorMessage':"존재하지 않는 태그 값"}, status = status.HTTP_400_BAD_REQUEST)
+                    return JsonResponse({'success':False, 'result':exceptDict,'errorMessage':"존재하지 않는 태그 값"}, status = status.HTTP_400_BAD_REQUEST, safe=False)
                 userData = User.objects.get(UID=int(flag))
-                userData.tag_array = data['tags']
+                userData.tag_array = data['tag']
                 userData.save()
                 tempTag = []
                 for i in userData.tag_array:
                     temp = tagQuery.get(TID=i)
                     tempTag.append(temp.nameTag)
 
-                return JsonResponse({'success':True, 'result':{'tag':tempTag}, 'errorMessage':""},status = status.HTTP_200_OK)
+                return JsonResponse({'success':True, 'result':{'tag':tempTag}, 'errorMessage':""},status = status.HTTP_200_OK, safe=False)
             else:
-                return JsonResponse({'success':False, 'result':exceptDict,'errorMessage':"Body에 태그 값이 없습니다"}, status = status.HTTP_400_BAD_REQUEST)
+                return JsonResponse({'success':False, 'result':exceptDict,'errorMessage':"Body에 태그 값이 없습니다"}, status = status.HTTP_400_BAD_REQUEST, safe=False)
 
 
 @swagger_auto_schema(

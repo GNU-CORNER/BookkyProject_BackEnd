@@ -26,16 +26,15 @@ SECRET_KEY = dbsetting.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['203.255.3.144', '*']
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = ['http://0.0.0.0:0']
+CORS_ORIGIN_WHITELIST = ['http://0.0.0.0', 'http://localhost:3000']
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = (
     'DELETE',
     'GET',
-    'OPTIONS',
-    'PATCH',
     'POST',
+    'OPTION',
     'PUT',
 )
 # Application definition
@@ -49,7 +48,8 @@ CORS_ALLOW_HEADERS = (
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
-    'access-token'
+    'access-token',
+    'refresh-token',
 )
 INSTALLED_APPS = [
     'django.contrib.admin',
