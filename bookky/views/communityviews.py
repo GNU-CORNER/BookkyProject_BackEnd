@@ -38,6 +38,7 @@ import time
                         'postList' : openapi.Schema('포스트 목록', type=openapi.TYPE_ARRAY, items=openapi.Items(
                             type=openapi.TYPE_OBJECT,
                             properties={
+                            'PID':openapi.Schema('포스트 번호', type=openapi.TYPE_INTEGER),
                             'contents':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
                             'postImage':openapi.Schema('책 ISBN코드', type=openapi.TYPE_STRING),
                             }
@@ -52,7 +53,7 @@ import time
 
 
 @api_view(['GET'])
-def getAnyCommunity(request,slug):
+def getCommunityPostList(request,slug):
     exceptDict = None
     if request.method == 'GET':
         try:
@@ -80,7 +81,7 @@ def getAnyCommunity(request,slug):
                 startpagination = startpagination - len(Posts)
             if endpagination > len(Posts):
                 endpagination = len(Posts) - 1
-        Posts = Posts[startpagination : endpagination]   
+        Posts = Posts[len(Posts) - startpagination : len(Posts) - endpagination : -1]
         if slug == "0":
             serializer = AnyCommunitySerializer(Posts, many=True)
         elif slug == "1":
