@@ -5,17 +5,17 @@ from bookky.models import MarketCommunity, HotCommunity, QnACommunity, AnyCommun
 class AnyCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = AnyCommunity
-        fields = ['BID', 'UID', 'contents', 'postImage']
+        fields = ['BID', 'UID', 'title', 'contents', 'postImage']
 
 class MarketCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketCommunity
-        fields = ['BID', 'UID', 'contents', 'postImage']
+        fields = ['BID', 'UID', 'title', 'contents', 'postImage']
         
 class QnACommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = QnACommunity
-        fields = ['BID', 'UID', 'contents', 'postImage']
+        fields = ['BID', 'UID', 'title', 'contents', 'postImage']
 
 class HotCommunitySerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,7 +32,6 @@ class AnyCommunity(models.Model):                                               
     createAt                = models.DateField(auto_now=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(null=True)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    commentCounts           = models.IntegerField(null=False, default = 0)                                                  #댓글수
     like                    = ArrayField(models.IntegerField(null=True), size = 10000000)                                   #좋아요, 숫자는 최대
 
     def __str__(self):
@@ -48,7 +47,6 @@ class MarketCommunity(models.Model):                                            
     createAt                = models.DateField(auto_now=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(null=True)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    commentCounts           = models.IntegerField(null=False, default = 0)                                                  #댓글수
     like                    = ArrayField(models.IntegerField(null=True), size = 10000000)                                   #좋아요, 숫자는 최대
 
     def __str__(self):
@@ -64,7 +62,6 @@ class QnACommunity(models.Model):                                               
     createAt                = models.DateField(auto_now=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(null=True)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    commentCounts           = models.IntegerField(null=False, default = 0)                                                  #댓글수
     like                    = ArrayField(models.IntegerField(null=True), size = 10000000)                                   #좋아요, 숫자는 최대
 
     def __str__(self):
