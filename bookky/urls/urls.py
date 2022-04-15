@@ -1,5 +1,5 @@
 from django.urls import path
-from bookky.views import views, userviews, bookviews, socialview, userfunctionviews
+from bookky.views import views, userviews, bookviews, socialview, userfunctionviews, communityviews
 from rest_framework import permissions
 
 #url(r'^pnsApp/(?P<slug>[-a-zA-Z0-9_]+)$', views.pns_detail),
@@ -21,4 +21,5 @@ urlpatterns = [ #POST형식으로 바꿔야함
     path('test5', views.read_insert),
     path('test6', views.testAuthorization),
     path('test8', bookviews.bookUpdate),
+    path('community/<slug:slug>', communityviews.getCommunityPostList), #GET
 ]

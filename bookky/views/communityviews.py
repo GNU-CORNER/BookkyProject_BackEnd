@@ -39,8 +39,15 @@ import time
                             type=openapi.TYPE_OBJECT,
                             properties={
                             'PID':openapi.Schema('포스트 번호', type=openapi.TYPE_INTEGER),
-                            'contents':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
-                            'postImage':openapi.Schema('책 ISBN코드', type=openapi.TYPE_STRING),
+                            'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
+                            'postImage':openapi.Schema('게시글 이미지', type=openapi.TYPE_STRING)
+                            }
+                        )),
+                         'userData' : openapi.Schema('작성자 목록', type=openapi.TYPE_ARRAY, items=openapi.Items(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                                'nickname':openapi.Schema('사용자 닉네임',type=openapi.TYPE_STRING),
+                                'thumbnail':openapi.Schema('사용자 프로필 사진', type=openapi.TYPE_STRING)
                             }
                         ))
                     }
@@ -57,16 +64,17 @@ def getCommunityPostList(request,slug):
     exceptDict = None
     if request.method == 'GET':
         try:
-            if slug == "0":
-                CommunityQuery = AnyCommunity.objects
+            if slug == "0":        # 쿼리에서 createdAt 으로 정렬 후 ? updateAt은? updateAt으로 해야겟네
+                CommunityQuery = AnyCommunity.objects.order_by('createAt')
             elif slug == "1":
-                CommunityQuery = MarketCommunity.objects
+                CommunityQuery = MarketCommunity.objects.order_by('createAt')
             elif slug == "2":
-                CommunityQuery = QnACommunity.objects
+                CommunityQuery = QnACommunity.objects.order_by('createAt')
             else:
                 return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"잘못된 slug 입니다."}, status=status.HTTP_404_NOT_FOUND)
         except Book.DoesNotExist:
-            return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"AnyCommunity에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"}, status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"해당 Community에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"}, status=status.HTTP_404_NOT_FOUND)
+
 
         quantity = 20 #기본 quntity 값은 20개
         startpagination = 0 #기본 startpagination 값은 0
@@ -77,11 +85,21 @@ def getCommunityPostList(request,slug):
         if request.GET.get('page') is not None: #URL에 'page' Query가 들어있으면 값 입력
             startpagination = (int(request.GET.get('page')) - 1) * quantity
             endpagination = int(request.GET.get('page')) * quantity
-            if startpagination > len(Posts):
-                startpagination = startpagination - len(Posts)
-            if endpagination > len(Posts):
-                endpagination = len(Posts) - 1
-        Posts = Posts[len(Posts) - startpagination : len(Posts) - endpagination : -1]
+        if startpagination > len(Posts):
+            startpagination = startpagination - len(Posts)
+        if endpagination > len(Posts):
+            endpagination = len(Posts)
+        Posts = Posts[startpagination : endpagination]
+
+        tempuserData = dict()
+        userData = []
+
+        for i in range(len(Posts)):
+            tempuserData = dict()
+            tempuserData['nickname']=Posts[i].UID.nickname
+            tempuserData['thumbnail']=Posts[i].UID.thumbnail
+            userData.append(tempuserData)
+
         if slug == "0":
             serializer = AnyCommunitySerializer(Posts, many=True)
         elif slug == "1":
@@ -89,9 +107,11 @@ def getCommunityPostList(request,slug):
         elif slug == "2":
             serializer = QnACommunitySerializer(Posts, many=True)
         
+        
+
         return JsonResponse({
             'success':True,
-            'result' :{'postList':serializer.data},
+            'result' :{'postList':serializer.data, 'userData':userData},
             'errorMessage':""
             }, 
             status=status.HTTP_200_OK)
