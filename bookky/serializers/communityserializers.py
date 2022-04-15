@@ -1,26 +1,36 @@
 from django.db.models import fields
 from rest_framework import serializers
-from bookky.models import MarketCommunity, HotCommunity, QnACommunity, AnyCommunity
+from bookky.models import MarketCommunity, HotCommunity, QnACommunity, AnyCommunity, AnyComment, MarketComment, QnAComment
 
 class AnyCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = AnyCommunity
-        fields = ['BID', 'UID', 'title', 'contents', 'postImage', 'updateAt']
+        fields = ['APID', 'title', 'contents']
+
+class AnyCommunityDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnyCommunity
+        fields = ['title', 'contents', 'postImage', 'updateAt', 'views']
+
+class AnyCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnyComment
+        fields = ['ACID', 'parentID', 'comment', 'updateAt', 'like']
 
 class MarketCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketCommunity
-        fields = ['BID', 'UID', 'title', 'contents', 'postImage', 'updateAt']
+        fields = ['MPID', 'BID', 'UID', 'title', 'contents', 'postImage', 'updateAt']
         
 class QnACommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = QnACommunity
-        fields = ['BID', 'UID', 'title', 'contents', 'postImage', 'updateAt']
+        fields = ['QPID', 'BID', 'UID', 'title', 'contents', 'postImage', 'updateAt']
 
 class HotCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = HotCommunity
-        fields = ['ACID', 'MCID', 'QCID']
+        fields = ['HPID', 'ACID', 'MCID', 'QCID']
 
 '''
 class AnyCommunity(models.Model):                                                                                           #자유게시판
