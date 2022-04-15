@@ -5,17 +5,17 @@ from bookky.models import MarketCommunity, HotCommunity, QnACommunity, AnyCommun
 class AnyCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = AnyCommunity
-        fields = ['BID', 'UID', 'title', 'contents', 'postImage']
+        fields = ['BID', 'UID', 'title', 'contents', 'postImage', 'updateAt']
 
 class MarketCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketCommunity
-        fields = ['BID', 'UID', 'title', 'contents', 'postImage']
+        fields = ['BID', 'UID', 'title', 'contents', 'postImage', 'updateAt']
         
 class QnACommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = QnACommunity
-        fields = ['BID', 'UID', 'title', 'contents', 'postImage']
+        fields = ['BID', 'UID', 'title', 'contents', 'postImage', 'updateAt']
 
 class HotCommunitySerializer(serializers.ModelSerializer):
     class Meta:
