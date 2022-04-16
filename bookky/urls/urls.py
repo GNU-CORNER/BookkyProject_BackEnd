@@ -21,8 +21,8 @@ urlpatterns = [ #POST형식으로 바꿔야함
     path('test5', views.read_insert),
     path('test6', views.testAuthorization),
     path('test8', bookviews.bookUpdate),
-    path('community/<slug:slug>', communityviews.getCommunityPostList), #GET
-    path('community/<slug:slug1>/<slug:slug2>', communityviews.getCommunityPostdetail), #GET
-    # path('community/write/<slug:slug>', communityviews.writeCommunityPost), #POST
+    path('community/postlist/<slug:slug>', communityviews.getCommunityPostList), #GET
+    path('community/postdetail/<slug:slug1>/<slug:slug2>', communityviews.getCommunityPostdetail), #GET
+    path('community/write/<slug:slug>', communityviews.writeCommunityPost), #POST
     
 ]

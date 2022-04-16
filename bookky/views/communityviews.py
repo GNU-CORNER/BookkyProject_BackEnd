@@ -5,10 +5,11 @@ from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from drf_yasg.utils       import swagger_auto_schema
 from drf_yasg import openapi
+from time import sleep
 
 from bookky.auth.auth import checkAuth_decodeToken
 from bookky_backend import settings
-from bookky.models import User, Book, AnyComment, AnyCommunity, QnACommunity, QnAComment, MarketComment, MarketCommunity, HotCommunity
+from bookky.models import User, Book, AnyComment, AnyCommunity, QnACommunity, QnAComment, MarketComment, MarketCommunity, HotCommunity, RefreshTokenStorage, Tag
 from bookky.serializers.communityserializers import *
 from bookky.auth.auth import authValidation
 from django.db.models import Q
@@ -177,56 +178,84 @@ def getCommunityPostdetail(request,slug1,slug2):
         return JsonResponse({'success':False,'result' : exceptDict, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다."}, status=status.HTTP_403_FORBIDDEN)
 
 
-# @api_view(['POST'])
-# def writeCommunityPost(request,slug):
-#     # AT가 들어오면 누군지 내가 알아내야함
-    
-#     try:
-#         data = JSONParser().parse(request)
-#         flag = checkAuth_decodeToken(request)
-#     except User.DoesNotExist: #User 데이터베이스가 존재하지 않을 때, 혹은 DB와의 연결이 끊겼을 때 출력
-#         return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"User에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"},status=status.HTTP_404_NOT_FOUND)
+@swagger_auto_schema(
+    method='post',  
+    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
+       request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={'title': openapi.Schema('글 제목', type=openapi.TYPE_STRING),
+                    'contents': openapi.Schema('글 내용', type=openapi.TYPE_STRING),        
+                    'BID': openapi.Schema('책 BID', type=openapi.TYPE_INTEGER),
+        },
+        required=['title','contents']
+    ),  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema('갱', type=openapi.TYPE_STRING  ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
+            }
+        )
+    }
+)
 
-#     exceptDict = None
 
-#     if flag == 0:
-#         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-#     elif flag == 1:
-#         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
-#     elif flag == 2:
-#         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
-    
-    # userData = User.objects
-    # if data['nickname'] is not None:
-    #     if len(userData.filter(nickname = data['nickname'])) != 0: # 이게 근데 그 nickname 같은 사람인지 어떻게 아노?
-    #         users = userData.get(email=data['nickname'])
-    #         if data['loginMethod'] is not None:
-    #             if(checkToken(data['pwToken'], users)): #로그인 성공
-    #                 filteredData = userData.filter(email=data['email'])
-    #                 serializer = UserRegisterSerializer(filteredData, many=True)
-    #                 accessToken = get_access(users.UID)
-    #                 refreshToken = get_refreshToken(users.UID)
-    #                 if refreshToken :
-    #                     tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
-    #                     refreshToken = tempData[0].refresh_token
-    #                     temp = serializer.data[0]
-    #                     del temp['pwToken']
-    #                     if temp['tag_array'] is not None:
-    #                         tempTag = []
-    #                         tagQuery = Tag.objects
-    #                         for i in temp['tag_array']:
-    #                             temps = tagQuery.get(TID = i)                                
-    #                             tempTag.append(temps.nameTag)
-    #                         temp['tag_array'] = tempTag
-    #                     return JsonResponse({"success" : True, "result": {'userData':temp, 'access_token':str(accessToken), 'refresh_token' : str(refreshToken)}, 'errorMessage':""}, status=status.HTTP_200_OK)
-    #                 elif refreshToken == 500:
-    #                     return JsonResponse({'success':False, "result": exceptDict, 'errorMessage':"serverError"}, status=status.HTTP_404_NOT_FOUND)
-    #             else: #로그인 비밀번호 틀림
-    #                 return JsonResponse({"success" : False, "result": exceptDict, 'errorMessage':"비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)
-    #         else:
-    #             return JsonResponse({'success':False, 'result':exceptDict,'errorMessage':"LoginMethod가 없습니다.."},status=status.HTTP_400_BAD_REQUEST)
-    #     else: #해당 이메일 정보 없음
-    #         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"해당하는 유저가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-    #         #Github 로그인
-    # else:
-    #     return JsonResponse({'success' : False, "result": exceptDict,'errorMessage':"email정보가 없음"}, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+def writeCommunityPost(request,slug):
+    exceptDict = None   
+    if request.headers.get('access_token') is None:
+        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        userID = checkAuth_decodeToken(request)
+        if userID == 1:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        elif userID == 2:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        else:                
+            #회원정보 수정(닉네임, 썸네일)
+            
+            if (request.method == 'POST'):
+                data = JSONParser().parse(request)
+                # userID = UID
+                userData = User.objects.filter(UID = userID)
+                
+                if len(userData) != 0:
+                    userNickname = userData[0].nickname
+                    data['UID']=userData[0].UID
+                    data['createAt']=str(datetime.datetime.utcnow())
+                    data['views']=0
+                    templike = [0]
+                    data['like']=templike
+                    # 왜 빈 리스트는 못넣을까?? 도저히 모르겠따
+                    
+                    postSerializer = AnyCommunityDetailSerializer(data = data)
+
+                    print(postSerializer)
+
+                    if postSerializer.is_valid():
+                        postSerializer.save()
+                        return JsonResponse({
+                        'success':True,
+                        'result' :{},
+                        'errorMessage':"저장댐"
+                        })
+                    else:
+                        return JsonResponse({
+                        'success':False,
+                        'result' :{},
+                        'errorMessage':postSerializer.errors
+                        })
+                else:
+                    return JsonResponse({
+                        'success':False,
+                        'result' :{},
+                        'errorMessage':"유저 없음"
+                        })
+            else:
+                return JsonResponse({
+                        'success':False,
+                        'result' :{},
+                        'errorMessage':"Post가 아님"
+                        })
