@@ -163,6 +163,9 @@ def getCommunityPostdetail(request,slug1,slug2):
 
         for i in range(len(commentData)):
             tempcommentData = dict()
+            if slug1 == "0":
+                tempcommentData['CID']=commentData[i].ACID
+            tempcommentData['parentID']=commentData[i].parentID
             tempcommentData['nickname']=commentData[i].UID.nickname
             tempcommentData['thumbnail']=commentData[i].UID.thumbnail
             commentuserData.append(tempcommentData)
@@ -194,7 +197,7 @@ def getCommunityPostdetail(request,slug1,slug2):
             type=openapi.TYPE_OBJECT,
             properties={
                 'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
-                'result': openapi.Schema('갱', type=openapi.TYPE_STRING  ),
+                'result': openapi.Schema('', type=openapi.TYPE_STRING  ),
                 'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
             }
         )
@@ -213,9 +216,7 @@ def writeCommunityPost(request,slug):
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
         elif userID == 2:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
-        else:                
-            #회원정보 수정(닉네임, 썸네일)
-            
+        else:                            
             if (request.method == 'POST'):
                 data = JSONParser().parse(request)
                 # userID = UID
@@ -226,13 +227,9 @@ def writeCommunityPost(request,slug):
                     data['UID']=userData[0].UID
                     data['createAt']=str(datetime.datetime.utcnow())
                     data['views']=0
-                    templike = [0]
-                    data['like']=templike
-                    # 왜 빈 리스트는 못넣을까?? 도저히 모르겠따
-                    
-                    postSerializer = AnyCommunityDetailSerializer(data = data)
+                    if slug == "0":
+                        postSerializer = AnyCommunityDetailSerializer(data = data)
 
-                    print(postSerializer)
 
                     if postSerializer.is_valid():
                         postSerializer.save()
@@ -259,3 +256,196 @@ def writeCommunityPost(request,slug):
                         'result' :{},
                         'errorMessage':"Post가 아님"
                         })
+
+
+@swagger_auto_schema(
+    method='post',  
+    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
+       request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={'comment': openapi.Schema('댓글 내용', type=openapi.TYPE_STRING),
+                    'parentID': openapi.Schema('대댓글 ID', type=openapi.TYPE_INTEGER),
+                    'PID': openapi.Schema('POST ID', type=openapi.TYPE_INTEGER),
+        },
+        required=['contents','parentID','PID']
+    ),  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema('', type=openapi.TYPE_STRING  ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
+            }
+        )
+    }
+)
+
+
+@api_view(['POST'])
+def writeCommunityComment(request,slug):
+    exceptDict = None   
+    if request.headers.get('access_token') is None:
+        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        userID = checkAuth_decodeToken(request)
+        if userID == 1:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        elif userID == 2:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        else:                
+            
+            if (request.method == 'POST'):
+                data = JSONParser().parse(request)
+                postData=[]
+                if slug == "0":
+                    postData = AnyCommunity.objects.filter(APID = data['PID'])
+    
+                userData = User.objects.filter(UID = userID)
+                if len(postData) != 0 and len(userData) !=0:
+                    userNickname = userData[0].nickname
+                    data['UID']=userData[0].UID
+                    data['createAt']=str(datetime.datetime.utcnow())
+                    del data['PID']
+                    if slug == "0":
+                        data['APID']=postData[0].APID
+                        print(data)
+                        postSerializer = AnyCommentSerializer(data = data)
+
+
+                    if postSerializer.is_valid():
+                        postSerializer.save()
+                        return JsonResponse({
+                        'success':True,
+                        'result' :{},
+                        'errorMessage':"저장댐"
+                        })
+                    else:
+                        return JsonResponse({
+                        'success':False,
+                        'result' :{},
+                        'errorMessage':postSerializer.errors
+                        })
+                else:
+                    return JsonResponse({
+                        'success':False,
+                        'result' :{},
+                        'errorMessage':"유저 없음"
+                        })
+            else:
+                return JsonResponse({
+                        'success':False,
+                        'result' :{},
+                        'errorMessage':"Post가 아님"
+                        })
+
+
+@swagger_auto_schema(
+    method='delete',  
+    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
+       request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={'PID': openapi.Schema('POST ID', type=openapi.TYPE_INTEGER),
+        },
+        required=['PID']
+    ),  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema('', type=openapi.TYPE_STRING  ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
+            }
+        )
+    }
+)
+
+
+@api_view(['DELETE'])
+def delteCommunityPost(request,slug):
+    exceptDict = None   
+    if request.headers.get('access_token') is None:
+        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        userID = checkAuth_decodeToken(request)
+        if userID == 1:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        elif userID == 2:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        else:               
+            if (request.method == 'DELETE'):
+                data = JSONParser().parse(request)
+                if slug == "0":
+                    postData = AnyCommunity.objects.filter(APID = data['PID'])
+                elif slug == "1":
+                    postData = MarketCommunity.objects.filter(MPID = data['PID'])
+                elif slug == "2":
+                    postData = QnACommunity.objects.filter(QPID = data['PID'])
+                else:
+                    return JsonResponse({'success':False,'result': exceptDict, 'errorMessage':"잘못된 slug"}, safe=False, status=status.HTTP_403_FORBIDDEN)
+
+                if len(postData) == 0 :
+                    return JsonResponse({'success':False,'result': exceptDict, 'errorMessage':"해당 포스트의 정보 없음"}, safe=False, status=status.HTTP_204_NO_CONTENT)
+                else:
+                    if postData[0].UID.UID == userID:
+                        postData.delete()
+                        return JsonResponse({'success':True, 'result':"성공", 'errorMessage':""},status=status.HTTP_200_OK)
+                    else:
+                        return JsonResponse({'success':False,'result': exceptDict, 'errorMessage':"해당 유저의 글이 아닙니다."}, safe=False, status=status.HTTP_403_FORBIDDEN)
+
+
+
+@swagger_auto_schema(
+    method='delete',  
+    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
+       request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={'CID': openapi.Schema('Comment ID', type=openapi.TYPE_INTEGER),
+        },
+        required=['CID']
+    ),  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema('', type=openapi.TYPE_STRING  ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
+            }
+        )
+    }
+)
+
+@api_view(['DELETE'])
+def delteCommunityComment(request,slug):
+    exceptDict = None   
+    if request.headers.get('access_token') is None:
+        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        userID = checkAuth_decodeToken(request)
+        if userID == 1:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        elif userID == 2:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        else:               
+            if (request.method == 'DELETE'):
+                data = JSONParser().parse(request)
+                if slug == "0":
+                    commentData = AnyComment.objects.filter(ACID = data['CID'])
+                elif slug == "1":
+                    commentData = MarketComment.objects.filter(MCID = data['CID'])
+                elif slug == "2":
+                    commentData = QnACComment.objects.filter(QCID = data['CID'])
+                else:
+                    return JsonResponse({'success':False,'result': exceptDict, 'errorMessage':"잘못된 slug"}, safe=False, status=status.HTTP_403_FORBIDDEN)
+
+                if len(commentData) == 0 :
+                    return JsonResponse({'success':False,'result': exceptDict, 'errorMessage':"해당 포스트의 정보 없음"}, safe=False, status=status.HTTP_204_NO_CONTENT)
+                else:
+                    if commentData[0].UID.UID == userID:
+                        commentData.delete()
+                        return JsonResponse({'success':True, 'result':"성공", 'errorMessage':""},status=status.HTTP_200_OK)
+                    else:
+                        return JsonResponse({'success':False,'result': exceptDict, 'errorMessage':"해당 유저의 댓글이 아닙니다."}, safe=False, status=status.HTTP_403_FORBIDDEN)
+

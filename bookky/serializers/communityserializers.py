@@ -15,17 +15,38 @@ class AnyCommunityDetailSerializer(serializers.ModelSerializer):
 class AnyCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnyComment
-        fields = ['ACID', 'parentID', 'comment', 'updateAt', 'like']
+        fields = ['ACID', 'UID', 'APID', 'parentID', 'comment', 'updateAt', 'like']
 
 class MarketCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketCommunity
-        fields = ['MPID', 'BID', 'UID', 'title', 'contents', 'postImage', 'updateAt']
-        
+        fields = ['MPID', 'title', 'contents']
+
+class MarketCommunityDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MarketCommunity
+        fields = ['title', 'contents', 'views', 'createAt','like','UID']
+
+class MarketCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnyComment
+        fields = ['MCID', 'UID', 'MPID', 'parentID', 'comment', 'updateAt', 'like']
+
 class QnACommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = QnACommunity
-        fields = ['QPID', 'BID', 'UID', 'title', 'contents', 'postImage', 'updateAt']
+        fields = ['QPID', 'title', 'contents','parentQID']
+
+class QnACommunityDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QnACommunity
+        fields = ['title', 'contents', 'views', 'createAt','like','UID']
+
+class QnACommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QnAComment
+        fields = ['QCID', 'UID', 'MPID', 'parentID', 'comment', 'updateAt', 'like']
+
 
 class HotCommunitySerializer(serializers.ModelSerializer):
     class Meta:

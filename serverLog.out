@@ -1,0 +1,70 @@
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+April 17, 2022 - 23:08:31
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[17/Apr/2022 23:36:43] code 400, message Bad request syntax ('*1')
+[17/Apr/2022 23:36:43] "*1" 400 -
+Not Found: /v1/robots.txt
+[18/Apr/2022 00:08:13] "GET /v1/robots.txt HTTP/1.1" 404 6047
+Not Found: /robots.txt
+[18/Apr/2022 00:08:14] "GET /robots.txt HTTP/1.1" 404 2643
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/urls/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Performing system checks...
+
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/management/commands/runserver.py", line 134, in inner_run
+    self.check(display_num_errors=True)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/management/base.py", line 487, in check
+    all_issues = checks.run_checks(
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/registry.py", line 88, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/urls.py", line 42, in check_url_namespaces_unique
+    all_namespaces = _load_all_namespaces(resolver)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/urls.py", line 61, in _load_all_namespaces
+    url_patterns = getattr(resolver, "url_patterns", [])
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/functional.py", line 49, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 696, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/functional.py", line 49, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 689, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky_backend/urls.py", line 26, in <module>
+    path('v1/', include('bookky.urls.urls')), 
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/conf.py", line 38, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 844, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 981, in get_code
+  File "<frozen importlib._bootstrap_external>", line 911, in source_to_code
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/urls/urls.py", line 29
+    path('community/deltecomment/<slug:slug>', communityviews.delteCommunityComment)
+    ^
+SyntaxError: invalid syntax
