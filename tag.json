@@ -1,0 +1,598 @@
+[
+	{
+		"Tag" : "파이썬",
+		"Elements" : ["파이썬", "python", "판다스", "Pandas"]
+	},
+	{
+		"Tag" : "객체지향 프로그래밍",
+		"Elements" : ["객체지향 프로그래밍", "객체지향프로그래밍"]
+	},
+	{
+		"Tag" : "마이크로프로세서",
+		"Elements" : ["마이크로프로세서", "microprocessor"]
+	},
+	{
+		"Tag" : "C언어",
+		"Elements" : ["C언어", "C", "씨언어", "시언어", "C 언어"]
+	},
+	{
+		"Tag" : "협업 도구",
+		"Elements" : ["협업 도구", "협업도구"]
+	},
+	{
+		"Tag" : "Notion",
+		"Elements" : ["Notion", "노션"]
+	},
+	{
+		"Tag" : "Git",
+		"Elements" : ["Git", "깃", "깃허브", "GitHub"]
+	},
+	{
+		"Tag" : "데이터마이닝",
+		"Elements" : ["데이터마이닝", "SPSS", "DataMining", "텍스트 마이닝", "텍스트마이닝"]
+	},
+	{
+		"Tag" : "딥러닝",
+		"Elements" : ["딥러닝", "DeepLearning", "Deep Learning", "BERT", "GPT"]
+	},
+	{
+		"Tag" : "인공지능",
+		"Elements" : ["인공지능", "A.I", "Artificial Intelligence", "ArtificialIntelligence", " AI"]
+	},
+	{
+		"Tag" : "CNN",
+		"Elements" : ["CNN", "Convolutional Neural Networks"]
+	},
+	{
+		"Tag" : "RNN",
+		"Elements" : ["RNN", "Recurrent Neural Network"]
+	},
+	{
+		"Tag" : "머신러닝",
+		"Elements" : ["머신러닝", "머신 러닝", "machine learning", "사이킷런", "sklearn", "기계 학습", "기계학습", "파이토치", "pytorch"]
+	},
+	{
+		"Tag" : "데이터 분석",
+		"Elements" : ["데이터 분석", "데이터분석"]
+	},
+	{
+		"Tag" : "데이터 파이프라인",
+		"Elements" : ["데이터 파이프라인", "데이터파이프라인", "Kafka Streams", "카프카 스트림즈"]
+	},
+	{
+		"Tag" : "모바일",
+		"Elements" : ["모바일", "mobile", "이동통신", "mobile telecommunication", "스마트폰", "SmartPhone", "Smart Phone"]
+	},
+	{
+		"Tag" : "컴퓨터 그래픽스",
+		"Elements" : ["컴퓨터 그래픽스", "CG", "Computer Graphics", "ComputerGraphics", "CGI", "Common Gateway Interface", "OpenGL"]
+	},
+	{
+		"Tag" : "윈도우",
+		"Elements" : ["윈도우", "Windows 10", "Windows 11", "Windows XP", "Windows Server", "윈도우 서버", "Windows"]
+	},
+	{
+		"Tag" : "C++",
+		"Elements" : ["C++", "씨쁠쁠", "씨플플"]
+	},
+	{
+		"Tag" : "알고리즘",
+		"Elements" : ["알고리즘", "Algorithm"]
+	},
+	{
+		"Tag" : "운영체제",
+		"Elements" : ["운영체제", "operating system", "OS"]
+	},
+	{
+		"Tag" : "컴퓨터 구조",
+		"Elements" : ["컴퓨터 구조", "computer architecture"]
+	},
+	{
+		"Tag" : "데이터베이스",
+		"Elements" : ["데이터베이스", "database", "db", "SQL", "Structured Query Language", "MySQL", "MongoDB", "몽고DB", "태블로", "Tableau", "tableplus", "테이블 플러스", "테이블플러스", "datagrip", "데이터그립", "postgreSQL", "포스트그레스큐엘"]
+	},
+	{
+		"Tag" : "개론",
+		"Elements" : ["개론", "introduction", "컴퓨터 개론", "Computer introduction"]
+	},
+	{
+		"Tag" : "프로그래밍 언어",
+		"Elements" : ["프로그래밍 언어", "programming language"]
+	},
+	{
+		"Tag" : "정보보안",
+		"Elements" : ["정보보안", "information security"]
+	},
+	{
+		"Tag" : "프론트엔드",
+		"Elements" : ["프론트엔드", "Frontend", "Front-End", "Front End", "스벨트", "Svelte"]
+	},
+	{
+		"Tag" : "피그마",
+		"Elements" : ["피그마", "figma"]
+	},
+	{
+		"Tag" : "JavaScript",
+		"Elements" : ["JavaScript", "JS", "jQuery", "제이쿼리", "Vue.js", "Ajax", "에이잭스", "Json", "제이슨"]
+	},
+	{
+		"Tag" : "Java",
+		"Elements" : ["Java", "JPA", "Java persistence API", "JSP", "Java Server Pages"]
+	},
+	{
+		"Tag" : "웹",
+		"Elements" : ["웹", "Web", "부트스트랩", "Bootstrap", "HTML", "CSS"]
+	},
+	{
+		"Tag" : "강화학습",
+		"Elements" : ["강화학습", "reinforcement learning", "강화 학습"]
+	},
+	{
+		"Tag" : "안드로이드",
+		"Elements" : ["안드로이드", "Android"]
+	},
+	{
+		"Tag" : "iOS",
+		"Elements" : ["iOS", "아이패드", "ipad", "애플", "Apple", "아이폰", "Iphone", "매킨토시", "MAC", "아이패드", "iPad"]
+	},
+	{
+		"Tag" : "메타버스",
+		"Elements" : ["메타버스", "metaverse", "meta verse", "메타버스", "게더타운", "Gather.town"]
+	},
+	{
+		"Tag" : "파워포인트",
+		"Elements" : ["파워포인트", "PowerPoint", "Power Point", "PPT"]
+	},
+	{
+		"Tag" : "엑셀",
+		"Elements" : ["엑셀", "Excel"]
+	},
+	{
+		"Tag" : "마이크로소프트",
+		"Elements" : ["마이크로소프트", "MS", "ASP", "Active Server Pages", "Azure", "microsoft Azure", "애저", "윈도우 애저"]
+	},
+	{
+		"Tag" : "한글과컴퓨터",
+		"Elements" : ["한글과컴퓨터", "한셀", "한쇼", "한글 NEO", "한글NEO", "한글과 컴퓨터", "한글과컴퓨터", "한워드", "한컴오피스"]
+	},
+	{
+		"Tag" : "리눅스",
+		"Elements" : ["리눅스", "Linux", "WSL"]
+	},
+	{
+		"Tag" : "포토샵",
+		"Elements" : ["포토샵", "PhotoShop", "Adobe Photoshop"]
+	},
+	{
+		"Tag" : "코틀린",
+		"Elements" : ["코틀린", "kotlin"]
+	},
+	{
+		"Tag" : "블로그",
+		"Elements" : ["블로그", "blog"]
+	},
+	{
+		"Tag" : "유니티",
+		"Elements" : ["유니티", "unity"]
+	},
+	{
+		"Tag" : "디자인",
+		"Elements" : ["디자인", "Design", "인디자인", "Adobe InDesign", "InDesign", "타이포그래피", "Typograpy", "컬러링", "Coloring"]
+	},
+	{
+		"Tag" : "유튜브",
+		"Elements" : ["유튜브", "youtube", "유튜버", "유투버", "유투브"]
+	},
+	{
+		"Tag" : "해킹",
+		"Elements" : ["해킹", "Hacking"]
+	},
+	{
+		"Tag" : "VR",
+		"Elements" : ["VR", "가상현실", "Virtual Reality"]
+	},
+	{
+		"Tag" : "아두이노",
+		"Elements" : ["아두이노", "arduino", "아르두이노"]
+	},
+	{
+		"Tag" : "임베디드 시스템",
+		"Elements" : ["임베디드 시스템", "Embedded system", "임베디드"]
+	},
+	{
+		"Tag" : "빅데이터",
+		"Elements" : ["빅데이터", "BigData", "Big Data", "빅 데이터"]
+	},
+	{
+		"Tag" : "3D프린터",
+		"Elements" : ["3D프린터", "3D printer", "3Dprinter", "3D 프린팅", "3D프린팅", "3d printing", "3dprinting"]
+	},
+	{
+		"Tag" : "컴퓨팅 사고",
+		"Elements" : ["컴퓨팅 사고", "computational thinking", "CT", "컴퓨팅사고능력"]
+	},
+	{
+		"Tag" : "웹 서비스",
+		"Elements" : ["웹 서비스", "Web Service", "AWS", "아마존 웹 서비스"]
+	},
+	{
+		"Tag" : "게임",
+		"Elements" : ["게임", "Game", "마인크래프트", "minecraft"]
+	},
+	{
+		"Tag" : "UX",
+		"Elements" : ["UX", "User Experience"]
+	},
+	{
+		"Tag" : "UI",
+		"Elements" : ["UI", "User Interface"]
+	},
+	{
+		"Tag" : "R",
+		"Elements" : ["R", "R언어"]
+	},
+	{
+		"Tag" : "블렌디드 러닝",
+		"Elements" : ["블렌디드 러닝", "Blended learning", "혼합형 학습"]
+	},
+	{
+		"Tag" : "쿠버네티스",
+		"Elements" : ["쿠버네티스", "kubernetes", "쿠브플로", "kubeflow"]
+	},
+	{
+		"Tag" : "C#",
+		"Elements" : ["C#", "씨샵"]
+	},
+	{
+		"Tag" : "애자일",
+		"Elements" : ["애자일", "Agile"]
+	},
+	{
+		"Tag" : "네트워크",
+		"Elements" : ["네트워크", "Network"]
+	},
+	{
+		"Tag" : "일러스트",
+		"Elements" : ["일러스트", "illustration", "일러스트레이터", "Illustrator", "클립 스튜디오", "CLIP STUDIO PAINT", "클립 스튜디오 페인트", "드로잉", "Drawing", "웹툰"]
+	},
+	{
+		"Tag" : "음악",
+		"Elements" : ["음악", "비트메이킹", "beat making", "로직 프로", "Logic Pro"]
+	},
+	{
+		"Tag" : "PHP",
+		"Elements" : ["PHP", "Hypertext Preprocessor"]
+	},
+	{
+		"Tag" : "라이노",
+		"Elements" : ["라이노", "Rhino", "Rhino7", "라이노7", "Rhino3D", "라이노3D", "CG"]
+	},
+	{
+		"Tag" : "클라우드",
+		"Elements" : ["클라우드", "Cloud"]
+	},
+	{
+		"Tag" : "도커",
+		"Elements" : ["도커", "docker"]
+	},
+	{
+		"Tag" : "소프트웨어 공학",
+		"Elements" : ["소프트웨어 공학", "software engineering", "소프트웨어공학", "UML", "통합 모델링 언어", "SRE", "Site Reliability Engineering", "사이트 신뢰성 엔지니어링"]
+	},
+	{
+		"Tag" : "소프트웨어",
+		"Elements" : ["소프트웨어", "software", "S/W"]
+	},
+	{
+		"Tag" : "자료구조",
+		"Elements" : ["자료구조", "자료 구조", "data structure"]
+	},
+	{
+		"Tag" : "정보통신",
+		"Elements" : ["정보통신", "ICT"]
+	},
+	{
+		"Tag" : "전산",
+		"Elements" : ["전산"]
+	},
+	{
+		"Tag" : "절차지향",
+		"Elements" : ["절차지향", "Procedural Programming"]
+	},
+	{
+		"Tag" : "유닉스",
+		"Elements" : ["유닉스", "UNIX"]
+	},
+	{
+		"Tag" : ".NET",
+		"Elements" : [".NET", "닷넷"]
+	},
+	{
+		"Tag" : "델파이",
+		"Elements" : ["델파이", "Delphi"]
+	},
+	{
+		"Tag" : "Objective C",
+		"Elements" : ["Objective C", "오브젝티브시", "오브젝티브-C", "오브젝티브씨", "오브젝티브 C"]
+	},
+	{
+		"Tag" : "Perl",
+		"Elements" : ["Perl", "펄"]
+	},
+	{
+		"Tag" : "Ruby",
+		"Elements" : ["Ruby", "루비", "Rails"]
+	},
+	{
+		"Tag" : "Visual Basic",
+		"Elements" : ["Visual Basic", "비주얼베이직", "비주얼 베이직"]
+	},
+	{
+		"Tag" : "Oracle",
+		"Elements" : ["Oracle", "오라클"]
+	},
+	{
+		"Tag" : "XML",
+		"Elements" : ["XML", "eXtensible Markup Language"]
+	},
+	{
+		"Tag" : "코딩 테스트",
+		"Elements" : ["코딩 테스트", "코테", "코딩테스트"]
+	},
+	{
+		"Tag" : "인지과학",
+		"Elements" : ["인지과학", "cognitive science", "인지 과학"]
+	},
+	{
+		"Tag" : "논리회로",
+		"Elements" : ["논리회로", "논리 회로"]
+	},
+	{
+		"Tag" : "컴퓨터 비전",
+		"Elements" : ["컴퓨터 비전", "Computer Vision", "OpenCV"]
+	},
+	{
+		"Tag" : "스크래치",
+		"Elements" : ["스크래치", "스크레치", "Scratch"]
+	},
+	{
+		"Tag" : "엔트리",
+		"Elements" : ["엔트리", "앤트리", "entry"]
+	},
+	{
+		"Tag" : "블록코딩",
+		"Elements" : ["블록코딩", "블럭코딩", "블록 코딩", "블록형 코딩"]
+	},
+	{
+		"Tag" : "NFT",
+		"Elements" : ["NFT", "대체 불가능 토큰", "대체 불가 토큰", "Non-Fungible Token"]
+	},
+	{
+		"Tag" : "블록체인",
+		"Elements" : ["블록체인", "blockChain", "Block Chain", "블록 체인"]
+	},
+	{
+		"Tag" : "React",
+		"Elements" : ["React", "리액트", "리엑트", "React Native", "React-Native", "리액트 네이티브", "리엑트 네이티브"]
+	},
+	{
+		"Tag" : "광고",
+		"Elements" : ["광고", "마케팅", "라이브커머스", "Live commerce", "마젠토 2", "magento"]
+	},
+	{
+		"Tag" : "텐서플로우",
+		"Elements" : ["텐서플로우", "TensorFlow"]
+	},
+	{
+		"Tag" : "스위프트",
+		"Elements" : ["스위프트", "Swift", "SwiftUI", "스위프트UI", "스위프트 UI"]
+	},
+	{
+		"Tag" : "fuse",
+		"Elements" : ["fuse", "퓨즈", "fusetools"]
+	},
+	{
+		"Tag" : "ioT",
+		"Elements" : ["ioT", "사물인터넷", "Internet of Things"]
+	},
+	{
+		"Tag" : "언리얼",
+		"Elements" : ["언리얼", "언리얼 엔진", "Unreal Engine"]
+	},
+	{
+		"Tag" : "AR",
+		"Elements" : ["AR", "증강현실", "augmented reality"]
+	},
+	{
+		"Tag" : "크로스 플랫폼",
+		"Elements" : ["크로스 플랫폼", "cross-platform", "corss platform"]
+	},
+	{
+		"Tag" : "ionic 2",
+		"Elements" : ["ionic 2", "ionic", "아이오닉"]
+	},
+	{
+		"Tag" : "리팩터링",
+		"Elements" : ["리팩터링", "리펙토링", "refactoring"]
+	},
+	{
+		"Tag" : "하드웨어",
+		"Elements" : ["하드웨어", "Hardware", "H/W", "카메라", "Camera", "USB", "유에스비", "캠코더", "camcorder", "수리", "조립"]
+	},
+	{
+		"Tag" : "앱 인벤터",
+		"Elements" : ["앱 인벤터", "App Inventor", "앱인벤터"]
+	},
+	{
+		"Tag" : "전문가",
+		"Elements" : ["전문가", "expert"]
+	},
+	{
+		"Tag" : "API",
+		"Elements" : ["API", "Application Programming Interface"]
+	},
+	{
+		"Tag" : "플러터",
+		"Elements" : ["플러터", "Flutter"]
+	},
+	{
+		"Tag" : "에버노트",
+		"Elements" : ["에버노트", "evernote"]
+	},
+	{
+		"Tag" : "구글",
+		"Elements" : ["구글", "google"]
+	},
+	{
+		"Tag" : "페이스북",
+		"Elements" : ["페이스북", "facebook", "instagram", "인스타", "인스타그램"]
+	},
+	{
+		"Tag" : "폰갭",
+		"Elements" : ["폰갭", "PhoneGap"]
+	},
+	{
+		"Tag" : "SNS",
+		"Elements" : ["SNS", "소셜 네트워크", "소셜네트워크", "Social Networking Service", "Social Network"]
+	},
+	{
+		"Tag" : "암호화폐",
+		"Elements" : ["암호화폐", "디파이", "DeFi", "비트코인", "Bitcoin"]
+	},
+	{
+		"Tag" : "카카오",
+		"Elements" : ["카카오", "Kakao", "카카오톡", "Kakao Talk", "카톡", "KakaoTalk"]
+	},
+	{
+		"Tag" : "스프레드시트",
+		"Elements" : ["스프레드시트", "Spreadsheet"]
+	},
+	{
+		"Tag" : "CAD",
+		"Elements" : ["CAD", "오토캐드", "AutoCAD", "CATIA", "카티아", "캐티아"]
+	},
+	{
+		"Tag" : "초보자",
+		"Elements" : ["초보자", "초보", "첫", "초등", "새내기", "무작정", "따라하기", "방과후수업", "비전공자", "기초", "입문", "시니어", "Senior", "교양", "Beginner", "비기너"]
+	},
+	{
+		"Tag" : "GO",
+		"Elements" : ["GO"]
+	},
+	{
+		"Tag" : "오픈소스",
+		"Elements" : ["오픈소스", "Open Source"]
+	},
+	{
+		"Tag" : "컴퓨터 시스템",
+		"Elements" : ["컴퓨터 시스템", "컴퓨터시스템", "Computer System"]
+	},
+	{
+		"Tag" : "통계",
+		"Elements" : ["통계", "statistics", "AMOS", "HLM"]
+	},
+	{
+		"Tag" : "TCP/IP",
+		"Elements" : ["TCP/IP", "TCP", "IP"]
+	},
+	{
+		"Tag" : "소켓",
+		"Elements" : ["소켓"]
+	},
+	{
+		"Tag" : "2d",
+		"Elements" : ["2d", "LIVE2D"]
+	},
+	{
+		"Tag" : "로봇",
+		"Elements" : ["로봇", "Robot", "로봇 프로그래밍", "ROS 2", "MSRDS"]
+	},
+	{
+		"Tag" : "영상",
+		"Elements" : ["영상", "video", "다빈치 리졸브", "DaVinci Resolve", "애프터 이펙트", "Adobe After Effects", "애프터이펙트", "프리미어 프로", "Adobe Premiere Pro", "Premiere Pro"]
+	},
+	{
+		"Tag" : "코딩",
+		"Elements" : ["코딩", "Coding", "코드"]
+	},
+	{
+		"Tag" : "네이버",
+		"Elements" : ["네이버", "naver"]
+	},
+	{
+		"Tag" : "쿠팡",
+		"Elements" : ["쿠팡", "coupang"]
+	},
+	{
+		"Tag" : "라인",
+		"Elements" : ["라인", "line"]
+	},
+	{
+		"Tag" : "취업/창업",
+		"Elements" : ["취업/창업", "취업", "진로", "포트폴리오", "portfolio", "스타트업", "Startup", "창업"]
+	},
+	{
+		"Tag" : "수학",
+		"Elements" : ["수학", "선형대수", "linear algebra", "수치해석", "수치 해석", "numerical analysis"]
+	},
+	{
+		"Tag" : "제텔카스텐",
+		"Elements" : ["제텔카스텐"]
+	},
+	{
+		"Tag" : "러스트",
+		"Elements" : ["러스트", "Rust"]
+	},
+	{
+		"Tag" : "이더리움",
+		"Elements" : ["이더리움", "Ethereum"]
+	},
+	{
+		"Tag" : "타입스크립트",
+		"Elements" : ["타입스크립트", "TypeScript", "TS"]
+	},
+	{
+		"Tag" : "MATLAB",
+		"Elements" : ["MATLAB", "매트랩"]
+	},
+	{
+		"Tag" : "MFC",
+		"Elements" : ["MFC", "엠에프씨"]
+	},
+	{
+		"Tag" : "화상회의",
+		"Elements" : ["화상회의", "Zoom", "줌", "Google Meet", "Google Teams"]
+	},
+	{
+		"Tag" : "NGINX",
+		"Elements" : ["NGINX", "엔진엑스"]
+	},
+	{
+		"Tag" : "포렌식",
+		"Elements" : ["포렌식", "Forensic"]
+	},
+	{
+		"Tag" : "NCS",
+		"Elements" : ["NCS", "국가직무능력표준"]
+	},
+	{
+		"Tag" : "테스트",
+		"Elements" : ["테스트", "Test", "테스팅", "Testing"]
+	},
+	{
+		"Tag" : "디버깅",
+		"Elements" : ["디버깅", "디버그", "Debug", "Debuging"]
+	},
+	{
+		"Tag" : "리버싱",
+		"Elements" : ["리버싱", "reversing", "디버깅"]
+	},
+	{
+		"Tag" : "Acrobat",
+		"Elements" : ["Acrobat", "아크로뱃", "Adobe Acrobat"]
+	},
+	{
+		"Tag" : "3d",
+		"Elements" : ["3d", "ZBrush", "Z브러시"]
+	}
+]

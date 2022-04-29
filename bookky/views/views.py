@@ -3,10 +3,11 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
-from .models import Book
-from .bookserializers import BookPostSerializer
+from bookky.models import Book, Tag
+from bookky.serializers.tagserializers import TagSerializer
+from bookky.serializers.bookserializers import BookPostSerializer, BookGetSerializer
 from django.core.mail import EmailMessage
-from .auth import authValidation
+from bookky.auth.auth import authValidation
 
 import requests
 import datetime
@@ -28,11 +29,50 @@ def saveAPIDatafromCrawl():
         return JsonResponse({'success':False, 'result':{}, 'errorMessage':"올바르지 않는 Key값이 입력되었음."},status = status.HTTP_400_BAD_REQUEST)
 
 def read_insert(request):
-    print(type(request.headers.get('Authorization',None)))
-    tokenA = request.headers.get('Authorization',None)
-    email = EmailMessage('안녕하세요 북키에요!', tokenA, to=['ldh990320ldh@gmail.com', 'kws7327@gmail.com', 'dlsgur3845@gmail.com', 'nugulhie@gmail.com', 'dnjs45077@gmail.com'])
-    email.send()
-    return JsonResponse({})
+    tempTagList = [1,2,5]
+    bookQuery = Book.objects
+    tagQuery = Tag.objects
+    bookList = []
+    for i in tempTagList:
+        temp = tagQuery.get(TID = i)
+        bookTemp = bookQuery.filter(TAG__contains = [i])
+        serializer = BookGetSerializer(bookTemp, many=True)
+        bookList.append({'tag':temp.nameTag, 'data':serializer.data})
+
+    return JsonResponse({'data':bookList})
+    # json_bookData = dict()
+
+    # with open("tag.json","r") as rt_json:
+    #     json_bookData = json.load(rt_json)
+    
+    # for i in json_bookData:
+    #     temp = {'nameTag':i.get('Tag'), 'contents':i.get('Elements')}
+    #     serializer = TagSerializer(data = temp)
+    #     if serializer.is_valid() :
+    #         serializer.save()
+    #     else:
+    #         print(serializer.errors)
+
+    # for i in range(len(json_bookData)):
+    
+    #     Allah_BID = json_bookData[i]["Allah_BID"]
+    #     Tag = json_bookData[i]["Tag"]
+    #     print(Allah_BID, Tag)
+    #     if len(bookData.filter(Allah_BID = str(Allah_BID))) == 0 :
+    #         return JsonResponse({'success':False,'result': {}}, safe=False, status=status.HTTP_400_BAD_REQUEST)
+    #     else:
+    #         bookData1 = bookData.get(Allah_BID = str(Allah_BID))
+    #         bookData1.TAG = Tag
+    #         bookData1.save()
+            
+    # return JsonResponse({'success':True,'result': 'Gang', 'errorMessage':""}, safe=False, status=status.HTTP_200_OK)    
+
+    #print(type(request.headers.get('Authorization',None)))
+    # tokenA = request.headers.get('Authorization',None)
+    # email = EmailMessage('안녕하세요 북키에요!', tokenA, to=['ldh990320ldh@gmail.com', 'kws7327@gmail.com', 'dlsgur3845@gmail.com', 'nugulhie@gmail.com', 'dnjs45077@gmail.com'])
+    # email.send()
+    # return JsonResponse({})
+
 # def read_insert(request):
 #     json_bookData = dict()
 

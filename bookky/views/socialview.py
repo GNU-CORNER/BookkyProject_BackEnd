@@ -3,9 +3,9 @@ from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 import urllib3
-from .models import User, RefreshTokenStorage
-from .userserializers import UserRegisterSerializer
-from .auth import setToken, get_access, get_refreshToken
+from bookky.models import User, RefreshTokenStorage
+from bookky.serializers.userserializers import UserRegisterSerializer
+from bookky.auth.auth import setToken, get_access, get_refreshToken
 
 #소셜 회원가입
 @api_view(['POST'])
