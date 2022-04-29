@@ -40,7 +40,7 @@ import time
                             type=openapi.TYPE_OBJECT,
                             properties={
                             'PID':openapi.Schema('포스트 번호', type=openapi.TYPE_INTEGER),
-                            'title':openapi.Schema('게시글 제목', type=openapi.TYPE_INTEGER),
+                            'title':openapi.Schema('게시글 제목', type=openapi.TYPE_STRING),
                             'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
                             }
                         )),
@@ -55,7 +55,7 @@ import time
                             type=openapi.TYPE_OBJECT,
                             properties={
                                 'commentCnt':openapi.Schema('댓글 갯수',type=openapi.TYPE_INTEGER),
-                                'like':openapi.Schema('좋아요 수', type=openapi.TYPE_INTEGER)
+                                'likeCnt':openapi.Schema('좋아요 수', type=openapi.TYPE_INTEGER)
                             }
                         ))
                     }
@@ -79,7 +79,7 @@ def getCommunityPostList(request,slug):
             elif slug == "2":
                 CommunityQuery = QnACommunity.objects.order_by('createAt')
             else:
-                return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"잘못된 slug 입니다."}, status=status.HTTP_404_NOT_FOUND)
+                return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"잘못된 slug 입니다."}, status=status.HTTP_400_BAD_REQUEST)
         except Book.DoesNotExist:
             return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"해당 Community에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -112,8 +112,15 @@ def getCommunityPostList(request,slug):
             if slug == "0":
                 commentData = AnyComment.objects.filter(APID = Posts[i].APID)
             
-            tempsubData['commentCnt'] = len(commentData)
-            tempsubData['likeCnt'] = len(Posts[i].like)
+            print(type(Posts[i]))
+            if len(commentData) !=0:
+                tempsubData['commentCnt'] = len(commentData)
+            else:
+                tempsubData['commentCnt'] = 0
+            if len(Posts[i].like) !=0:
+                tempsubData['likeCnt'] = len(Posts[i].like)
+            else:
+                tempsubData['likeCnt'] = 0
             subData.append(tempsubData)
             
 
@@ -130,7 +137,70 @@ def getCommunityPostList(request,slug):
             'errorMessage':""
             }, 
             status=status.HTTP_200_OK)
-    
+
+
+
+@swagger_auto_schema(
+    method='get',
+    operation_description= "slug1 => 0 = '자유게시판', 1 = '장터게시판', 2 = 'QnA게시판'  , slug2 => PID",
+    manual_parameters=[
+        openapi.Parameter('access-token', openapi.IN_HEADER, type=openapi.TYPE_STRING, description='회원이라면 토큰 넣고 비회원이면 넣지 않는다.')
+    ],
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'postdata' : openapi.Schema('포스트 정보', type=openapi.TYPE_ARRAY, items=openapi.Items(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                            'title':openapi.Schema('게시글 제목', type=openapi.TYPE_INTEGER),
+                            'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
+                            'views':openapi.Schema('방문 횟수', type=openapi.TYPE_STRING),
+                            'updateAt':openapi.Schema('수정 날짜', type=openapi.TYPE_STRING),
+                            'like':openapi.Schema('좋아요', type=openapi.TYPE_ARRAY, items=openapi.Items(type=openapi.TYPE_INTEGER)),
+                            'UID':openapi.Schema('UID', type=openapi.TYPE_INTEGER),
+                            }
+                        )),
+                         'postuserdata' : openapi.Schema('작성자 정보', type=openapi.TYPE_ARRAY, items=openapi.Items(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                                'nickname':openapi.Schema('사용자 닉네임',type=openapi.TYPE_STRING),
+                                'thumbnail':openapi.Schema('사용자 프로필 사진', type=openapi.TYPE_STRING)
+                            }
+                        )),
+                         'commentdata' : openapi.Schema('댓글 정보', type=openapi.TYPE_ARRAY, items=openapi.Items(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                                'ACID':openapi.Schema('댓글 ID',type=openapi.TYPE_INTEGER),
+                                'UID':openapi.Schema('유저 ID',type=openapi.TYPE_INTEGER),
+                                'APID':openapi.Schema('포스트 ID',type=openapi.TYPE_INTEGER),
+                                'parentID':openapi.Schema('부모댓글 ID', type=openapi.TYPE_INTEGER),
+                                'comment':openapi.Schema('댓글 내용', type=openapi.TYPE_STRING),
+                                'updateAt':openapi.Schema('수정 날짜', type=openapi.TYPE_STRING),
+                                'like':openapi.Schema('좋아요', type=openapi.TYPE_ARRAY, items=openapi.Items(type=openapi.TYPE_INTEGER)),
+                            }
+                        )),
+                        'commentuserdata' : openapi.Schema('댓글 작성자 정보', type=openapi.TYPE_ARRAY, items=openapi.Items(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                                'nickname':openapi.Schema('댓글 작성자 닉네임',type=openapi.TYPE_STRING),
+                                'thumbnail':openapi.Schema('댓글 작성자 사진', type=openapi.TYPE_STRING)
+                            }
+                        ))
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
+
+
+
 
 @api_view(['GET'])
 def getCommunityPostdetail(request,slug1,slug2):
@@ -154,6 +224,8 @@ def getCommunityPostdetail(request,slug1,slug2):
             serializer = AnyCommunityDetailSerializer(PostData,many=True)
             commentData = AnyComment.objects.filter(APID = PostData[0].APID)
             commentserializer = AnyCommentSerializer(commentData,many=True)
+            
+
             tempuserData = dict()
             tempuserData['nickname']=PostData[0].UID.nickname
             tempuserData['thumbnail']=PostData[0].UID.thumbnail
@@ -163,13 +235,13 @@ def getCommunityPostdetail(request,slug1,slug2):
 
         for i in range(len(commentData)):
             tempcommentData = dict()
-            if slug1 == "0":
-                tempcommentData['CID']=commentData[i].ACID
-            tempcommentData['parentID']=commentData[i].parentID
             tempcommentData['nickname']=commentData[i].UID.nickname
             tempcommentData['thumbnail']=commentData[i].UID.thumbnail
             commentuserData.append(tempcommentData)
     
+
+        
+        
         return JsonResponse({
             'success':True,
             'result' :{'postdata':serializer.data,'postuserdata': postuserData, 'commentdata':commentserializer.data, 'commentuserdata':commentuserData},
@@ -197,7 +269,7 @@ def getCommunityPostdetail(request,slug1,slug2):
             type=openapi.TYPE_OBJECT,
             properties={
                 'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
-                'result': openapi.Schema('', type=openapi.TYPE_STRING  ),
+                'result': openapi.Schema('결과', type=openapi.TYPE_STRING  ),
                 'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
             }
         )
@@ -235,8 +307,8 @@ def writeCommunityPost(request,slug):
                         postSerializer.save()
                         return JsonResponse({
                         'success':True,
-                        'result' :{},
-                        'errorMessage':"저장댐"
+                        'result' :"글 작성 완료",
+                        'errorMessage':""
                         })
                     else:
                         return JsonResponse({
@@ -263,7 +335,8 @@ def writeCommunityPost(request,slug):
     manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
        request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
-        properties={'comment': openapi.Schema('댓글 내용', type=openapi.TYPE_STRING),
+        properties=
+        {           'comment': openapi.Schema('댓글 내용', type=openapi.TYPE_STRING),
                     'parentID': openapi.Schema('대댓글 ID', type=openapi.TYPE_INTEGER),
                     'PID': openapi.Schema('POST ID', type=openapi.TYPE_INTEGER),
         },
@@ -272,9 +345,10 @@ def writeCommunityPost(request,slug):
     responses={
         200: openapi.Schema(
             type=openapi.TYPE_OBJECT,
-            properties={
+            properties=
+            {
                 'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
-                'result': openapi.Schema('', type=openapi.TYPE_STRING  ),
+                'result': openapi.Schema('결과', type=openapi.TYPE_STRING  ),
                 'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
             }
         )
@@ -298,10 +372,12 @@ def writeCommunityComment(request,slug):
             if (request.method == 'POST'):
                 data = JSONParser().parse(request)
                 postData=[]
+                
                 if slug == "0":
                     postData = AnyCommunity.objects.filter(APID = data['PID'])
-    
-                userData = User.objects.filter(UID = userID)
+                    
+                userData = User.objects.filter(UID = userID)                
+                
                 if len(postData) != 0 and len(userData) !=0:
                     userNickname = userData[0].nickname
                     data['UID']=userData[0].UID
@@ -317,9 +393,10 @@ def writeCommunityComment(request,slug):
                         postSerializer.save()
                         return JsonResponse({
                         'success':True,
-                        'result' :{},
-                        'errorMessage':"저장댐"
+                        'result' :"댓글 작성 완료",
+                        'errorMessage':""
                         })
+
                     else:
                         return JsonResponse({
                         'success':False,
@@ -354,7 +431,7 @@ def writeCommunityComment(request,slug):
             type=openapi.TYPE_OBJECT,
             properties={
                 'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
-                'result': openapi.Schema('', type=openapi.TYPE_STRING  ),
+                'result': openapi.Schema('결과', type=openapi.TYPE_STRING  ),
                 'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
             }
         )
@@ -390,7 +467,7 @@ def delteCommunityPost(request,slug):
                 else:
                     if postData[0].UID.UID == userID:
                         postData.delete()
-                        return JsonResponse({'success':True, 'result':"성공", 'errorMessage':""},status=status.HTTP_200_OK)
+                        return JsonResponse({'success':True, 'result':"글 삭제 완료", 'errorMessage':""},status=status.HTTP_200_OK)
                     else:
                         return JsonResponse({'success':False,'result': exceptDict, 'errorMessage':"해당 유저의 글이 아닙니다."}, safe=False, status=status.HTTP_403_FORBIDDEN)
 
@@ -410,7 +487,7 @@ def delteCommunityPost(request,slug):
             type=openapi.TYPE_OBJECT,
             properties={
                 'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
-                'result': openapi.Schema('', type=openapi.TYPE_STRING  ),
+                'result': openapi.Schema('결과', type=openapi.TYPE_STRING  ),
                 'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
             }
         )
@@ -445,7 +522,84 @@ def delteCommunityComment(request,slug):
                 else:
                     if commentData[0].UID.UID == userID:
                         commentData.delete()
-                        return JsonResponse({'success':True, 'result':"성공", 'errorMessage':""},status=status.HTTP_200_OK)
+                        return JsonResponse({'success':True, 'result':"댓글 삭제 완료", 'errorMessage':""},status=status.HTTP_200_OK)
                     else:
                         return JsonResponse({'success':False,'result': exceptDict, 'errorMessage':"해당 유저의 댓글이 아닙니다."}, safe=False, status=status.HTTP_403_FORBIDDEN)
 
+
+
+@swagger_auto_schema(
+    method='put',  
+    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
+       request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={'title': openapi.Schema('글 제목', type=openapi.TYPE_STRING),
+                    'contents': openapi.Schema('글 내용', type=openapi.TYPE_STRING),        
+                    'BID': openapi.Schema('책 BID', type=openapi.TYPE_INTEGER),
+                    'PID': openapi.Schema('책 BID', type=openapi.TYPE_INTEGER),
+        },
+        required=['title','contents','PID']
+    ),  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema('', type=openapi.TYPE_STRING  ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING),
+            }
+        )
+    }
+)
+
+
+@api_view(['PUT'])
+def modifyCommunityPost(request,slug):
+    exceptDict = None   
+    if request.headers.get('access_token') is None:
+        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        userID = checkAuth_decodeToken(request)
+        if userID == 1:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        elif userID == 2:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        else:                            
+            if (request.method == 'PUT'):
+                data = JSONParser().parse(request)
+                # userID = UID
+                userData = User.objects.filter(UID = userID)
+                if slug =="0":
+                    postData = AnyCommunity.objects.filter(APID = data['PID'])
+                
+                if len(userData) != 0 and postData[0].UID.UID == userID:
+                    data['UID']=userData[0].UID
+                    data['updateAt']=str(datetime.datetime.utcnow())
+                    if slug == "0":
+                        postSerializer = AnyCommunityDetailSerializer(postData[0],data = data)
+
+                    if postSerializer.is_valid():
+                        postSerializer.save()
+                        return JsonResponse({
+                        'success':True,
+                        'result' :"게시글 수정 완료",
+                        'errorMessage':""
+                        })
+                    else:
+                        return JsonResponse({
+                        'success':False,
+                        'result' :{},
+                        'errorMessage':postSerializer.errors
+                        })
+                else:
+                    return JsonResponse({
+                        'success':False,
+                        'result' :{},
+                        'errorMessage':"유저 없음"
+                        })
+            else:
+                return JsonResponse({
+                        'success':False,
+                        'result' :{},
+                        'errorMessage':"Post가 아님"
+                        })

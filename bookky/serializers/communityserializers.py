@@ -10,7 +10,7 @@ class AnyCommunitySerializer(serializers.ModelSerializer):
 class AnyCommunityDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnyCommunity
-        fields = ['title', 'contents', 'views', 'createAt','like','UID']
+        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID']
 
 class AnyCommentSerializer(serializers.ModelSerializer):
     class Meta:

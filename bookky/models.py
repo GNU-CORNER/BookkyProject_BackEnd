@@ -52,7 +52,7 @@ class AnyCommunity(models.Model):                                               
     createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000)                                   #좋아요, 숫자는 최대
+    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
 
     def __str__(self):
         return self.APID
