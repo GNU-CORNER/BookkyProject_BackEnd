@@ -16,6 +16,7 @@ urlpatterns = [ #POST형식으로 바꿔야함
     path('user/tag',userfunctionviews.updateBoundary), #pPUT
     path('user/social/auth/google', socialview.socialCallbackGoogle),
     path('books/<slug:slug>', bookviews.book), #GET
+    path('books/tag/<slug:slug>',bookviews.getBooksByTag),
     path('auth/refresh',userviews.refresh_token), #POST,
     path('tags', userfunctionviews.getTags),
     path('test5', views.read_insert),

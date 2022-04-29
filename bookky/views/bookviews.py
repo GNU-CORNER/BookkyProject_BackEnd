@@ -9,7 +9,7 @@ from drf_yasg import openapi
 from bookky.auth.auth import checkAuth_decodeToken
 from bookky_backend import settings
 from bookky.models import Book, FavoriteBook, Tag
-from bookky.serializers.bookserializers import BookPostSerializer
+from bookky.serializers.bookserializers import BookPostSerializer, BookGetSerializer
 from bookky.auth.auth import authValidation
 from django.db.models import Q
 
@@ -83,8 +83,6 @@ def book(request, slug): #책 정보 API
                     startpagination = startpagination - len(books)
                 if endpagination > len(books):
                     endpagination = len(books) - 1
-            if request.GET.get('TAG') is not None: #URL에 'page' Query가 들어있으면 값 입력
-                books = bookData.filter(PUBLISHER = request.GET.get('TAG'))
             books = books[startpagination : endpagination]   
             serializer = BookPostSerializer(books, many=True)
             return JsonResponse({
@@ -186,3 +184,75 @@ def findBooksTagName(BID):
         tagNames.append(temp.nameTag)
     return tagNames
     
+@swagger_auto_schema(
+    method='get',
+    operation_description= "slug에 태그번호를 입력하면 해당 태그의 데이터를 quantity와 page로 나누어서 뿌려줌",
+    manual_parameters=[
+        openapi.Parameter('quantity',openapi.IN_QUERY,type=openapi.TYPE_INTEGER, description='원하는 수량'),
+        openapi.Parameter('page', openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='원하는 페이지'),
+    ],
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'bookList' : openapi.Schema(
+                            type=openapi.TYPE_ARRAY,
+                            items=openapi.Items(
+                                type=openapi.TYPE_OBJECT,
+                                properties={
+                                    'tag': openapi.Schema('태그이름', type=openapi.TYPE_STRING),
+                                    'data' :openapi.Schema(
+                                        type=openapi.TYPE_ARRAY,
+                                        items=openapi.Items(
+                                            type=openapi.TYPE_OBJECT,
+                                            properties={
+                                                'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                                'TITLE':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                                                'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                                                'thumbnailImage':openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
+                                            }
+                                        )
+                                    )   
+                                }
+                            )
+                        )
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
+@api_view(['GET'])
+def getBooksByTag(request, slug):
+    exceptDict = None
+    if request.method == 'GET':
+        quantity = 25 #기본 quntity 값은 25개
+        startpagination = 0 #기본 startpagination 값은 0
+        endpagination = quantity #기본 endpagination 값은 qunatity값과 동일, page 값이 들어오면 pagination 지원
+        tagNumber = int(slug)
+        bookQuery = Book.objects
+        tagQuery = Tag.objects
+        if len(tagQuery.filter(TID = tagNumber)) == 0:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessag':"해당하는 태그가 존재하지 않습니다."}, status = status.HTTP_400_BAD_REQUEST)
+        bookData = bookQuery.filter(TAG__contains = [tagNumber])
+        if len(bookData) == 0:
+            return JsonResponse({'success':True, 'result':exceptDict, 'errorMessage':"Query 결과 값이 없습니다."}, status = status.HTTP_204_NO_CONTENT)        
+        if request.GET.get('quantity') is not None: #URL에 'quantity' Query가 들어있으면 값 입력
+            quantity = int(request.GET.get('quantity')) 
+        if request.GET.get('page') is not None: #URL에 'page' Query가 들어있으면 값 입력
+            startpagination = (int(request.GET.get('page')) - 1) * quantity
+            endpagination = int(request.GET.get('page')) * quantity
+            if startpagination > len(bookData):
+                startpagination = startpagination - len(books)
+            if endpagination > len(bookData):
+                endpagination = len(bookData) - 1
+        bookData = bookData[startpagination : endpagination]               
+        bookSerializer = BookGetSerializer(bookData, many=True)
+        temp = tagQuery.get(TID=tagNumber)
+        resultDict = {'tag':temp.nameTag,'data':bookSerializer.data}
+        return JsonResponse({'success':True, 'result':{'bookList':resultDict}, 'errorMessage':""},status=status.HTTP_200_OK)
