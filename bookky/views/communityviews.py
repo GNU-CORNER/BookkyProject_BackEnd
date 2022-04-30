@@ -309,7 +309,7 @@ def writeCommunityPost(request,slug):
                         'success':True,
                         'result' :"글 작성 완료",
                         'errorMessage':""
-                        })
+                        },status=status.HTTP_201_CREATED)
                     else:
                         return JsonResponse({
                         'success':False,

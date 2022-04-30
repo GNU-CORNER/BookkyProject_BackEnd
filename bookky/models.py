@@ -151,8 +151,8 @@ class Review(models.Model):
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
     createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
-    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000)                                   #좋아요, 숫자는 최대
-
+    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
+    rating                  = models.FloatField(null=False, default=2.5)
     def __str__(self):
         return self.RID
 

@@ -21,7 +21,7 @@ import time
 
 @swagger_auto_schema(
     method='get',
-    operation_description= "slug = 0은 TAG구분없이 보냄, slug = 1은 dummyAPI로 태그로 구분해서 보냄",
+    operation_description= "slug = 0은 모든 책을 보냄, 그외에는 slug에 책 BID를 넣어 책의 상세정보 받아옴",
     manual_parameters=[
         openapi.Parameter('quantity',openapi.IN_QUERY,type=openapi.TYPE_INTEGER, description='원하는 수량'),
         openapi.Parameter('page', openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='원하는 페이지'),
