@@ -112,7 +112,13 @@ def getCommunityPostList(request,slug):
             if slug == "0":
                 commentData = AnyComment.objects.filter(APID = Posts[i].APID)
             
-            print(type(Posts[i]))
+            elif slug == "1":
+                commentData = MarketComment.objects.filter(MPID = Posts[i].MPID)
+
+            elif slug == "2":
+                commentData = QnAComment.objects.filter(QPID = Posts[i].QPID)
+
+            
             if len(commentData) !=0:
                 tempsubData['commentCnt'] = len(commentData)
             else:
@@ -126,10 +132,21 @@ def getCommunityPostList(request,slug):
 
         if slug == "0":
             serializer = AnyCommunitySerializer(Posts, many=True)
+            for i in serializer.data:
+                i["PID"] = i["APID"]
+                del i["APID"]
+            
         elif slug == "1":
             serializer = MarketCommunitySerializer(Posts, many=True)
+            for i in serializer.data:
+                i["PID"] = i["MPID"]
+                del i["MPID"]
+
         elif slug == "2":
             serializer = QnACommunitySerializer(Posts, many=True)
+            for i in serializer.data:
+                i["PID"] = i["MPID"]
+                del i["MPID"]
         
         return JsonResponse({
             'success':True,
@@ -175,9 +192,9 @@ def getCommunityPostList(request,slug):
                          'commentdata' : openapi.Schema('댓글 정보', type=openapi.TYPE_ARRAY, items=openapi.Items(
                             type=openapi.TYPE_OBJECT,
                             properties={
-                                'ACID':openapi.Schema('댓글 ID',type=openapi.TYPE_INTEGER),
+                                'CID':openapi.Schema('댓글 ID',type=openapi.TYPE_INTEGER),
                                 'UID':openapi.Schema('유저 ID',type=openapi.TYPE_INTEGER),
-                                'APID':openapi.Schema('포스트 ID',type=openapi.TYPE_INTEGER),
+                                'PID':openapi.Schema('포스트 ID',type=openapi.TYPE_INTEGER),
                                 'parentID':openapi.Schema('부모댓글 ID', type=openapi.TYPE_INTEGER),
                                 'comment':openapi.Schema('댓글 내용', type=openapi.TYPE_STRING),
                                 'updateAt':openapi.Schema('수정 날짜', type=openapi.TYPE_STRING),
@@ -224,7 +241,11 @@ def getCommunityPostdetail(request,slug1,slug2):
             serializer = AnyCommunityDetailSerializer(PostData,many=True)
             commentData = AnyComment.objects.filter(APID = PostData[0].APID)
             commentserializer = AnyCommentSerializer(commentData,many=True)
-            
+            for i in commentserializer.data:
+                i["CID"] = i["ACID"]
+                i["PID"] = i["APID"]
+                del i["ACID"]
+                del i["APID"]           
 
             tempuserData = dict()
             tempuserData['nickname']=PostData[0].UID.nickname
@@ -239,12 +260,10 @@ def getCommunityPostdetail(request,slug1,slug2):
             tempcommentData['thumbnail']=commentData[i].UID.thumbnail
             commentuserData.append(tempcommentData)
     
-
-        
         
         return JsonResponse({
             'success':True,
-            'result' :{'postdata':serializer.data,'postuserdata': postuserData, 'commentdata':commentserializer.data, 'commentuserdata':commentuserData},
+            'result' :{'postdata':serializer.data[0],'postuserdata': postuserData[0], 'commentdata':commentserializer.data, 'commentuserdata':commentuserData},
             'errorMessage':""
         }, 
         status=status.HTTP_200_OK)
