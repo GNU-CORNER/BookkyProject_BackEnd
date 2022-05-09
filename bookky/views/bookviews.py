@@ -5,11 +5,13 @@ from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
 from drf_yasg.utils       import swagger_auto_schema
 from drf_yasg import openapi
+from urllib import parse
 
 from bookky.auth.auth import checkAuth_decodeToken
 from bookky_backend import settings
-from bookky.models import Book, FavoriteBook, Tag
+from bookky.models import Book, FavoriteBook, Tag, Review, User
 from bookky.serializers.bookserializers import BookPostSerializer, BookGetSerializer
+from bookky.serializers.reviewserializers import ReviewGetSerializer
 from bookky.auth.auth import authValidation
 from django.db.models import Q
 
@@ -92,8 +94,11 @@ def book(request, slug): #책 정보 API
                 }, 
                 status=status.HTTP_200_OK)
         else :
+            #slug 정규식처리 필요함
             filtered_data = bookData.filter(BID = slug)
             is_favorite = False
+            userID = None
+            tempReviewQuery = None
             if len(filtered_data) == 0:
                 return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"입력한 BID와 일치하는 정보가 없습니다."}, status=status.HTTP_204_NO_CONTENT)
             else:
@@ -112,29 +117,55 @@ def book(request, slug): #책 정보 API
                 serializer = BookPostSerializer(filtered_data, many = True)
                 temp = serializer.data[0]
                 temp['tagName'] = findBooksTagName(slug)
-                return JsonResponse({'success':True, 'result' : {'bookList':serializer.data[0],'isFavorite':is_favorite}, 'errorMessage':""}, status = status.HTTP_200_OK)
+                if userID is not None:
+                    reviewQuery = Review.objects.filter(BID=slug)
+                    reviewSerializer = ReviewGetSerializer(reviewQuery, many = True)
+                    tempReviewQuery = reviewSerializer.data
+                    for i in tempReviewQuery:
+                        if i['UID'] == userID:
+                            i['isAccessible'] = True
+                        else :
+                            i['isAccessible'] = False
+                        tempUserQuery = User.objects.get(UID=i['UID'])
+                        i['likeCnt'] = len(i['like'])
+                        if i['like'].count(userID) > 0:
+                            i['isLiked'] = True
+                        else:
+                            i['isLiked'] = False
+                        del i['like']
+                        i['nickname'] = tempUserQuery.nickname
+                        i['userthumbnail'] = tempUserQuery.thumbnail
+
+                return JsonResponse({'success':True, 'result' : {'bookList':serializer.data[0],'isFavorite':is_favorite, 'reviewList':tempReviewQuery}, 'errorMessage':""}, status = status.HTTP_200_OK)
     else:
         return JsonResponse({'success':False,'result' : exceptDict, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다."}, status=status.HTTP_403_FORBIDDEN)
 
 @api_view(['GET'])
 def bookSearch(request): #책 검색 API
-    if authValidation(request) == True :
-        if request.method == 'GET' :
-            if request.GET.get('searchKey') is not None:
-                search = request.GET.get('searchKey')
-                searchData = Book.objects.filter(
-                    Q(TITLE__icontains = search) | #제목
-                    Q(AUTHOR__icontains = search) | #저자
-                    Q(BOOK_INTRODUCTION__icontains = search) | #책 소개
-                    Q(PUBLISHER__icontains = search) | #책 출판사
-                    Q(TAG__icontains = search) #태그
-                )
-                serializer = BookPostSerializer(searchData, many = True)
-                return JsonResponse({'success':True,'result' : serializer.data, 'errorMessage':""}, status=status.HTTP_200_OK)
-            else :
-                return JsonResponse({'success':False,'result' : exceptDict, 'errorMessage':"검색어가 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
+    exceptDict = None    
+    if request.method == 'GET' :
+        #slug 정규식 처리 필요함, 한국어 처리 필요
+        if request.GET.get('keyword') is not None and len(request.GET.get('keyword'))>1:
+            keyword = request.GET.get('keyword')
+            print(keyword)
+            keyword = parse.unquote(keyword)
+            print(keyword)
+            search = keyword
+            searchData = Book.objects.filter(
+                Q(TITLE__icontains = search) | #제목
+                # Q(AUTHOR__icontains = search) | #저자
+                # Q(BOOK_INTRODUCTION__icontains = search) | #책 소개
+                # Q(PUBLISHER__icontains = search) | #책 출판사
+                Q(TAG__icontains = search) #태그
+            )
+            serializer = BookGetSerializer(searchData, many = True)
+            for i in serializer.data:
+                i['tagName'] = findBooksTagName(int(i['BID']))
+            return JsonResponse({'success':True,'result' : serializer.data, 'errorMessage':""}, status=status.HTTP_200_OK)
         else:
-            return JsonResponse({'success':False,'result' : exceptDict, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다." }, status=status.HTTP_403_FORBIDDEN)
+            return JsonResponse({'success':True,'result' : exceptDict, 'errorMessage':"검색어가 없습니다."}, status=status.HTTP_400_BAD_REQUEST)    # else :
+    else:
+        return JsonResponse({'success':False,'result' : exceptDict, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다." }, status=status.HTTP_403_FORBIDDEN)
         
 def bookUpdate(request):
     json_bookData = dict()
@@ -178,10 +209,13 @@ def findBooksTagName(BID):
     bookQuery = Book.objects.get(BID = BID)
     tagQuery = Tag.objects
     tempList = bookQuery.TAG
-    tagNames = []
-    for i in tempList:
-        temp = tagQuery.get(TID = i)
-        tagNames.append(temp.nameTag)
+    if tempList is not None:
+        tagNames = []
+        for i in tempList:
+            if i == 0:
+                continue
+            temp = tagQuery.get(TID = i)
+            tagNames.append(temp.nameTag)
     return tagNames
     
 @swagger_auto_schema(

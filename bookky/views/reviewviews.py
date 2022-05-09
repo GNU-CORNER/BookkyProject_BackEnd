@@ -114,8 +114,18 @@ from drf_yasg import openapi
                         'userData':openapi.Schema(
                             type = openapi.TYPE_OBJECT,
                             properties={
-                                'contents' : openapi.Schema('수정된 후기 내용', type=openapi.TYPE_STRING),
-                                'rating' : openapi.Schema('수정된 평점', type=openapi.TYPE_INTEGER)
+                                "RID": openapi.Schema('리뷰아이디', type=openapi.TYPE_INTEGER),
+                                "BID": openapi.Schema('책아이디', type=openapi.TYPE_INTEGER),
+                                "UID": openapi.Schema('사용자아이디', type=openapi.TYPE_INTEGER),
+                                "contents": openapi.Schema('리뷰내용', type=openapi.TYPE_STRING),
+                                "views": openapi.Schema('리뷰조회수', type=openapi.TYPE_INTEGER),
+                                "createAt": openapi.Schema('리뷰생성날짜', type=openapi.TYPE_STRING),
+                                "likeCnt": openapi.Schema('리뷰 좋아요 개수', type=openapi.TYPE_INTEGER),
+                                "rating": openapi.Schema('리뷰 평점', type=openapi.TYPE_INTEGER),
+                                "isAccessible": openapi.Schema('리뷰 접근 권한 "True"이면 수정권한이 있고 "False"이면 없음', type=openapi.TYPE_BOOLEAN),
+                                "isLiked" : openapi.Schema('좋아요 여부', type=openapi.TYPE_BOOLEAN),
+                                "nickname": openapi.Schema('리뷰 작성자', type=openapi.TYPE_STRING),
+                                "userthumbnail" : openapi.Schema('사용자 썸네일', type=openapi.TYPE_STRING)
                             }
                         )
                     }
@@ -156,24 +166,29 @@ def reviews(request, pk):
                 i['nickname'] = temp.nickname
                 i['userthumbnail'] = temp.thumbnail
             reviewData = serializers.data
+            reviewQuery = Review.objects.get(RID=pk)
+            reviewQuery.views = reviewQuery.views + 1
+            reviewData[0]['views'] = reviewQuery.views
+            reviewQuery.save()
             return JsonResponse({'success':True, 'result':{'reviewList':reviewData[0]}, 'errorMessage':""}, status = status.HTTP_200_OK)
         else:
             return JsonResponse({'success':True, 'result':{'reviewList':exceptDict},'errorMessage':"해당 아이디의 리뷰가 존재하지 않습니다."},status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'POST': #리뷰 등록 API
         data = JSONParser().parse(request)
-        if data['BID'] is not None and data['contents'] is not None:
+        if data['contents'] is not None:
             data['UID'] = flag
+            data['BID'] = pk
             temp = Review.objects.filter(                    
-                Q(BID = int(data['BID'])) & #책 소개
+                Q(BID = pk) & #책 소개
                 Q(UID = flag)
             )
             print(len(temp))
             if len(temp) == 0: 
                 serializer = ReviewPostSerializer(data = data)
                 if serializer.is_valid():
-                    bookQuery = Book.objects.get(BID = int(data['BID']))
-                    reviewCnt = len(Review.objects.filter(BID = int(data['BID'])))
+                    bookQuery = Book.objects.get(BID = pk)
+                    reviewCnt = len(Review.objects.filter(BID = pk))
                     if reviewCnt == 0:
                         tempRating = float(data['rating'])
                     else:
@@ -181,7 +196,15 @@ def reviews(request, pk):
                     bookQuery.RATING = tempRating
                     bookQuery.save()
                     serializer.save()
-                    return JsonResponse({'success':True, 'result':serializer.data, 'errorMessage':""}, status = status.HTTP_201_CREATED)
+                    tempData = serializer.data
+                    tempData['likeCnt'] = len(tempData['like'])
+                    tempData['isLiked'] = False
+                    del tempData['like']
+                    tempData['isAccessible'] = True
+                    temp = User.objects.get(UID=tempData['UID'])
+                    tempData['nickname'] = temp.nickname
+                    tempData['userthumbnail'] = temp.thumbnail
+                    return JsonResponse({'success':True, 'result':{'review':tempData}, 'errorMessage':""}, status = status.HTTP_201_CREATED)
                 else:
                     print(serializer.errors)
                     return JsonResponse({'success':False, 'result':exceptDict,'errorMessage':"입력 값 오류"},status=status.HTTP_400_BAD_REQUEST)
@@ -201,7 +224,7 @@ def reviews(request, pk):
                     reviewQuery.rating = float(data['rating'])
 
                     bookQuery = Book.objects.get(BID = int(reviewQuery.BID.BID))
-                    reviewCnt = len(Review.objects.filter(BID = int(data['BID'])))
+                    reviewCnt = len(Review.objects.filter(BID = bookQuery.BID))
                     if reviewCnt == 1:
                         tempRating = float(data['rating'])
                     else:
@@ -209,7 +232,22 @@ def reviews(request, pk):
                     bookQuery.RATING = tempRating
                     bookQuery.save()
                     reviewQuery.save()
-                    returnDict = {'RID':RID,'BID':reviewQuery.BID.BID,'UID':reviewQuery.UID.UID,'contents':reviewQuery.contents,'views':reviewQuery.views,'createAt':reviewQuery.createAt,'like':reviewQuery.like,'rating':reviewQuery.rating}
+                    temp = reviewQuery.like
+                    isLike = False
+                    if temp.count(flag) > 0:
+                        isLike = True
+                    returnDict = {
+                        'RID':pk,
+                        'BID':reviewQuery.BID.BID,
+                        'UID':reviewQuery.UID.UID,
+                        'contents':reviewQuery.contents,
+                        'views':reviewQuery.views,
+                        'createAt':reviewQuery.createAt,
+                        'likeCnt':len(reviewQuery.like),
+                        'rating':reviewQuery.rating,
+                        'isAccessible': True,
+                        'isLiked' : isLike
+                        }
                     return JsonResponse({'success':True, 'result':{'review':returnDict}, 'errorMessage':""}, status = status.HTTP_200_OK)
                 else:
                     return JsonResponse({'success':False,'result':{'review':exceptDict},'errorMessage':"잘못된 형식의 Body입니다."},status=status.HTTP_400_BAD_REQUEST)
@@ -222,6 +260,11 @@ def reviews(request, pk):
         reviewQuery = Review.objects.get(RID=pk)
         if reviewQuery is not None:
             if reviewQuery.UID.UID == flag:
+                bookQuery = Book.objects.get(BID = int(reviewQuery.BID.BID))
+                reviewCnt = len(Review.objects.filter(BID = bookQuery.BID))
+                tempRating = (float(bookQuery.RATING) * float(reviewCnt) - float(reviewQuery.rating)) / (float(reviewCnt) - 1.0)
+                bookQuery.RATING = tempRating
+                bookQuery.save()
                 reviewQuery.delete()
                 return JsonResponse({'success':True, 'result':{'review':exceptDict}, 'errorMessage':""}, status = status.HTTP_200_OK)
             else:

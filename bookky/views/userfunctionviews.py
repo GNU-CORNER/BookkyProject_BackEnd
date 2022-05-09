@@ -1,8 +1,9 @@
-from bookky.models import FavoriteBook, User, AnyCommunity, QnACommunity, MarketCommunity, Tag, Book, QnAComment, MarketComment, AnyComment
+from bookky.models import FavoriteBook, User, AnyCommunity, QnACommunity, MarketCommunity, Tag, Book, QnAComment, MarketComment, AnyComment, Review
 from bookky.serializers.favoriteserializers import FavoriteBookSerializer
 from bookky.serializers.bookserializers import BookPostSerializer, BookGetSerializer
 from bookky.serializers.tagserializers import TagSerializer
 from bookky.serializers.communityserializers import AnyCommunitySerializer, QnACommunitySerializer, MarketCommunitySerializer
+from bookky.serializers.reviewserializers import ReviewGetSerializer
 from bookky.auth.auth import checkAuth_decodeToken
 
 from rest_framework.parsers import JSONParser
@@ -226,8 +227,10 @@ def getMyProfileData(request):
             # community.append(anyCommunityList)
             # community.append(qnaCommunityList)
             # community.append(marketCommunityList)
-            print(community)
-            returnDict = {'userData':userData,'favoriteBookList':bookList, 'userPostList':community,'userReviewList':[]}
+            reviewQuery = Review.objects.order_by('createAt').filter(UID = flag)
+            reviewSerializer = ReviewGetSerializer(reviewQuery, many=True)
+
+            returnDict = {'userData':userData,'favoriteBookList':bookList, 'userPostList':community,'userReviewList':reviewSerializer.data}
 
             return JsonResponse({'success':True, 'result':returnDict, 'errorMessage':""}, status = status.HTTP_200_OK)
 
@@ -279,6 +282,7 @@ def comment_like_counter(flag, dataList):
                                 type=openapi.TYPE_OBJECT,
                                 properties={
                                     'tag': openapi.Schema('태그이름', type=openapi.TYPE_STRING),
+                                    'TID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
                                     'data' :openapi.Schema(
                                         type=openapi.TYPE_ARRAY,
                                         items=openapi.Items(
@@ -306,10 +310,16 @@ def comment_like_counter(flag, dataList):
                             type=openapi.TYPE_OBJECT,
                             properties={
                                 'UID' : openapi.Schema('UID', type=openapi.TYPE_INTEGER),
-                                'tag_array':openapi.Schema(
+                                'tagData':openapi.Schema(
                                     '태그이름',
                                     type=openapi.TYPE_ARRAY,
-                                    items=openapi.Items(type=openapi.TYPE_STRING)
+                                    items=openapi.Items(
+                                        type=openapi.TYPE_OBJECT,
+                                        properties={
+                                        'tag' : openapi.Schema('태그이름',type=openapi.TYPE_STRING),
+                                        'TID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
+                                        }
+                                        )
                                 ),
                                 'nickname':openapi.Schema('사용자 닉네임',type=openapi.TYPE_STRING),
                                 'thumbnail':openapi.Schema('사용자 프로필 사진', type=openapi.TYPE_STRING)
@@ -347,13 +357,13 @@ def getHomeData(request):
                 tempTag = []
                 userTag = userQuery.tag_array
                 if userTag is None:
-                    userData['tag_array'] = []
+                    userData['tagData'] = []
                 else:
                     userStack = userTag
                 for i in userStack:
                     temp = tagQuery.get(TID=i)
-                    tempTag.append(temp.nameTag)
-                userData['tag_array'] = tempTag
+                    tempTag.append({'TID' : i,'tag':temp.nameTag})
+                userData['tagData'] = tempTag
                 userData['nickname'] = userQuery.nickname
                 userData['thumbnail'] = userQuery.thumbnail
         
@@ -362,7 +372,7 @@ def getHomeData(request):
             bookTemp = bookQuery.filter(TAG__contains = [i])
             serializer = BookGetSerializer(bookTemp, many=True)
             tempSpiltData = serializer.data
-            bookList.append({'tag':temp.nameTag, 'data':tempSpiltData[0:25]})
+            bookList.append({'tag':temp.nameTag, 'TID':i, 'data':tempSpiltData[0:25]})
         
         return JsonResponse({'success':True,'result' :{'bookList':bookList,'communityList':[],'userData':userData},'errorMessage':""},status=status.HTTP_200_OK)
 
