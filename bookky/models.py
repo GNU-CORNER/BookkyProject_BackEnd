@@ -198,4 +198,13 @@ class AuthenticationCodeStorage(models.Model) :
     createAt                = models.DateField(auto_now_add=True)
     
     def __str__(self):
-        return email
+        return self.email
+
+class RecommendBook(models.Model):
+    RBID                    = models.BigAutoField(primary_key=True)
+    BID                     = ArrayField(models.IntegerField(null=False), size = 30, null=True)
+    TID                     = models.ForeignKey("Tag", on_delete=models.CASCADE, null=False, default=150)
+    UID                     = models.ForeignKey("User", on_delete=models.CASCADE, null=False)
+    
+    def __str__(self):
+        return self.RBID

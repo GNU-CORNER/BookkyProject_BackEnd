@@ -24,7 +24,7 @@ urlpatterns = [ #POST형식으로 바꿔야함
     path('books/search', bookviews.bookSearch),
     path('review/<int:pk>',reviewviews.reviews),
     path('review/like/<int:pk>',reviewviews.reviewLike),
-    path('test8', bookviews.bookUpdate),
+    path('test8', userfunctionviews.getMoreTag),
     path('community/postlist/<slug:slug>', communityviews.getCommunityPostList), #GET
     path('community/postdetail/<slug:slug1>/<slug:slug2>', communityviews.getCommunityPostdetail), #GET
     path('community/writepost/<slug:slug>', communityviews.writeCommunityPost), #POST
