@@ -85,6 +85,8 @@ def favoriteBook(request, pk): #관심 도서 등록 및 취소
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
     
     if request.method == 'POST':
+        data = dict()
+        data['BID'] = pk
         data['UID'] = flag
         queryData = FavoriteBook.objects.filter(UID = flag)
         queryData = queryData.filter(BID = pk)
@@ -340,7 +342,7 @@ def getHomeData(request):
         try:
             bookQuery = Book.objects
             tagQuery = Tag.objects
-            bookList = []
+            bookList = [{'tag':"오늘의 추천 도서", 'data':[]}]
             userData = dict()
         except:
             return JsonResponse({'success':False, 'result':{}, 'errorMessage':"DB와 연결 끊김"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -480,3 +482,43 @@ def getTags(request):
             del temp[i]['contents']
         
         return JsonResponse({'success':True, 'result':{'tag':temp}, 'errorMessage':""},status=status.HTTP_200_OK)
+    
+@api_view(['GET'])
+def getMoreTag(request):
+    if request.method == 'GET':
+
+        exceptDict = None
+        try:
+            bookQuery = Book.objects
+            tagQuery = Tag.objects
+            bookList = []
+            nickname = "비회원"
+        except:
+            return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'nickname':exceptDict}, 'errorMessage':"DB와 연결 끊김"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+        userStack = [1,19, 29]
+        if request.headers.get('access_token', None) is not None: #회원일 때
+            if len(request.headers.get('access_token', None)) != 0:
+                flag = checkAuth_decodeToken(request)
+                if flag == 1:
+                    return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'nickname':exceptDict}, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
+                elif flag == 2:
+                    return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'nickname':exceptDict}, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
+                userQuery = User.objects.get(UID = flag)
+
+                tempTag = []
+                userTag = userQuery.tag_array
+                if userTag is not None:
+                    userStack = userTag
+                for i in userStack:
+                    temp = tagQuery.get(TID=i)
+                    tempTag.append({'TID' : i,'tag':temp.nameTag})
+                nickname = userQuery.nickname
+        
+        for i in userStack:
+            temp = tagQuery.get(TID = i)
+            bookTemp = bookQuery.filter(TAG__contains = [i])
+            serializer = BookGetSerializer(bookTemp, many=True)
+            tempSpiltData = serializer.data
+            bookList.append({'tag':temp.nameTag, 'TID':i, 'data':tempSpiltData[0:25]})
+        
+        return JsonResponse({'success':True,'result' :{'bookList':bookList,'nickname':nickname},'errorMessage':""},status=status.HTTP_200_OK)
