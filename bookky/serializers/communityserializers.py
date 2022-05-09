@@ -1,26 +1,57 @@
 from django.db.models import fields
 from rest_framework import serializers
-from bookky.models import MarketCommunity, HotCommunity, QnACommunity, AnyCommunity
+from bookky.models import MarketCommunity, HotCommunity, QnACommunity, AnyCommunity, AnyComment, MarketComment, QnAComment
 
 class AnyCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = AnyCommunity
-        fields = ['BID', 'UID', 'contents', 'postImage']
+        fields = ['APID', 'title', 'contents']
+
+class AnyCommunityDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnyCommunity
+        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID']
+
+class AnyCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnyComment
+        fields = ['ACID', 'UID', 'APID', 'parentID', 'comment', 'updateAt', 'like']
 
 class MarketCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketCommunity
-        fields = ['BID', 'UID', 'contents', 'postImage']
-        
+        fields = ['MPID', 'title', 'contents']
+
+class MarketCommunityDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MarketCommunity
+        fields = ['title', 'contents', 'views', 'createAt','like','UID']
+
+class MarketCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnyComment
+        fields = ['MCID', 'UID', 'MPID', 'parentID', 'comment', 'updateAt', 'like']
+
 class QnACommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = QnACommunity
-        fields = ['BID', 'UID', 'contents', 'postImage']
+        fields = ['QPID', 'title', 'contents','parentQID']
+
+class QnACommunityDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QnACommunity
+        fields = ['title', 'contents', 'views', 'createAt','like','UID']
+
+class QnACommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QnAComment
+        fields = ['QCID', 'UID', 'MPID', 'parentID', 'comment', 'updateAt', 'like']
+
 
 class HotCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = HotCommunity
-        fields = ['ACID', 'MCID', 'QCID']
+        fields = ['HPID', 'ACID', 'MCID', 'QCID']
 
 '''
 class AnyCommunity(models.Model):                                                                                           #자유게시판
@@ -32,7 +63,6 @@ class AnyCommunity(models.Model):                                               
     createAt                = models.DateField(auto_now=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(null=True)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    commentCounts           = models.IntegerField(null=False, default = 0)                                                  #댓글수
     like                    = ArrayField(models.IntegerField(null=True), size = 10000000)                                   #좋아요, 숫자는 최대
 
     def __str__(self):
@@ -48,7 +78,6 @@ class MarketCommunity(models.Model):                                            
     createAt                = models.DateField(auto_now=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(null=True)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    commentCounts           = models.IntegerField(null=False, default = 0)                                                  #댓글수
     like                    = ArrayField(models.IntegerField(null=True), size = 10000000)                                   #좋아요, 숫자는 최대
 
     def __str__(self):
@@ -64,7 +93,6 @@ class QnACommunity(models.Model):                                               
     createAt                = models.DateField(auto_now=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(null=True)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    commentCounts           = models.IntegerField(null=False, default = 0)                                                  #댓글수
     like                    = ArrayField(models.IntegerField(null=True), size = 10000000)                                   #좋아요, 숫자는 최대
 
     def __str__(self):

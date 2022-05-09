@@ -36,8 +36,9 @@ CORS_ALLOW_METHODS = (
     'POST',
     'OPTION',
     'PUT',
-    'PATCH',
-    'FETCH'
+    'FETCH',
+    'HEAD',
+    'PATCH'
 )
 # Application definition
 CORS_ALLOW_HEADERS = (
