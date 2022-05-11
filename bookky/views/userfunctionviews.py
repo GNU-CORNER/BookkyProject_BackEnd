@@ -163,13 +163,20 @@ def favoriteBook(request, pk): #관심 도서 등록 및 취소
                         'userReviewList': openapi.Schema(
                             type=openapi.TYPE_OBJECT,
                             properties={
-                                'nickname':openapi.Schema('사용자 닉네임',type=openapi.TYPE_STRING),
-                                'thumbnail':openapi.Schema('사용자 프로필 사진', type=openapi.TYPE_STRING),
-                                'tag_array':openapi.Schema(
-                                    '태그이름',
-                                    type=openapi.TYPE_ARRAY,
-                                    items=openapi.Items(type=openapi.TYPE_STRING)
-                                )
+                                'RID':openapi.Schema('RID', type=openapi.TYPE_INTEGER),
+                                'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                'UID':openapi.Schema('UID', type=openapi.TYPE_INTEGER),
+                                'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
+                                'views':openapi.Schema('views', type=openapi.TYPE_INTEGER),
+                                'createAt':openapi.Schema('작성날짜', type=openapi.TYPE_STRING),
+                                'rating': openapi.Schema('리뷰 평점', type=openapi.TYPE_INTEGER),
+                                'likeCnt':openapi.Schema('좋아요 개수', type=openapi.TYPE_INTEGER),
+                                'isLiked':openapi.Schema('이글에 좋아요를 했는지?', type=openapi.TYPE_BOOLEAN),
+                                'isAccessible':openapi.Schema('이글에 접근이 가능한지?', type=openapi.TYPE_BOOLEAN),
+                                'nickname':openapi.Schema('사용자 이름', type=openapi.TYPE_STRING),
+                                'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                                'bookTitle':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                                'thumbnail':openapi.Schema('책 사진', type=openapi.TYPE_STRING),
                             }
                         )
                     }
@@ -231,7 +238,20 @@ def getMyProfileData(request):
             # community.append(marketCommunityList)
             reviewQuery = Review.objects.order_by('createAt').filter(UID = flag)
             reviewSerializer = ReviewGetSerializer(reviewQuery, many=True)
-
+            for i in reviewSerializer.data:
+                temp = User.objects.get(UID=i['UID'])
+                i['likeCnt'] = len(i['like'])
+                if i['like'].count(flag) > 0:
+                    i['isLiked'] = True
+                else:
+                    i['isLiked'] = False
+                del i['like']
+                i['isAccessible'] = True
+                i['nickname'] = temp.nickname
+                tempQuery = Book.objects.get(BID = i['BID'])
+                i['AUTHOR'] = tempQuery.AUTHOR
+                i['bookTitle'] = tempQuery.TITLE
+                i['thumbnail'] = tempQuery.thumbnailImage
             returnDict = {'userData':userData,'favoriteBookList':bookList, 'userPostList':community,'userReviewList':reviewSerializer.data}
 
             return JsonResponse({'success':True, 'result':returnDict, 'errorMessage':""}, status = status.HTTP_200_OK)
@@ -482,7 +502,50 @@ def getTags(request):
             del temp[i]['contents']
         
         return JsonResponse({'success':True, 'result':{'tag':temp}, 'errorMessage':""},status=status.HTTP_200_OK)
-    
+
+@swagger_auto_schema(
+    method='get',
+    operation_description="main 화면 태그 더보기 데이터 출력",
+    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="회원이면 넣고, 비회원은 넣지 않는다.", type=openapi.TYPE_STRING)],
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'bookList' : openapi.Schema(
+                            type=openapi.TYPE_ARRAY,
+                            items=openapi.Items(
+                                type=openapi.TYPE_OBJECT,
+                                properties={
+                                    'tag': openapi.Schema('태그이름', type=openapi.TYPE_STRING),
+                                    'TID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
+                                    'data' :openapi.Schema(
+                                        type=openapi.TYPE_ARRAY,
+                                        items=openapi.Items(
+                                            type=openapi.TYPE_OBJECT,
+                                            properties={
+                                                'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                                'TITLE':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                                                'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                                                'thumbnailImage':openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
+                                            }
+                                        )
+                                    )
+                                    
+                                }
+                            )
+                        ),
+                        'nickname' : openapi.Schema('닉네임',type=openapi.TYPE_STRING),
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)   
 @api_view(['GET'])
 def getMoreTag(request):
     if request.method == 'GET':
@@ -491,7 +554,7 @@ def getMoreTag(request):
         try:
             bookQuery = Book.objects
             tagQuery = Tag.objects
-            bookList = []
+            bookList = [{'tag':"오늘의 추천 도서", 'data':[]}]
             nickname = "비회원"
         except:
             return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'nickname':exceptDict}, 'errorMessage':"DB와 연결 끊김"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)

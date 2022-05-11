@@ -11,3 +11,8 @@ class BookGetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ['BID', 'TITLE','AUTHOR', 'thumbnailImage', 'RATING']
+
+class BookSearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ['BID', 'TITLE','AUTHOR','thumbnailImage','RATING','BOOK_INTRODUCTION','PUBLISH_DATE']

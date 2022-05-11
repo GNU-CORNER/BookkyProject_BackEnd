@@ -59,7 +59,12 @@ def get_refreshToken(uid):
             print("[code_47_get_refreshToken] 시간 : " + str(datetime.datetime.utcnow())+", UID : "+str(uid)+" 오류 : "+ authSerializer.errors)
             return 500
     else:
-        return True
+        refresh_token = jwtEncoder(None,2)
+        tempQuery = RefreshTokenStorage.objects.get(UID = uid)
+        tempQuery.refresh_token = refresh_token
+        tempQuery.save()
+        print("[code_47_get_refreshToken] 시간 : " + str(datetime.datetime.utcnow())+", UID : "+str(uid)+" 갱신토큰 발급") #로그 처리
+        return refresh_token
     
 #AT토큰 갱신
 def re_generate_Token(request):
@@ -85,6 +90,8 @@ def re_generate_Token(request):
             except jwt.exceptions.DecodeError: #JWT 갱신 토큰의 형식 에러, 혹은 잘못된 토큰
                 print("[code_64_re_generate_Token] 시간 : " + str(datetime.datetime.utcnow())+", UID : "+str(tempData[0].UID.UID)+" 재발급 시도 중 오류")
                 return 3
+        else:
+            return 3
     elif flag == True: #Access Token의 유효기간이 남을때의 분기
         print("[code_64_re_generate_Token] 시간 : " + str(datetime.datetime.utcnow())+", UID : "+str(tempData[0].UID.UID)+"유효기간 남음")
         return 4
@@ -179,4 +186,4 @@ def jwtEncoder(data, type):
     elif type == 2:
         tokenType = "refresh_token"
         time = 1209600
-        return jwt.encode({'token_type':"refresh_token", 'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=time)},secretKey,algorithm=dbsetting.algorithm).decode('utf-8') #갱신 토큰 기간 2주로 설정
+        return jwt.encode({'token_type':tokenType, 'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=time)},secretKey,algorithm=dbsetting.algorithm).decode('utf-8') #갱신 토큰 기간 2주로 설정

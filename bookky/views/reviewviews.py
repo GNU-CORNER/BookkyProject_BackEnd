@@ -52,18 +52,20 @@ from drf_yasg import openapi
                 'result': openapi.Schema(
                     type=openapi.TYPE_OBJECT,
                     properties={
-                        "RID": openapi.Schema('리뷰아이디', type=openapi.TYPE_INTEGER),
-                        "BID": openapi.Schema('책아이디', type=openapi.TYPE_INTEGER),
-                        "UID": openapi.Schema('사용자아이디', type=openapi.TYPE_INTEGER),
-                        "contents": openapi.Schema('리뷰내용', type=openapi.TYPE_STRING),
-                        "views": openapi.Schema('리뷰조회수', type=openapi.TYPE_INTEGER),
-                        "createAt": openapi.Schema('리뷰생성날짜', type=openapi.TYPE_STRING),
-                        "likeCnt": openapi.Schema('리뷰 좋아요 개수', type=openapi.TYPE_INTEGER),
-                        "rating": openapi.Schema('리뷰 평점', type=openapi.TYPE_INTEGER),
-                        "isAccessible": openapi.Schema('리뷰 접근 권한 "True"이면 수정권한이 있고 "False"이면 없음', type=openapi.TYPE_BOOLEAN),
-                        "isLiked" : openapi.Schema('좋아요 여부', type=openapi.TYPE_BOOLEAN),
-                        "nickname": openapi.Schema('리뷰 작성자', type=openapi.TYPE_STRING),
-                        "userthumbnail" : openapi.Schema('사용자 썸네일', type=openapi.TYPE_STRING)
+                        'RID':openapi.Schema('RID', type=openapi.TYPE_INTEGER),
+                        'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                        'UID':openapi.Schema('UID', type=openapi.TYPE_INTEGER),
+                        'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
+                        'views':openapi.Schema('views', type=openapi.TYPE_INTEGER),
+                        'createAt':openapi.Schema('작성날짜', type=openapi.TYPE_STRING),
+                        'rating': openapi.Schema('리뷰 평점', type=openapi.TYPE_INTEGER),
+                        'likeCnt':openapi.Schema('좋아요 개수', type=openapi.TYPE_INTEGER),
+                        'isLiked':openapi.Schema('이글에 좋아요를 했는지?', type=openapi.TYPE_BOOLEAN),
+                        'isAccessible':openapi.Schema('이글에 접근이 가능한지?', type=openapi.TYPE_BOOLEAN),
+                        'nickname':openapi.Schema('사용자 이름', type=openapi.TYPE_STRING),
+                        'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                        'bookTitle':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                        'thumbnail':openapi.Schema('책 사진', type=openapi.TYPE_STRING),
                     }
                 ),
                 'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
@@ -114,18 +116,20 @@ from drf_yasg import openapi
                         'userData':openapi.Schema(
                             type = openapi.TYPE_OBJECT,
                             properties={
-                                "RID": openapi.Schema('리뷰아이디', type=openapi.TYPE_INTEGER),
-                                "BID": openapi.Schema('책아이디', type=openapi.TYPE_INTEGER),
-                                "UID": openapi.Schema('사용자아이디', type=openapi.TYPE_INTEGER),
-                                "contents": openapi.Schema('리뷰내용', type=openapi.TYPE_STRING),
-                                "views": openapi.Schema('리뷰조회수', type=openapi.TYPE_INTEGER),
-                                "createAt": openapi.Schema('리뷰생성날짜', type=openapi.TYPE_STRING),
-                                "likeCnt": openapi.Schema('리뷰 좋아요 개수', type=openapi.TYPE_INTEGER),
-                                "rating": openapi.Schema('리뷰 평점', type=openapi.TYPE_INTEGER),
-                                "isAccessible": openapi.Schema('리뷰 접근 권한 "True"이면 수정권한이 있고 "False"이면 없음', type=openapi.TYPE_BOOLEAN),
-                                "isLiked" : openapi.Schema('좋아요 여부', type=openapi.TYPE_BOOLEAN),
-                                "nickname": openapi.Schema('리뷰 작성자', type=openapi.TYPE_STRING),
-                                "userthumbnail" : openapi.Schema('사용자 썸네일', type=openapi.TYPE_STRING)
+                                'RID':openapi.Schema('RID', type=openapi.TYPE_INTEGER),
+                                'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                'UID':openapi.Schema('UID', type=openapi.TYPE_INTEGER),
+                                'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
+                                'views':openapi.Schema('views', type=openapi.TYPE_INTEGER),
+                                'createAt':openapi.Schema('작성날짜', type=openapi.TYPE_STRING),
+                                'rating': openapi.Schema('리뷰 평점', type=openapi.TYPE_INTEGER),
+                                'likeCnt':openapi.Schema('좋아요 개수', type=openapi.TYPE_INTEGER),
+                                'isLiked':openapi.Schema('이글에 좋아요를 했는지?', type=openapi.TYPE_BOOLEAN),
+                                'isAccessible':openapi.Schema('이글에 접근이 가능한지?', type=openapi.TYPE_BOOLEAN),
+                                'nickname':openapi.Schema('사용자 이름', type=openapi.TYPE_STRING),
+                                'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                                'bookTitle':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                                'thumbnail':openapi.Schema('책 사진', type=openapi.TYPE_STRING),
                             }
                         )
                     }
@@ -162,9 +166,11 @@ def reviews(request, pk):
                     i['isAccessible'] = True
                 else:
                     i['isAccessible'] = False
-                temp = User.objects.get(UID=i['UID'])
                 i['nickname'] = temp.nickname
-                i['userthumbnail'] = temp.thumbnail
+                tempQuery = Book.objects.get(BID = i['BID'])
+                i['AUTHOR'] = tempQuery.AUTHOR
+                i['bookTitle'] = tempQuery.TITLE
+                i['thumbnail'] = tempQuery.thumbnailImage
             reviewData = serializers.data
             reviewQuery = Review.objects.get(RID=pk)
             reviewQuery.views = reviewQuery.views + 1
@@ -203,7 +209,10 @@ def reviews(request, pk):
                     tempData['isAccessible'] = True
                     temp = User.objects.get(UID=tempData['UID'])
                     tempData['nickname'] = temp.nickname
-                    tempData['userthumbnail'] = temp.thumbnail
+                    tempQuery = Book.objects.get(BID = i['BID'])
+                    i['AUTHOR'] = tempQuery.AUTHOR
+                    i['bookTitle'] = tempQuery.TITLE
+                    i['thumbnail'] = tempQuery.thumbnailImage
                     return JsonResponse({'success':True, 'result':{'review':tempData}, 'errorMessage':""}, status = status.HTTP_201_CREATED)
                 else:
                     print(serializer.errors)
@@ -288,18 +297,20 @@ def reviews(request, pk):
                         "reviewList": openapi.Schema('책의 리뷰리스트', type=openapi.TYPE_ARRAY, items=openapi.Items(
                             type=openapi.TYPE_OBJECT,
                             properties={
-                                "RID": openapi.Schema('리뷰아이디', type=openapi.TYPE_INTEGER),
-                                "BID": openapi.Schema('책아이디', type=openapi.TYPE_INTEGER),
-                                "UID": openapi.Schema('사용자아이디', type=openapi.TYPE_INTEGER),
-                                "contents": openapi.Schema('리뷰내용', type=openapi.TYPE_STRING),
-                                "views": openapi.Schema('리뷰조회수', type=openapi.TYPE_INTEGER),
-                                "createAt": openapi.Schema('리뷰생성날짜', type=openapi.TYPE_STRING),
-                                "likeCnt": openapi.Schema('리뷰 좋아요 개수', type=openapi.TYPE_INTEGER),
-                                "rating": openapi.Schema('리뷰 평점', type=openapi.TYPE_INTEGER),
-                                "isAccessible": openapi.Schema('리뷰 접근 권한 "True"이면 수정권한이 있고 "False"이면 없음', type=openapi.TYPE_BOOLEAN),
-                                "isLiked" : openapi.Schema('좋아요 여부', type=openapi.TYPE_BOOLEAN),
-                                "nickname": openapi.Schema('리뷰 작성자', type=openapi.TYPE_STRING),
-                                "userthumbnail" : openapi.Schema('사용자 썸네일', type=openapi.TYPE_STRING)
+                                'RID':openapi.Schema('RID', type=openapi.TYPE_INTEGER),
+                                'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                'UID':openapi.Schema('UID', type=openapi.TYPE_INTEGER),
+                                'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
+                                'views':openapi.Schema('views', type=openapi.TYPE_INTEGER),
+                                'createAt':openapi.Schema('작성날짜', type=openapi.TYPE_STRING),
+                                'rating': openapi.Schema('리뷰 평점', type=openapi.TYPE_INTEGER),
+                                'likeCnt':openapi.Schema('좋아요 개수', type=openapi.TYPE_INTEGER),
+                                'isLiked':openapi.Schema('이글에 좋아요를 했는지?', type=openapi.TYPE_BOOLEAN),
+                                'isAccessible':openapi.Schema('이글에 접근이 가능한지?', type=openapi.TYPE_BOOLEAN),
+                                'nickname':openapi.Schema('사용자 이름', type=openapi.TYPE_STRING),
+                                'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                                'bookTitle':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                                'thumbnail':openapi.Schema('책 사진', type=openapi.TYPE_STRING),
                             })
                         )
                     }
@@ -337,7 +348,10 @@ def bookReviews(request, pk): #책에 관한 리뷰를 받아오는 API
                     i['isAccessible'] = False
                 temp = User.objects.get(UID=i['UID'])
                 i['nickname'] = temp.nickname
-                i['userthumbnail'] = temp.thumbnail
+                tempQuery = Book.objects.get(BID = i['BID'])
+                i['AUTHOR'] = tempQuery.AUTHOR
+                i['bookTitle'] = tempQuery.TITLE
+                i['thumbnail'] = tempQuery.thumbnailImage
             return JsonResponse({'success':True, 'result':{'reviewList':serializers.data}, 'errorMessage':""}, status = status.HTTP_200_OK)
         else:
             return JsonResponse({'success':True, 'result':{'reviewList':exceptDict},'errorMessage':""},status=status.HTTP_204_NO_CONTENT)

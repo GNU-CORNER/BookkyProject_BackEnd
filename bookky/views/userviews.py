@@ -234,20 +234,17 @@ def userSignIn(request):
                         serializer = UserRegisterSerializer(filteredData, many=True)
                         accessToken = get_access(users.UID)
                         refreshToken = get_refreshToken(users.UID)
-                        if refreshToken :
-                            tempData = RefreshTokenStorage.objects.filter(UID =users.UID)
-                            refreshToken = tempData[0].refresh_token
-                            temp = serializer.data[0]
-                            del temp['pwToken']
-                            if temp['tag_array'] is not None:
-                                tempTag = []
-                                tagQuery = Tag.objects
-                                for i in temp['tag_array']:
-                                    temps = tagQuery.get(TID = i)                                
-                                    tempTag.append(temps.nameTag)
-                                temp['tag_array'] = tempTag
-                            return JsonResponse({"success" : True, "result": {'userData':temp, 'access_token':str(accessToken), 'refresh_token' : str(refreshToken)}, 'errorMessage':""}, status=status.HTTP_200_OK)
-                        elif refreshToken == 500:
+                        temp = serializer.data[0]
+                        del temp['pwToken']
+                        if temp['tag_array'] is not None:
+                            tempTag = []
+                            tagQuery = Tag.objects
+                            for i in temp['tag_array']:
+                                temps = tagQuery.get(TID = i)                                
+                                tempTag.append(temps.nameTag)
+                            temp['tag_array'] = tempTag
+                        return JsonResponse({"success" : True, "result": {'userData':temp, 'access_token':str(accessToken), 'refresh_token' : str(refreshToken)}, 'errorMessage':""}, status=status.HTTP_200_OK)
+                        if refreshToken == 500:
                             return JsonResponse({'success':False, "result": exceptDict, 'errorMessage':"serverError"}, status=status.HTTP_404_NOT_FOUND)
                     else: #로그인 비밀번호 틀림
                         return JsonResponse({"success" : False, "result": exceptDict, 'errorMessage':"비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)

@@ -25,7 +25,7 @@ class MarketCommunitySerializer(serializers.ModelSerializer):
 class MarketCommunityDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketCommunity
-        fields = ['title', 'contents', 'views', 'createAt','like','UID']
+        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID']
 
 class MarketCommentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,7 +40,7 @@ class QnACommunitySerializer(serializers.ModelSerializer):
 class QnACommunityDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = QnACommunity
-        fields = ['title', 'contents', 'views', 'createAt','like','UID']
+        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID']
 
 class QnACommentSerializer(serializers.ModelSerializer):
     class Meta:

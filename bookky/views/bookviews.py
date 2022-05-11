@@ -10,7 +10,7 @@ from urllib import parse
 from bookky.auth.auth import checkAuth_decodeToken
 from bookky_backend import settings
 from bookky.models import Book, FavoriteBook, Tag, Review, User
-from bookky.serializers.bookserializers import BookPostSerializer, BookGetSerializer
+from bookky.serializers.bookserializers import BookPostSerializer, BookGetSerializer, BookSearchSerializer
 from bookky.serializers.reviewserializers import ReviewGetSerializer
 from bookky.auth.auth import authValidation
 from django.db.models import Q
@@ -53,6 +53,13 @@ import time
                             'PUBLISH_DATE' : openapi.Schema('책 출판일', type=openapi.TYPE_STRING),
                             'thumbnail' : openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
                             'thumbnailImage': openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
+                            'tagData' :openapi.Schema(
+                                type = openapi.TYPE_OBJECT,
+                                properties={
+                                    'tag':openapi.Schema('태그이름', type=openapi.TYPE_STRING),
+                                    'TID':openapi.Schema('태그아이디',type=openapi.TYPE_INTEGER)
+                                }
+                            ) 
                             }
                         )),
                         'isFavorite' : openapi.Schema('사용자가 선택한 태그', type=openapi.TYPE_BOOLEAN),
@@ -116,7 +123,7 @@ def book(request, slug): #책 정보 API
                             is_favorite = True
                 serializer = BookPostSerializer(filtered_data, many = True)
                 temp = serializer.data[0]
-                temp['tagName'] = findBooksTagName(slug)
+                temp['tagData'] = findBooksTagName(slug)
                 if userID is not None:
                     reviewQuery = Review.objects.filter(BID=slug)
                     reviewSerializer = ReviewGetSerializer(reviewQuery, many = True)
@@ -134,12 +141,53 @@ def book(request, slug): #책 정보 API
                             i['isLiked'] = False
                         del i['like']
                         i['nickname'] = tempUserQuery.nickname
-                        i['userthumbnail'] = tempUserQuery.thumbnail
+                        tempQuery = Book.objects.get(BID = i['BID'])
+                        i['AUTHOR'] = tempQuery.AUTHOR
+                        i['bookTitle'] = tempQuery.TITLE
+                        i['thumbnail'] = tempQuery.thumbnailImage
 
                 return JsonResponse({'success':True, 'result' : {'bookList':serializer.data[0],'isFavorite':is_favorite, 'reviewList':tempReviewQuery}, 'errorMessage':""}, status = status.HTTP_200_OK)
     else:
         return JsonResponse({'success':False,'result' : exceptDict, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다."}, status=status.HTTP_403_FORBIDDEN)
 
+@swagger_auto_schema(
+    method='get',
+    operation_description= "검색 API",
+    manual_parameters=[
+        openapi.Parameter('keyword',openapi.IN_QUERY,type=openapi.TYPE_STRING, description='검색어')
+    ],
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'bookList' : openapi.Schema('사용자가 선택한 태그', type=openapi.TYPE_ARRAY, items=openapi.Items(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                            'TITLE':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                            'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                            'BOOK_INTRODUCTION':openapi.Schema('책 소개', type=openapi.TYPE_STRING),
+                            'PUBLISH_DATE' : openapi.Schema('책 출판일', type=openapi.TYPE_STRING),
+                            'thumbnailImage': openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
+                            'tagData' :openapi.Schema(
+                                type = openapi.TYPE_OBJECT,
+                                properties={
+                                    'tag':openapi.Schema('태그이름', type=openapi.TYPE_STRING),
+                                    'TID':openapi.Schema('태그아이디',type=openapi.TYPE_INTEGER)
+                                }
+                            ) 
+                            }
+                        )),
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
 @api_view(['GET'])
 def bookSearch(request): #책 검색 API
     exceptDict = None    
@@ -158,9 +206,9 @@ def bookSearch(request): #책 검색 API
                 # Q(PUBLISHER__icontains = search) | #책 출판사
                 Q(TAG__icontains = search) #태그
             )
-            serializer = BookGetSerializer(searchData, many = True)
+            serializer = BookSearchSerializer(searchData, many = True)
             for i in serializer.data:
-                i['tagName'] = findBooksTagName(int(i['BID']))
+                i['tagData'] = findBooksTagName(int(i['BID']))
             return JsonResponse({'success':True,'result' : serializer.data, 'errorMessage':""}, status=status.HTTP_200_OK)
         else:
             return JsonResponse({'success':True,'result' : exceptDict, 'errorMessage':"검색어가 없습니다."}, status=status.HTTP_400_BAD_REQUEST)    # else :
@@ -215,7 +263,7 @@ def findBooksTagName(BID):
             if i == 0:
                 continue
             temp = tagQuery.get(TID = i)
-            tagNames.append(temp.nameTag)
+            tagNames.append({'tag':temp.nameTag, 'TID':temp.TID})
     return tagNames
     
 @swagger_auto_schema(
@@ -239,6 +287,7 @@ def findBooksTagName(BID):
                                 type=openapi.TYPE_OBJECT,
                                 properties={
                                     'tag': openapi.Schema('태그이름', type=openapi.TYPE_STRING),
+                                    'TID':openapi.Schema('태그아이디', type=openapi.TYPE_INTEGER),
                                     'data' :openapi.Schema(
                                         type=openapi.TYPE_ARRAY,
                                         items=openapi.Items(
@@ -288,5 +337,5 @@ def getBooksByTag(request, slug):
         bookData = bookData[startpagination : endpagination]               
         bookSerializer = BookGetSerializer(bookData, many=True)
         temp = tagQuery.get(TID=tagNumber)
-        resultDict = {'tag':temp.nameTag,'data':bookSerializer.data}
+        resultDict = {'tag':temp.nameTag,'TID':temp.TID ,'data':bookSerializer.data}
         return JsonResponse({'success':True, 'result':{'bookList':resultDict}, 'errorMessage':""},status=status.HTTP_200_OK)
