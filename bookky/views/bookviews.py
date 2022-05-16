@@ -113,9 +113,9 @@ def book(request, slug): #책 정보 API
                     userID = checkAuth_decodeToken(request)
                     print(userID)
                     if userID == 1:
-                        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
+                        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
                     elif userID == 2:
-                        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+                        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
                     else:        
                         queryData = FavoriteBook.objects.filter(UID = userID)
                         queryData = queryData.filter(BID = slug)
@@ -218,12 +218,11 @@ def bookSearch(request): #책 검색 API
 def bookUpdate(request):
     json_bookData = dict()
 
-    with open("BookData1.json","r") as rt_json:
+    with open("BookData4.json","r") as rt_json:
         json_bookData = json.load(rt_json)
     for i in json_bookData :
         data = i.get('Allah_BID')
         tempData = Book.objects.filter(Allah_BID = data)
-        print(tempData[0].thumbnailImage)
         if(len(tempData) != 0):
             print(str(settings.MEDIA_ROOT)+str(data)+".png")
         
@@ -240,7 +239,7 @@ def bookUpdate(request):
                 'Allah_BID' : tempData[0].Allah_BID,
                 'PUBLISH_DATE' : tempData[0].PUBLISH_DATE,
                 'thumbnail' : tempData[0].thumbnail,
-                'thumbnailImage': "http://203.255.3.144:8010/thumbnail/"+str(data)+".png"
+                'thumbnailImage': "http://203.255.3.144:8010/thumbnail/bookThumbnail/"+str(data)+".png"
             }
             print(tempDic['thumbnailImage'])
             serializer = BookPostSerializer(tempData[0], data=tempDic)

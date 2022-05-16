@@ -3,6 +3,10 @@ from email.policy import default
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
+def image_upload_path(instance, filename):
+    return f'{instance.imageTitle}/{filename}'
+def image_user_upload_path(instance, filename):
+    return f'thumbnail/userThumbnail/{instance.email}/{filename}'
 
 #전체적인 컬럼 이름은 API의 출력값 그대로 정했음
 class Book(models.Model):
@@ -38,6 +42,8 @@ class User(models.Model):
     pushNoti                = models.BooleanField(null=False, default=False)                #푸쉬 알림 승인 값
     pushToken               = models.TextField(null=True, blank=True)                       #푸쉬 토큰 저장용
     loginMethod             = models.IntegerField(default=0, null=False)                    #0 = 자체 회원가입, 1 = Github, 2 = Google, 3 = Apple
+    imageTitle              = models.TextField(null=True)
+    imageContent            = models.TextField(null=True)
     def __str__(self):
         return self.UID
 
@@ -85,7 +91,7 @@ class QnACommunity(models.Model):                                               
     updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
     like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
-    parentQPID              = models.IntegerField(null=False, default = 0)                                                #답글 부모 QPID
+    parentQPID              = models.IntegerField(null=False)                                                #답글 부모 QPID
 
     def __str__(self):
         return self.QPID
@@ -96,7 +102,9 @@ class HotCommunity(models.Model):                                               
     QPID                    = models.ForeignKey("QnACommunity", on_delete=models.CASCADE ,null=True)                        #유저 외래키
     APID                    = models.ForeignKey("AnyCommunity", on_delete=models.CASCADE ,null=True)                        #유저 외래키
     MPID                    = models.ForeignKey("MarketCommunity", on_delete=models.CASCADE ,null=True)                     #유저 외래키
-
+    createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
+    updateAt                = models.DateField(auto_now=True, null=False)                                                   #수정날짜
+    communityType           = models.IntegerField(null=False, default=0)
     def __str__(self):
         return self.HPID
 

@@ -148,7 +148,7 @@ def reviews(request, pk):
     elif flag == 1:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
     elif flag == 2:
-        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
+        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
 
     if request.method == 'GET': #리뷰 하나를 특정해서 출력하는 API
         reviewQuery = Review.objects.filter(RID=pk)
@@ -329,7 +329,7 @@ def bookReviews(request, pk): #책에 관한 리뷰를 받아오는 API
     elif flag == 1:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
     elif flag == 2:
-        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
+        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
 
     if request.method == 'GET':
         reviewQuery = Review.objects.filter(BID=pk)
@@ -371,8 +371,8 @@ def bookReviews(request, pk): #책에 관한 리뷰를 받아오는 API
                         "reviewLike": openapi.Schema('리뷰 좋아요 등록', type=openapi.TYPE_ARRAY, items=openapi.Items(
                             type=openapi.TYPE_OBJECT,
                             properties={
-                                "RID": openapi.Schema('리뷰아이디', type=openapi.TYPE_INTEGER),
-                                "UID": openapi.Schema('사용자아이디', type=openapi.TYPE_INTEGER)
+                                "isLiked": openapi.Schema('좋아요 했는지?', type=openapi.TYPE_BOOLEAN),
+                               
                             })
                         )
                     }
@@ -382,32 +382,7 @@ def bookReviews(request, pk): #책에 관한 리뷰를 받아오는 API
         )
     }
 )
-@swagger_auto_schema(
-    method='delete',
-    operation_description="리뷰 좋아요 삭제: 좋아요할 리뷰의 ID를 입력",
-    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
-    responses={
-        200: openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
-                'result': openapi.Schema(
-                    type=openapi.TYPE_OBJECT,
-                    properties={
-                        "reviewLike": openapi.Schema('리뷰 좋아요 삭제', type=openapi.TYPE_ARRAY, items=openapi.Items(
-                            type=openapi.TYPE_OBJECT,
-                            properties={
-
-                            })
-                        )
-                    }
-                ),
-                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
-            }
-        )
-    }
-)
-@api_view(['PUT','DELETE'])
+@api_view(['PUT'])
 def reviewLike(request, pk):
     flag = checkAuth_decodeToken(request)
     exceptDict = None
@@ -416,29 +391,23 @@ def reviewLike(request, pk):
     elif flag == 1:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
     elif flag == 2:
-        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
+        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
     returnDict = dict()
     if request.method == 'PUT':
         reviewQuery = Review.objects.get(RID = pk)
         if reviewQuery is not None:
             temp = reviewQuery.like
-            reviewQuery.like = temp+[flag]
-            reviewQuery.save()
-            returnDict = {'RID' : pk, 'UID' : flag}
-            return JsonResponse({'success':True, 'result':{'reviewLike':returnDict},'errorMessage':""},status=status.HTTP_200_OK)
+            cmpList = temp
+            if cmpList.count(flag) > 0:
+                temp.remove(flag)
+                reviewQuery.like = temp
+                reviewQuery.save()
+                return JsonResponse({'success':True, 'result':{'isLiked':False},'errorMessage':""},status=status.HTTP_200_OK)
+            else:
+                reviewQuery.like = temp+[flag]
+                reviewQuery.save()
+                return JsonResponse({'success':True, 'result':{'isLiked':True},'errorMessage':""},status=status.HTTP_200_OK)        
         else:
             return JsonResponse({'success':False,'result':exceptDict,'errorMessage':"해당 RID의 리뷰가 없습니다"}, status = status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        reviewQuery = Review.objects.get(RID = pk)
-        if reviewQuery is not None:
-            temp = reviewQuery.like
-            temp.remove(flag)
-            reviewQuery.like = temp
-            reviewQuery.save()
-            return JsonResponse({'success':True, 'result':{'reviewLike':None},'errorMessage':""},status=status.HTTP_200_OK)
-        else:
-            return JsonResponse({'success':False,'result':exceptDict,'errorMessage':"해당 RID의 리뷰가 없습니다"}, status = status.HTTP_400_BAD_REQUEST)
-    
     else:
-        return JsonResponse({'success':False,'result':exceptDict,'errorMessage':"해당 호출방식은 지원하지 않습니다."}, status = status.HTTP_405_METHOD_NOT_ALLOWED)
+        return JsonResponse({'success':False,'result':exceptDict,'errorMessage':"해당 RID의 리뷰가 없습니다"}, status = status.HTTP_405_Method_Not_Allowed)

@@ -85,7 +85,7 @@ def user(request):
         if userID == 1:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
         elif userID == 2:
-            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
         else:                
             #회원정보 수정(닉네임, 썸네일)
             if (request.method == 'PUT'):
@@ -550,7 +550,7 @@ def refresh_token(request):
         if request.headers.get('refresh_token',None) is not None and request.headers.get('access_token', None) is not None: # request 헤더에 RefreshToken이라는 파라미터에 값이 실려 왔는가?
             refresh_access_token = re_generate_Token(request)
             if refresh_access_token == 2:
-                return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"기간이 지난 토큰입니다."}, status=status.HTTP_403_FORBIDDEN)  #RefreshToken의 기간이 지남
+                return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"만료된 토큰입니다."}, status=status.HTTP_401_UNAUTHORIZED)  #RefreshToken의 기간이 지남
             elif refresh_access_token == 3:
                 return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"유효하지 않은 토큰입니다."}, status=status.HTTP_403_FORBIDDEN) #RefreshToken의 형식이 잘못됨
             elif refresh_access_token == 4:
@@ -561,7 +561,7 @@ def refresh_token(request):
         else:
             return JsonResponse({'success':False,'result':exceptDict,'errorMessage':"access_token 혹은 refresh_token이 없습니다."},status=status.HTTP_400_BAD_REQUEST)
     else:
-        return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다."}, status=status.HTTP_403_FORBIDDEN) #POST가 아닌 방식으로 접근 했을 경우
+        return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다."}, status=status.HTTP_405_METHOD_NOT_ALLOWED) #POST가 아닌 방식으로 접근 했을 경우
 
 @swagger_auto_schema(
     method='post',  
@@ -618,7 +618,7 @@ def signOut(request):
              if userID == 1:
                  return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
              elif userID == 2:
-                 return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+                 return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
              else: 
                 tempQuery = RefreshTokenStorage.objects.get(UID = userID)
                 tempQuery.delete()
