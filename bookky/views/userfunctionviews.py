@@ -1,7 +1,9 @@
-from bookky.models import FavoriteBook, User, AnyCommunity, QnACommunity, MarketCommunity, Tag, Book
+from bookky.models import FavoriteBook, User, AnyCommunity, QnACommunity, MarketCommunity, Tag, Book, QnAComment, MarketComment, AnyComment, Review
 from bookky.serializers.favoriteserializers import FavoriteBookSerializer
 from bookky.serializers.bookserializers import BookPostSerializer, BookGetSerializer
 from bookky.serializers.tagserializers import TagSerializer
+from bookky.serializers.communityserializers import AnyCommunitySerializer, QnACommunitySerializer, MarketCommunitySerializer
+from bookky.serializers.reviewserializers import ReviewGetSerializer
 from bookky.auth.auth import checkAuth_decodeToken
 
 from rest_framework.parsers import JSONParser
@@ -15,14 +17,13 @@ from drf_yasg import openapi
 #관심 도서 등록
 @swagger_auto_schema(
     method='delete',
-    operation_description="관심도서 삭제",
+    operation_description="관심도서 삭제 : pk에 BID값을 넣어 호출",
     manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
     request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
-            'BID': openapi.Schema('도서ID', type=openapi.TYPE_INTEGER),
+
         },
-        required=['BID']  # 필수값을 지정 할 Schema를 입력해주면 된다.
     ),
     responses={
         200: openapi.Schema(
@@ -42,12 +43,11 @@ from drf_yasg import openapi
 )
 @swagger_auto_schema(
     method='post',
-    operation_description="관심도서 등록",
+    operation_description="관심도서 등록 : pk에 BID값을 넣어 호출",
     manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
     request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
-            'BID': openapi.Schema('도서ID', type=openapi.TYPE_INTEGER),
         },
         required=['BID']  # 필수값을 지정 할 Schema를 입력해주면 된다.
     ),
@@ -62,8 +62,6 @@ from drf_yasg import openapi
                         'favoriteItem' : openapi.Schema(
                             type=openapi.TYPE_OBJECT,
                             properties={
-                                'BID' : openapi.Schema('책 ID', type=openapi.TYPE_INTEGER),
-                                'UID' : openapi.Schema('사용자 ID', type=openapi.TYPE_INTEGER),
                             }
                         )
                         
@@ -75,8 +73,7 @@ from drf_yasg import openapi
     }
 )
 @api_view(['POST', 'DELETE'])
-def favoriteBook(request): #관심 도서 등록 및 취소
-    data = JSONParser().parse(request)
+def favoriteBook(request, pk): #관심 도서 등록 및 취소
     flag = checkAuth_decodeToken(request)
     # exceptDict = {'BID' : 0, 'UID':0}
     exceptDict = None
@@ -88,56 +85,206 @@ def favoriteBook(request): #관심 도서 등록 및 취소
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
     
     if request.method == 'POST':
-        if data['BID'] is not None:
-            data['UID'] = flag
-            queryData = FavoriteBook.objects.filter(UID = flag)
-            queryData = queryData.filter(BID = data['BID'])
-            if len(queryData) == 0 :
-                serializer = FavoriteBookSerializer(data =data)
-                if serializer.is_valid():
-                    serializer.save()
-                    return JsonResponse({'success':True, 'result':{'favoriteItem':serializer.data}, 'errorMessage':""}, status = status.HTTP_200_OK)
-                else:
-                    return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':serializer.errors}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+        data = dict()
+        data['BID'] = pk
+        data['UID'] = flag
+        queryData = FavoriteBook.objects.filter(UID = flag)
+        queryData = queryData.filter(BID = pk)
+        if len(queryData) == 0 :
+            serializer = FavoriteBookSerializer(data =data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse({'success':True, 'result':{'favoriteItem':serializer.data}, 'errorMessage':""}, status = status.HTTP_200_OK)
             else:
-                return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"이미 추가되어 있습니다."},status = status.HTTP_400_BAD_REQUEST)
+                return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':serializer.errors}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
-            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"Body에 BID값이 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-    
-    elif request.method == 'DELETE':
-        if data['BID'] is not None:
-            queryData = FavoriteBook.objects.filter(UID = flag)
-            queryData = queryData.filter(BID = data['BID'])
-            if len(queryData) != 0:
-                queryData.delete()
-                return JsonResponse({'success':True, 'result':exceptDict, 'errorMessage':""}, status = status.HTTP_200_OK)
-            else:
-                return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"해당 책을 관심 도서로 등록하지 않았습니다."}, status = status.HTTP_400_BAD_REQUEST)
-        else:
-            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"Body에 BID값이 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-        
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"이미 추가되어 있습니다."},status = status.HTTP_400_BAD_REQUEST)
 
+    elif request.method == 'DELETE':
+        queryData = FavoriteBook.objects.filter(UID = flag)
+        queryData = queryData.filter(BID = pk)
+        if len(queryData) != 0:
+            queryData.delete()
+            return JsonResponse({'success':True, 'result':exceptDict, 'errorMessage':""}, status = status.HTTP_200_OK)
+        else:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"해당 책을 관심 도서로 등록하지 않았습니다."}, status = status.HTTP_400_BAD_REQUEST)
+
+        
+@swagger_auto_schema(
+    method='get',
+    operation_description="프로필 화면 데이터 출력",
+    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="꼭 넣어야함. 비회원은 로그인 페이지로 넘어가게 만들기", type=openapi.TYPE_STRING)],
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'userData': openapi.Schema(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                                'nickname':openapi.Schema('사용자 닉네임',type=openapi.TYPE_STRING),
+                                'thumbnail':openapi.Schema('사용자 프로필 사진', type=openapi.TYPE_STRING),
+                                'tag_array':openapi.Schema(
+                                    '태그이름',
+                                    type=openapi.TYPE_ARRAY,
+                                    items=openapi.Items(type=openapi.TYPE_STRING)
+                                )
+                            }
+                        ),
+                        'favoriteBookList' : openapi.Schema(
+                            type=openapi.TYPE_ARRAY,
+                            items=openapi.Items(
+                                type=openapi.TYPE_OBJECT,
+                                properties={
+                                    'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                    'TITLE':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                                    'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                                    'thumbnailImage':openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
+                                }
+                            )
+                        ),    
+                        'userPostList' : openapi.Schema(
+                            type=openapi.TYPE_ARRAY,
+                            items=openapi.Items(
+                                type=openapi.TYPE_OBJECT,
+                                properties={
+                                    'PID':openapi.Schema('포스트 번호', type=openapi.TYPE_INTEGER),
+                                    'title':openapi.Schema('게시글 제목', type=openapi.TYPE_STRING),
+                                    'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
+                                    'communityType':openapi.Schema('게시판종류', type=openapi.TYPE_INTEGER),
+                                    'commentCnt':openapi.Schema('댓글 개수', type=openapi.TYPE_INTEGER),
+                                    'likeCnt':openapi.Schema('좋아요 개수', type=openapi.TYPE_INTEGER),
+                                }
+                            )
+                        ),
+                        'userReviewList': openapi.Schema(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                                'RID':openapi.Schema('RID', type=openapi.TYPE_INTEGER),
+                                'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                'UID':openapi.Schema('UID', type=openapi.TYPE_INTEGER),
+                                'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
+                                'views':openapi.Schema('views', type=openapi.TYPE_INTEGER),
+                                'createAt':openapi.Schema('작성날짜', type=openapi.TYPE_STRING),
+                                'rating': openapi.Schema('리뷰 평점', type=openapi.TYPE_INTEGER),
+                                'likeCnt':openapi.Schema('좋아요 개수', type=openapi.TYPE_INTEGER),
+                                'isLiked':openapi.Schema('이글에 좋아요를 했는지?', type=openapi.TYPE_BOOLEAN),
+                                'isAccessible':openapi.Schema('이글에 접근이 가능한지?', type=openapi.TYPE_BOOLEAN),
+                                'nickname':openapi.Schema('사용자 이름', type=openapi.TYPE_STRING),
+                                'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                                'bookTitle':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                                'thumbnail':openapi.Schema('책 사진', type=openapi.TYPE_STRING),
+                            }
+                        )
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)   
 #마이페이지 출력 (관심도서 출력, 사용자 정보, 사용자 게시글, 사용자 후기, 사용자 관심분야)
 @api_view(['GET'])
 def getMyProfileData(request):
+    exceptDict = None
+    returnDict = dict()
     if request.method == 'GET':
         flag = checkAuth_decodeToken(request)
         if flag == 0:
-            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
         elif flag == 1:
-            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
         elif flag == 2:
-            return JsonResponse({'success':False, 'result':{}, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
         else:
+            tagQuery = Tag.objects
+            userTag = []
             userQuery = User.objects.get(UID = flag)
-            bookQuery = FavoriteBook.objects.filter(UID = flag)
-            community = [{'communityName':"자유게시판", 'posts':[]},{'communityName':"QnA게시판", 'posts':[]},{'communityName':"장터게시판", 'posts':[]}]
-            tempAnyCommunityData = AnyCommunity.objects.filter(UID = flag)
-            tempQnACommunityData = QnACommunity.objects.filter(UID = flag)
-            tempMarketCommunityData = MarketCommunity.objects.filter(UID = flag)
+            if userQuery.tag_array is not None:
+                for i in userQuery.tag_array:
+                    temp = tagQuery.get(TID=i)
+                    userTag.append(temp.nameTag)    
+            userData = {'userThumbnail':userQuery.thumbnail,'nickname':userQuery.nickname, 'userTagList':userTag}
+            bookQuery = FavoriteBook.objects.filter(UID = int(flag))
+            bookQueryList = FavoriteBookSerializer(bookQuery, many=True)
+            bookList = []
+            for i in bookQueryList.data:
+                dataQuery = Book.objects.filter(BID = i['BID'])
+                tempBookQuery = BookGetSerializer(dataQuery, many = True)
+                bookList += tempBookQuery.data
+            tempAnyCommunityData = AnyCommunity.objects.order_by('createAt').filter(UID = flag)
+            tempQnACommunityData = QnACommunity.objects.order_by('createAt').filter(UID = flag)
+            tempMarketCommunityData = MarketCommunity.objects.order_by('createAt').filter(UID = flag)
 
+            anySerializer = AnyCommunitySerializer(tempAnyCommunityData, many=True)
+            qnaSerializer = MarketCommunitySerializer(tempQnACommunityData, many=True)
+            marketSerializer = QnACommunitySerializer(tempMarketCommunityData, many=True)
+            
+            anyList = anySerializer.data
+            qnaList = qnaSerializer.data
+            marketList = marketSerializer.data
 
-            return JsonResponse({'success':True, 'result':{}, 'errorMessage':""}, status = status.HTTP_200_OK)
+            anyCommunityList = comment_like_counter("0", anyList)
+            qnaCommunityList = comment_like_counter("1",qnaList)
+            marketCommunityList = comment_like_counter("2",marketList)
+
+            community = anyCommunityList + qnaCommunityList + marketCommunityList
+            # community = []
+            # community.append(anyCommunityList)
+            # community.append(qnaCommunityList)
+            # community.append(marketCommunityList)
+            reviewQuery = Review.objects.order_by('createAt').filter(UID = flag)
+            reviewSerializer = ReviewGetSerializer(reviewQuery, many=True)
+            for i in reviewSerializer.data:
+                temp = User.objects.get(UID=i['UID'])
+                i['likeCnt'] = len(i['like'])
+                if i['like'].count(flag) > 0:
+                    i['isLiked'] = True
+                else:
+                    i['isLiked'] = False
+                del i['like']
+                i['isAccessible'] = True
+                i['nickname'] = temp.nickname
+                tempQuery = Book.objects.get(BID = i['BID'])
+                i['AUTHOR'] = tempQuery.AUTHOR
+                i['bookTitle'] = tempQuery.TITLE
+                i['thumbnail'] = tempQuery.thumbnailImage
+            returnDict = {'userData':userData,'favoriteBookList':bookList, 'userPostList':community,'userReviewList':reviewSerializer.data}
+
+            return JsonResponse({'success':True, 'result':returnDict, 'errorMessage':""}, status = status.HTTP_200_OK)
+
+def comment_like_counter(flag, dataList):
+    tempList = []
+    for i in dataList:
+        if flag == "0":
+            commentData = AnyComment.objects.filter(APID = i['APID'])
+            i['communityType'] = 0
+            i['PID'] = i['APID']
+            del i['APID']
+        elif flag == "1":
+            commentData = QnAComment.objects.filter(QPID = i['QPID'])
+            i['communityType'] = 1
+            i['PID'] = i['QPID']
+            del i['QPID']
+        elif flag =="2":
+            commentData = MarketComment.objects.filter(MPID = i['MPID'])
+            i['communityType'] = 2
+            i['PID'] = i['MPID']
+            del i['MPID']
+        if len(commentData) !=0:
+            i['commentCnt'] = len(commentData)
+        else:
+            i['commentCnt'] = 0
+        if len(i['like']) !=0:
+            i['likeCnt'] = len(i['like'])
+        else:
+            i['likeCnt'] = 0
+        del i['like']
+        tempList.append(i)
+    return tempList
 
 @swagger_auto_schema(
     method='get',
@@ -157,6 +304,7 @@ def getMyProfileData(request):
                                 type=openapi.TYPE_OBJECT,
                                 properties={
                                     'tag': openapi.Schema('태그이름', type=openapi.TYPE_STRING),
+                                    'TID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
                                     'data' :openapi.Schema(
                                         type=openapi.TYPE_ARRAY,
                                         items=openapi.Items(
@@ -184,10 +332,16 @@ def getMyProfileData(request):
                             type=openapi.TYPE_OBJECT,
                             properties={
                                 'UID' : openapi.Schema('UID', type=openapi.TYPE_INTEGER),
-                                'tag_array':openapi.Schema(
+                                'tagData':openapi.Schema(
                                     '태그이름',
                                     type=openapi.TYPE_ARRAY,
-                                    items=openapi.Items(type=openapi.TYPE_STRING)
+                                    items=openapi.Items(
+                                        type=openapi.TYPE_OBJECT,
+                                        properties={
+                                        'tag' : openapi.Schema('태그이름',type=openapi.TYPE_STRING),
+                                        'TID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
+                                        }
+                                        )
                                 ),
                                 'nickname':openapi.Schema('사용자 닉네임',type=openapi.TYPE_STRING),
                                 'thumbnail':openapi.Schema('사용자 프로필 사진', type=openapi.TYPE_STRING)
@@ -208,7 +362,7 @@ def getHomeData(request):
         try:
             bookQuery = Book.objects
             tagQuery = Tag.objects
-            bookList = []
+            bookList = [{'tag':"오늘의 추천 도서", 'data':[]}]
             userData = dict()
         except:
             return JsonResponse({'success':False, 'result':{}, 'errorMessage':"DB와 연결 끊김"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -225,13 +379,13 @@ def getHomeData(request):
                 tempTag = []
                 userTag = userQuery.tag_array
                 if userTag is None:
-                    userData['tag_array'] = []
+                    userData['tagData'] = []
                 else:
                     userStack = userTag
                 for i in userStack:
                     temp = tagQuery.get(TID=i)
-                    tempTag.append(temp.nameTag)
-                userData['tag_array'] = tempTag
+                    tempTag.append({'TID' : i,'tag':temp.nameTag})
+                userData['tagData'] = tempTag
                 userData['nickname'] = userQuery.nickname
                 userData['thumbnail'] = userQuery.thumbnail
         
@@ -240,7 +394,7 @@ def getHomeData(request):
             bookTemp = bookQuery.filter(TAG__contains = [i])
             serializer = BookGetSerializer(bookTemp, many=True)
             tempSpiltData = serializer.data
-            bookList.append({'tag':temp.nameTag, 'data':tempSpiltData[0:25]})
+            bookList.append({'tag':temp.nameTag, 'TID':i, 'data':tempSpiltData[0:25]})
         
         return JsonResponse({'success':True,'result' :{'bookList':bookList,'communityList':[],'userData':userData},'errorMessage':""},status=status.HTTP_200_OK)
 
@@ -348,3 +502,86 @@ def getTags(request):
             del temp[i]['contents']
         
         return JsonResponse({'success':True, 'result':{'tag':temp}, 'errorMessage':""},status=status.HTTP_200_OK)
+
+@swagger_auto_schema(
+    method='get',
+    operation_description="main 화면 태그 더보기 데이터 출력",
+    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="회원이면 넣고, 비회원은 넣지 않는다.", type=openapi.TYPE_STRING)],
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'bookList' : openapi.Schema(
+                            type=openapi.TYPE_ARRAY,
+                            items=openapi.Items(
+                                type=openapi.TYPE_OBJECT,
+                                properties={
+                                    'tag': openapi.Schema('태그이름', type=openapi.TYPE_STRING),
+                                    'TID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
+                                    'data' :openapi.Schema(
+                                        type=openapi.TYPE_ARRAY,
+                                        items=openapi.Items(
+                                            type=openapi.TYPE_OBJECT,
+                                            properties={
+                                                'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                                'TITLE':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                                                'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                                                'thumbnailImage':openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
+                                            }
+                                        )
+                                    )
+                                    
+                                }
+                            )
+                        ),
+                        'nickname' : openapi.Schema('닉네임',type=openapi.TYPE_STRING),
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)   
+@api_view(['GET'])
+def getMoreTag(request):
+    if request.method == 'GET':
+
+        exceptDict = None
+        try:
+            bookQuery = Book.objects
+            tagQuery = Tag.objects
+            bookList = [{'tag':"오늘의 추천 도서", 'data':[]}]
+            nickname = "비회원"
+        except:
+            return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'nickname':exceptDict}, 'errorMessage':"DB와 연결 끊김"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+        userStack = [1,19, 29]
+        if request.headers.get('access_token', None) is not None: #회원일 때
+            if len(request.headers.get('access_token', None)) != 0:
+                flag = checkAuth_decodeToken(request)
+                if flag == 1:
+                    return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'nickname':exceptDict}, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
+                elif flag == 2:
+                    return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'nickname':exceptDict}, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_403_FORBIDDEN)
+                userQuery = User.objects.get(UID = flag)
+
+                tempTag = []
+                userTag = userQuery.tag_array
+                if userTag is not None:
+                    userStack = userTag
+                for i in userStack:
+                    temp = tagQuery.get(TID=i)
+                    tempTag.append({'TID' : i,'tag':temp.nameTag})
+                nickname = userQuery.nickname
+        
+        for i in userStack:
+            temp = tagQuery.get(TID = i)
+            bookTemp = bookQuery.filter(TAG__contains = [i])
+            serializer = BookGetSerializer(bookTemp, many=True)
+            tempSpiltData = serializer.data
+            bookList.append({'tag':temp.nameTag, 'TID':i, 'data':tempSpiltData[0:25]})
+        
+        return JsonResponse({'success':True,'result' :{'bookList':bookList,'nickname':nickname},'errorMessage':""},status=status.HTTP_200_OK)

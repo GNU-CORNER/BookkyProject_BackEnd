@@ -1,10 +1,12 @@
 from django.urls import path
-from bookky.views import views, userviews, bookviews, socialview, userfunctionviews, communityviews
+from bookky.views import views, userviews, bookviews, socialview, userfunctionviews, communityviews, reviewviews
 from rest_framework import permissions
 
 #url(r'^pnsApp/(?P<slug>[-a-zA-Z0-9_]+)$', views.pns_detail),
 urlpatterns = [ #POST형식으로 바꿔야함
     path('home',userfunctionviews.getHomeData), #GET
+    path('home/tags', userfunctionviews.getMoreTag), #GET
+    path('myprofile', userfunctionviews.getMyProfileData), #GET
     path('user/signin', userviews.userSignIn), #POST
     path('user/signup', userviews.userSignUp), #POST
     path('user', userviews.user), #GET, DELETE, PUT
@@ -15,13 +17,14 @@ urlpatterns = [ #POST형식으로 바꿔야함
     path('user/favoritebook', userfunctionviews.favoriteBook), #POST, DELETE
     path('user/tag',userfunctionviews.updateBoundary), #pPUT
     path('user/social/auth/google', socialview.socialCallbackGoogle),
-    path('books/<slug:slug>', bookviews.book), #GET
+    path('books/detail/<slug:slug>', bookviews.book), #GET
     path('books/tag/<slug:slug>',bookviews.getBooksByTag),
+    path('books/reviews/<int:pk>',reviewviews.bookReviews),
     path('auth/refresh',userviews.refresh_token), #POST,
     path('tags', userfunctionviews.getTags),
-    path('test5', views.read_insert),
-    path('test6', views.testAuthorization),
-    path('test8', bookviews.bookUpdate),
+    path('books/search', bookviews.bookSearch),
+    path('review/<int:pk>',reviewviews.reviews),
+    path('review/like/<int:pk>',reviewviews.reviewLike),
     path('community/postlist/<slug:slug>', communityviews.getCommunityPostList), #GET
     path('community/postdetail/<slug:slug1>/<slug:slug2>', communityviews.getCommunityPostdetail), #GET
     path('community/writepost/<slug:slug>', communityviews.writeCommunityPost), #POST

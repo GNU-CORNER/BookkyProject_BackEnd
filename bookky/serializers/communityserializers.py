@@ -5,7 +5,7 @@ from bookky.models import MarketCommunity, HotCommunity, QnACommunity, AnyCommun
 class AnyCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = AnyCommunity
-        fields = ['APID', 'title', 'contents']
+        fields = ['APID', 'title', 'contents', 'like']
 
 class AnyCommunityDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,12 +20,12 @@ class AnyCommentSerializer(serializers.ModelSerializer):
 class MarketCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketCommunity
-        fields = ['MPID', 'title', 'contents']
+        fields = ['MPID', 'title', 'contents', 'like']
 
 class MarketCommunityDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketCommunity
-        fields = ['title', 'contents', 'views', 'createAt','like','UID']
+        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID']
 
 class MarketCommentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,12 +35,12 @@ class MarketCommentSerializer(serializers.ModelSerializer):
 class QnACommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = QnACommunity
-        fields = ['QPID', 'title', 'contents','parentQID']
+        fields = ['QPID', 'title', 'contents','parentQID', 'like']
 
 class QnACommunityDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = QnACommunity
-        fields = ['title', 'contents', 'views', 'createAt','like','UID']
+        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID']
 
 class QnACommentSerializer(serializers.ModelSerializer):
     class Meta:

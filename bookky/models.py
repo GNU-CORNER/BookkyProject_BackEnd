@@ -68,7 +68,7 @@ class MarketCommunity(models.Model):                                            
     createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000)                                   #좋아요, 숫자는 최대
+    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
 
     def __str__(self):
         return self.MPID
@@ -84,7 +84,7 @@ class QnACommunity(models.Model):                                               
     createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000)                                   #좋아요, 숫자는 최대
+    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
     parentQPID              = models.IntegerField(null=False, default = 0)                                                #답글 부모 QPID
 
     def __str__(self):
@@ -151,8 +151,8 @@ class Review(models.Model):
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
     createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
     updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
-    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000)                                   #좋아요, 숫자는 최대
-
+    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
+    rating                  = models.FloatField(null=False, default=2.5)
     def __str__(self):
         return self.RID
 
@@ -198,4 +198,13 @@ class AuthenticationCodeStorage(models.Model) :
     createAt                = models.DateField(auto_now_add=True)
     
     def __str__(self):
-        return email
+        return self.email
+
+class RecommendBook(models.Model):
+    RBID                    = models.BigAutoField(primary_key=True)
+    BID                     = ArrayField(models.IntegerField(null=False), size = 30, null=True)
+    TID                     = models.ForeignKey("Tag", on_delete=models.CASCADE, null=False, default=150)
+    UID                     = models.ForeignKey("User", on_delete=models.CASCADE, null=False)
+    
+    def __str__(self):
+        return self.RBID

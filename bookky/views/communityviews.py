@@ -42,22 +42,11 @@ import time
                             'PID':openapi.Schema('포스트 번호', type=openapi.TYPE_INTEGER),
                             'title':openapi.Schema('게시글 제목', type=openapi.TYPE_STRING),
                             'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
+                            'commentCnt':openapi.Schema('댓글 갯수',type=openapi.TYPE_INTEGER),
+                            'likeCnt':openapi.Schema('좋아요 수', type=openapi.TYPE_INTEGER)
                             }
                         )),
-                         'userData' : openapi.Schema('작성자 목록', type=openapi.TYPE_ARRAY, items=openapi.Items(
-                            type=openapi.TYPE_OBJECT,
-                            properties={
-                                'nickname':openapi.Schema('사용자 닉네임',type=openapi.TYPE_STRING),
-                                'thumbnail':openapi.Schema('사용자 프로필 사진', type=openapi.TYPE_STRING)
-                            }
-                        )),
-                         'subData' : openapi.Schema('기타 데이터 목록', type=openapi.TYPE_ARRAY, items=openapi.Items(
-                            type=openapi.TYPE_OBJECT,
-                            properties={
-                                'commentCnt':openapi.Schema('댓글 갯수',type=openapi.TYPE_INTEGER),
-                                'likeCnt':openapi.Schema('좋아요 수', type=openapi.TYPE_INTEGER)
-                            }
-                        ))
+                        'total_size' : openapi.Schema('포스트 총 개수', type=openapi.TYPE_INTEGER)
                     }
                 ),
                 'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
@@ -73,11 +62,9 @@ def getCommunityPostList(request,slug):
     if request.method == 'GET':
         try:
             if slug == "0":        # 쿼리에서 createdAt 으로 정렬 후 ? updateAt은? updateAt으로 해야겟네
-                CommunityQuery = AnyCommunity.objects.order_by('createAt')
+                CommunityQuery = AnyCommunity.objects.order_by('-createAt')
             elif slug == "1":
-                CommunityQuery = MarketCommunity.objects.order_by('createAt')
-            elif slug == "2":
-                CommunityQuery = QnACommunity.objects.order_by('createAt')
+                CommunityQuery = MarketCommunity.objects.order_by('-createAt')
             else:
                 return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"잘못된 slug 입니다."}, status=status.HTTP_400_BAD_REQUEST)
         except Book.DoesNotExist:
@@ -88,69 +75,48 @@ def getCommunityPostList(request,slug):
         startpagination = 0 #기본 startpagination 값은 0
         endpagination = quantity #기본 endpagination 값은 qunatity값과 동일, page 값이 들어오면 pagination 지원
         Posts = CommunityQuery.all()
+        total_size = len(Posts)
         if request.GET.get('quantity') is not None: #URL에 'quantity' Query가 들어있으면 값 입력
             quantity = int(request.GET.get('quantity')) 
+
         if request.GET.get('page') is not None: #URL에 'page' Query가 들어있으면 값 입력
             startpagination = (int(request.GET.get('page')) - 1) * quantity
             endpagination = int(request.GET.get('page')) * quantity
+
         if startpagination > len(Posts):
-            startpagination = startpagination - len(Posts)
+            startpagination = len(Posts)
+
         if endpagination > len(Posts):
             endpagination = len(Posts)
+
         Posts = Posts[startpagination : endpagination]
+
+        if slug == "0":
+            serializer = AnyCommunitySerializer(Posts,many=True)
+        elif slug == "1":
+            serializer = MarketCommunitySerializer(Posts,many=True)
 
         userData = []
         subData = []
 
         for i in range(len(Posts)):
-            tempuserData = dict()
-            tempuserData['nickname']=Posts[i].UID.nickname
-            tempuserData['thumbnail']=Posts[i].UID.thumbnail
-            userData.append(tempuserData)
-
-            tempsubData = dict()
             if slug == "0":
-                commentData = AnyComment.objects.filter(APID = Posts[i].APID)
-            
+                serializer.data[i]['commentCnt']=len(AnyComment.objects.filter(APID = Posts[i].APID))
             elif slug == "1":
-                commentData = MarketComment.objects.filter(MPID = Posts[i].MPID)
+                serializer.data[i]['commentCnt']=len(MarketComment.objects.filter(MPID = Posts[i].MPID))
 
-            elif slug == "2":
-                commentData = QnAComment.objects.filter(QPID = Posts[i].QPID)
-
-            
-            if len(commentData) !=0:
-                tempsubData['commentCnt'] = len(commentData)
-            else:
-                tempsubData['commentCnt'] = 0
-            if len(Posts[i].like) !=0:
-                tempsubData['likeCnt'] = len(Posts[i].like)
-            else:
-                tempsubData['likeCnt'] = 0
-            subData.append(tempsubData)
-            
-
-        if slug == "0":
-            serializer = AnyCommunitySerializer(Posts, many=True)
-            for i in serializer.data:
-                i["PID"] = i["APID"]
-                del i["APID"]
-            
-        elif slug == "1":
-            serializer = MarketCommunitySerializer(Posts, many=True)
-            for i in serializer.data:
-                i["PID"] = i["MPID"]
-                del i["MPID"]
-
-        elif slug == "2":
-            serializer = QnACommunitySerializer(Posts, many=True)
-            for i in serializer.data:
-                i["PID"] = i["MPID"]
-                del i["MPID"]
-        
+            serializer.data[i]['likeCnt']=len(Posts[i].like)
+            del serializer.data[i]['like']
+            if slug == "0":
+                serializer.data[i]['PID'] = serializer.data[i]['APID']
+                del serializer.data[i]['APID']            
+            elif slug == "1":
+                serializer.data[i]['PID'] = serializer.data[i]['MPID']
+                del serializer.data[i]['MPID']            
+                
         return JsonResponse({
             'success':True,
-            'result' :{'postList':serializer.data, 'userData':userData, 'subData':subData},
+            'result' :{'postList':serializer.data, 'total_size':total_size}, 
             'errorMessage':""
             }, 
             status=status.HTTP_200_OK)
@@ -179,33 +145,28 @@ def getCommunityPostList(request,slug):
                             'views':openapi.Schema('방문 횟수', type=openapi.TYPE_STRING),
                             'updateAt':openapi.Schema('수정 날짜', type=openapi.TYPE_STRING),
                             'like':openapi.Schema('좋아요', type=openapi.TYPE_ARRAY, items=openapi.Items(type=openapi.TYPE_INTEGER)),
-                            'UID':openapi.Schema('UID', type=openapi.TYPE_INTEGER),
-                            }
-                        )),
-                         'postuserdata' : openapi.Schema('작성자 정보', type=openapi.TYPE_ARRAY, items=openapi.Items(
-                            type=openapi.TYPE_OBJECT,
-                            properties={
-                                'nickname':openapi.Schema('사용자 닉네임',type=openapi.TYPE_STRING),
-                                'thumbnail':openapi.Schema('사용자 프로필 사진', type=openapi.TYPE_STRING)
+                            'nickname':openapi.Schema('사용자 닉네임',type=openapi.TYPE_STRING),
+                            'thumbnail':openapi.Schema('사용자 프로필 사진', type=openapi.TYPE_STRING)
                             }
                         )),
                          'commentdata' : openapi.Schema('댓글 정보', type=openapi.TYPE_ARRAY, items=openapi.Items(
                             type=openapi.TYPE_OBJECT,
                             properties={
-                                'CID':openapi.Schema('댓글 ID',type=openapi.TYPE_INTEGER),
-                                'UID':openapi.Schema('유저 ID',type=openapi.TYPE_INTEGER),
-                                'PID':openapi.Schema('포스트 ID',type=openapi.TYPE_INTEGER),
-                                'parentID':openapi.Schema('부모댓글 ID', type=openapi.TYPE_INTEGER),
                                 'comment':openapi.Schema('댓글 내용', type=openapi.TYPE_STRING),
                                 'updateAt':openapi.Schema('수정 날짜', type=openapi.TYPE_STRING),
                                 'like':openapi.Schema('좋아요', type=openapi.TYPE_ARRAY, items=openapi.Items(type=openapi.TYPE_INTEGER)),
-                            }
-                        )),
-                        'commentuserdata' : openapi.Schema('댓글 작성자 정보', type=openapi.TYPE_ARRAY, items=openapi.Items(
-                            type=openapi.TYPE_OBJECT,
-                            properties={
                                 'nickname':openapi.Schema('댓글 작성자 닉네임',type=openapi.TYPE_STRING),
-                                'thumbnail':openapi.Schema('댓글 작성자 사진', type=openapi.TYPE_STRING)
+                                'thumbnail':openapi.Schema('댓글 작성자 사진', type=openapi.TYPE_STRING),
+                                'childComment' : openapi.Schema('대댓글 정보', type=openapi.TYPE_ARRAY, items=openapi.Items(
+                                    type=openapi.TYPE_OBJECT,
+                                    properties={
+                                    'comment':openapi.Schema('대댓글 내용', type=openapi.TYPE_STRING),
+                                    'updateAt':openapi.Schema('수정 날짜', type=openapi.TYPE_STRING),
+                                    'like':openapi.Schema('좋아요', type=openapi.TYPE_ARRAY, items=openapi.Items(type=openapi.TYPE_INTEGER)),
+                                    'nickname':openapi.Schema('대댓글 작성자 닉네임',type=openapi.TYPE_STRING),
+                                    'thumbnail':openapi.Schema('대댓글 작성자 사진', type=openapi.TYPE_STRING)
+                                    }
+                                ))
                             }
                         ))
                     }
@@ -225,45 +186,66 @@ def getCommunityPostdetail(request,slug1,slug2):
     if request.method == 'GET':
         try:
             if slug1 == "0":
-                CommunityQuery = AnyCommunity.objects.order_by('createAt')
+                PostData = AnyCommunity.objects.filter(APID = slug2)
+                serializer = AnyCommunityDetailSerializer(PostData,many=True)
+                commentData = AnyComment.objects.filter(APID = PostData[0].APID).order_by('updateAt')
+                commentserializer = AnyCommentSerializer(commentData,many=True)
+
             elif slug1 == "1":
-                CommunityQuery = MarketCommunity.objects.order_by('createAt')
-            elif slug1 == "2":
-                CommunityQuery = QnACommunity.objects.order_by('createAt')
+                PostData = MarketCommunity.objects.filter(MPID = slug2)
+                serializer = MarketCommunityDetailSerializer(PostData,many=True)
+                commentData = MarketComment.objects.filter(MPID = PostData[0].MPID).order_by('updateAt')
+                commentserializer = MarketCommentSerializer(commentData,many=True)
+                
             else:
                 return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"잘못된 slug 입니다."}, status=status.HTTP_404_NOT_FOUND)
         except Book.DoesNotExist:
             return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"해당 Community에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"}, status=status.HTTP_404_NOT_FOUND)
 
         postuserData = []
-        if slug1 == "0":
-            PostData = AnyCommunity.objects.filter(APID = slug2)
-            serializer = AnyCommunityDetailSerializer(PostData,many=True)
-            commentData = AnyComment.objects.filter(APID = PostData[0].APID)
-            commentserializer = AnyCommentSerializer(commentData,many=True)
-            for i in commentserializer.data:
-                i["CID"] = i["ACID"]
-                i["PID"] = i["APID"]
-                del i["ACID"]
-                del i["APID"]           
+        RcommentData = list()
 
-            tempuserData = dict()
-            tempuserData['nickname']=PostData[0].UID.nickname
-            tempuserData['thumbnail']=PostData[0].UID.thumbnail
-            postuserData.append(tempuserData)
-
-        commentuserData = []
-
-        for i in range(len(commentData)):
-            tempcommentData = dict()
-            tempcommentData['nickname']=commentData[i].UID.nickname
-            tempcommentData['thumbnail']=commentData[i].UID.thumbnail
-            commentuserData.append(tempcommentData)
-    
         
+        k = 0
+        for i in commentserializer.data:
+            i["nickname"]=commentData[k].UID.nickname
+            i["thumbnail"]=commentData[k].UID.thumbnail
+            
+            if slug1 == "0":
+                i["CID"] = i["ACID"]
+                del i["ACID"]
+                del i["APID"]
+            
+            elif slug1 == "1":
+                i["CID"] = i["MCID"]
+                del i["MCID"]
+                del i["MPID"]
+
+            if i["parentID"] == 0:
+                i["childComment"] = list()
+                RcommentData.append(i)
+            else:
+                for j in RcommentData:
+                    if i["parentID"] == j["CID"]:
+                        del i["CID"]
+                        del i["parentID"]
+                        del i["UID"]
+                        j["childComment"].append(i)
+                        break
+            k = k + 1
+        
+        for i in RcommentData:
+            del i["CID"]
+            del i["parentID"]
+            del i["UID"]
+        
+        serializer.data[0]['nickname']=PostData[0].UID.nickname
+        serializer.data[0]['thumbnail']=PostData[0].UID.thumbnail
+        del serializer.data[0]['UID']
+                
         return JsonResponse({
             'success':True,
-            'result' :{'postdata':serializer.data[0],'postuserdata': postuserData[0], 'commentdata':commentserializer.data, 'commentuserdata':commentuserData},
+            'result' :{'postdata':serializer.data[0],'commentdata':RcommentData},
             'errorMessage':""
         }, 
         status=status.HTTP_200_OK)
@@ -321,6 +303,11 @@ def writeCommunityPost(request,slug):
                     if slug == "0":
                         postSerializer = AnyCommunityDetailSerializer(data = data)
 
+                    elif slug == "1":
+                        postSerializer = MarketCommunityDetailSerializer(data = data)
+
+                    elif slug == "2":
+                        postSerializer = QnACommunityDetailSerializer(data = data)
 
                     if postSerializer.is_valid():
                         postSerializer.save()
@@ -328,7 +315,7 @@ def writeCommunityPost(request,slug):
                         'success':True,
                         'result' :"글 작성 완료",
                         'errorMessage':""
-                        })
+                        },status=status.HTTP_201_CREATED)
                     else:
                         return JsonResponse({
                         'success':False,
@@ -394,7 +381,13 @@ def writeCommunityComment(request,slug):
                 
                 if slug == "0":
                     postData = AnyCommunity.objects.filter(APID = data['PID'])
-                    
+                
+                elif slug == "1":
+                    postData = MarketCommunity.objects.filter(MPID = data['PID'])
+
+                elif slug == "2":
+                    postData = QnACommunity.objects.filter(QPID = data['PID'])
+
                 userData = User.objects.filter(UID = userID)                
                 
                 if len(postData) != 0 and len(userData) !=0:
@@ -404,8 +397,15 @@ def writeCommunityComment(request,slug):
                     del data['PID']
                     if slug == "0":
                         data['APID']=postData[0].APID
-                        print(data)
                         postSerializer = AnyCommentSerializer(data = data)
+
+                    elif slug == "1":
+                        data['MPID']=postData[0].MPID
+                        postSerializer = MarketCommentSerializer(data = data)
+
+                    elif slug == "2":
+                        data['QPID']=postData[0].QPID
+                        postSerializer = QnACommentSerializer(data = data)
 
 
                     if postSerializer.is_valid():
@@ -591,11 +591,23 @@ def modifyCommunityPost(request,slug):
                 if slug =="0":
                     postData = AnyCommunity.objects.filter(APID = data['PID'])
                 
+                elif slug =="1":
+                    postData = MarketCommunity.objects.filter(MPID = data['PID'])
+
+                elif slug =="2":
+                    postData = QnACommunity.objects.filter(QPID = data['PID'])
+
                 if len(userData) != 0 and postData[0].UID.UID == userID:
                     data['UID']=userData[0].UID
                     data['updateAt']=str(datetime.datetime.utcnow())
                     if slug == "0":
                         postSerializer = AnyCommunityDetailSerializer(postData[0],data = data)
+
+                    elif slug == "1":
+                        postSerializer = MarketCommunityDetailSerializer(postData[0],data = data)
+
+                    elif slug == "2":
+                        postSerializer = QnACommunityDetailSerializer(postData[0],data = data)
 
                     if postSerializer.is_valid():
                         postSerializer.save()
