@@ -5,5 +5,5 @@ from bookky.models import FavoriteBook
 class FavoriteBookSerializer(serializers.ModelSerializer): #갱신 토큰 Serializer
     class Meta:
         model = FavoriteBook
-        fields = ['BID','UID']
+        fields = ['TBID','UID']
         

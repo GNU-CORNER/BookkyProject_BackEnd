@@ -5,12 +5,12 @@ from rest_framework import serializers
 class ReviewPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['RID','BID','UID','contents','views','createAt','updateAt','like', 'rating']
+        fields = ['RID','TBID','UID','contents','views','createAt','updateAt','like', 'rating']
 
 class ReviewGetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['RID','BID','UID','contents','views','createAt','like','rating']
+        fields = ['RID','TBID','UID','contents','views','createAt','like','rating']
 
 '''
 

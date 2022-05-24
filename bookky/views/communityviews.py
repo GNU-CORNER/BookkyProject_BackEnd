@@ -9,7 +9,7 @@ from time import sleep
 
 from bookky.auth.auth import checkAuth_decodeToken
 from bookky_backend import settings
-from bookky.models import User, Book, AnyComment, AnyCommunity, QnACommunity, QnAComment, MarketComment, MarketCommunity, HotCommunity, RefreshTokenStorage, Tag
+from bookky.models import User, TempBook, AnyComment, AnyCommunity, QnACommunity, QnAComment, MarketComment, MarketCommunity, HotCommunity, RefreshTokenStorage, TagModel
 from bookky.serializers.communityserializers import *
 from bookky.auth.auth import authValidation
 from django.db.models import Q
@@ -67,7 +67,7 @@ def getCommunityPostList(request,slug):
                 CommunityQuery = MarketCommunity.objects.order_by('-createAt')
             else:
                 return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"잘못된 slug 입니다."}, status=status.HTTP_400_BAD_REQUEST)
-        except Book.DoesNotExist:
+        except TempBook.DoesNotExist:
             return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"해당 Community에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"}, status=status.HTTP_404_NOT_FOUND)
 
 
@@ -188,9 +188,9 @@ def getCommunityPostdetail(request,slug1,slug2):
     exceptDict = None
     if flag == 0:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-    elif flag == 1:
+    elif flag == -1:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
-    elif flag == 2:
+    elif flag == -2:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
 
     if request.method == 'GET':
@@ -210,7 +210,7 @@ def getCommunityPostdetail(request,slug1,slug2):
                 
             else:
                 return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"잘못된 slug 입니다."}, status=status.HTTP_404_NOT_FOUND)
-        except Book.DoesNotExist:
+        except TempBook.DoesNotExist:
             return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"해당 Community에 대한 데이터베이스가 존재하지 않거나, DB와의 연결이 끊어짐"}, status=status.HTTP_404_NOT_FOUND)
 
         postuserData = []
@@ -277,7 +277,8 @@ def getCommunityPostdetail(request,slug1,slug2):
         type=openapi.TYPE_OBJECT,
         properties={'title': openapi.Schema('글 제목', type=openapi.TYPE_STRING),
                     'contents': openapi.Schema('글 내용', type=openapi.TYPE_STRING),        
-                    'BID': openapi.Schema('책 BID', type=openapi.TYPE_INTEGER),
+                    'TBID': openapi.Schema('책 TBID', type=openapi.TYPE_INTEGER),
+                    'parentID': openapi.Schema('답글 PID', type=openapi.TYPE_INTEGER),
         },
         required=['title','contents']
     ),  # 필수값을 지정 할 Schema를 입력해주면 된다.
@@ -301,9 +302,9 @@ def writeCommunityPost(request,slug):
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
     else:
         userID = checkAuth_decodeToken(request)
-        if userID == 1:
+        if userID == -1:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
-        elif userID == 2:
+        elif userID == -2:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
         else:                            
             if (request.method == 'POST'):
@@ -385,9 +386,9 @@ def writeCommunityComment(request,slug):
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
     else:
         userID = checkAuth_decodeToken(request)
-        if userID == 1:
+        if userID == -1:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
-        elif userID == 2:
+        elif userID == -2:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
         else:                
             
@@ -481,9 +482,9 @@ def delteCommunityPost(request,slug):
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
     else:
         userID = checkAuth_decodeToken(request)
-        if userID == 1:
+        if userID == -1:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
-        elif userID == 2:
+        elif userID == -2:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
         else:               
             if (request.method == 'DELETE'):
@@ -536,9 +537,9 @@ def delteCommunityComment(request,slug):
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
     else:
         userID = checkAuth_decodeToken(request)
-        if userID == 1:
+        if userID == -1:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
-        elif userID == 2:
+        elif userID == -2:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
         else:               
             if (request.method == 'DELETE'):
@@ -570,7 +571,7 @@ def delteCommunityComment(request,slug):
         type=openapi.TYPE_OBJECT,
         properties={'title': openapi.Schema('글 제목', type=openapi.TYPE_STRING),
                     'contents': openapi.Schema('글 내용', type=openapi.TYPE_STRING),        
-                    'BID': openapi.Schema('책 BID', type=openapi.TYPE_INTEGER),
+                    'TBID': openapi.Schema('책 TBID', type=openapi.TYPE_INTEGER),
                     'PID': openapi.Schema('책 BID', type=openapi.TYPE_INTEGER),
         },
         required=['title','contents','PID']
@@ -595,9 +596,9 @@ def modifyCommunityPost(request,slug):
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
     else:
         userID = checkAuth_decodeToken(request)
-        if userID == 1:
+        if userID == -1:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
-        elif userID == 2:
+        elif userID == -2:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
         else:                            
             if (request.method == 'PUT'):
@@ -745,9 +746,9 @@ def communityLike(request,pk1,pk2):
     exceptDict = None
     if flag == 0:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-    elif flag == 1:
+    elif flag == -1:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
-    elif flag == 2:
+    elif flag == -2:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
     if request.method == 'POST':
         temp = list()

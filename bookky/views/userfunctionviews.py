@@ -1,4 +1,4 @@
-from bookky.models import FavoriteBook, User, AnyCommunity, QnACommunity, MarketCommunity, Tag, Book, QnAComment, MarketComment, AnyComment, Review
+from bookky.models import FavoriteBook, User, AnyCommunity, QnACommunity, MarketCommunity, TagModel, TempBook, QnAComment, MarketComment, AnyComment, Review
 from bookky.serializers.favoriteserializers import FavoriteBookSerializer
 from bookky.serializers.bookserializers import BookPostSerializer, BookGetSerializer
 from bookky.serializers.tagserializers import TagSerializer
@@ -30,7 +30,7 @@ from drf_yasg import openapi
                         'favoriteBookList' : openapi.Schema('사용자가 선택한 태그', type=openapi.TYPE_ARRAY, items=openapi.Items(
                             type=openapi.TYPE_OBJECT,
                             properties={
-                                'BID' : openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                'TBID' : openapi.Schema('TBID', type=openapi.TYPE_INTEGER),
                                 'TITLE' : openapi.Schema('책 제목', type=openapi.TYPE_STRING),
                                 'thumbnailImage' : openapi.Schema('책 사진', type=openapi.TYPE_STRING),
                             }
@@ -74,13 +74,14 @@ from drf_yasg import openapi
 @api_view(['GET','POST'])
 def favoriteBook(request, pk): #관심 도서 등록 및 취소
     flag = checkAuth_decodeToken(request)
+    print(flag)
     # exceptDict = {'BID' : 0, 'UID':0}
     exceptDict = None
     if flag == 0:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-    elif flag == 1:
+    elif flag == -1:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
-    elif flag == 2:
+    elif flag == -2:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
     
 
@@ -89,8 +90,8 @@ def favoriteBook(request, pk): #관심 도서 등록 및 취소
         tempQuery = FavoriteBook.objects.filter(UID = flag)
         if len(tempQuery) != 0:
             for i in tempQuery:
-                bookQuery = Book.objects.get(BID = i.BID.BID)
-                tempData = {'BID':i.BID.BID, 'TITLE':bookQuery.TITLE, 'thumbnailImage':bookQuery.thumbnailImage}
+                bookQuery = TempBook.objects.get(TBID = i.TBID.TBID)
+                tempData = {'TBID':i.TBID.TBID, 'TITLE':bookQuery.TITLE, 'thumbnailImage':bookQuery.thumbnailImage}
                 data.append(tempData)
             return JsonResponse({'success':True, 'result':{'favoriteBookList':data}, 'errorMessage':""}, status = status.HTTP_200_OK)
         else:
@@ -98,10 +99,10 @@ def favoriteBook(request, pk): #관심 도서 등록 및 취소
 
     elif request.method == 'POST':
         data = dict()
-        data['BID'] = pk
+        data['TBID'] = pk
         data['UID'] = flag
         queryData = FavoriteBook.objects.filter(UID = flag)
-        queryData = queryData.filter(BID = pk)
+        queryData = queryData.filter(TBID = pk)
         if len(queryData) == 0 :
             serializer = FavoriteBookSerializer(data =data)
             if serializer.is_valid():
@@ -142,7 +143,7 @@ def favoriteBook(request, pk): #관심 도서 등록 및 취소
                             items=openapi.Items(
                                 type=openapi.TYPE_OBJECT,
                                 properties={
-                                    'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                    'TBID':openapi.Schema('TBID', type=openapi.TYPE_INTEGER),
                                     'TITLE':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
                                     'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
                                     'thumbnailImage':openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
@@ -167,7 +168,7 @@ def favoriteBook(request, pk): #관심 도서 등록 및 취소
                             type=openapi.TYPE_OBJECT,
                             properties={
                                 'RID':openapi.Schema('RID', type=openapi.TYPE_INTEGER),
-                                'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                'TBID':openapi.Schema('TBID', type=openapi.TYPE_INTEGER),
                                 'UID':openapi.Schema('UID', type=openapi.TYPE_INTEGER),
                                 'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
                                 'views':openapi.Schema('views', type=openapi.TYPE_INTEGER),
@@ -198,24 +199,24 @@ def getMyProfileData(request):
         flag = checkAuth_decodeToken(request)
         if flag == 0:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-        elif flag == 1:
+        elif flag == -1:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
-        elif flag == 2:
+        elif flag == -2:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
         else:
-            tagQuery = Tag.objects
+            tagQuery = TagModel.objects
             userTag = []
             userQuery = User.objects.get(UID = flag)
             if userQuery.tag_array is not None:
                 for i in userQuery.tag_array:
-                    temp = tagQuery.get(TID=i)
-                    userTag.append({'tag':temp.nameTag, 'TID':temp.TID})    
+                    temp = tagQuery.get(TMID=i)
+                    userTag.append({'tag':temp.nameTag, 'TMID':temp.TMID})    
             userData = {'userThumbnail':userQuery.thumbnail,'nickname':userQuery.nickname, 'userTagList':userTag}
             bookQuery = FavoriteBook.objects.filter(UID = int(flag))
             bookQueryList = FavoriteBookSerializer(bookQuery, many=True)
             bookList = []
             for i in bookQueryList.data:
-                dataQuery = Book.objects.filter(BID = i['BID'])
+                dataQuery = TempBook.objects.filter(TBID = i['TBID'])
                 tempBookQuery = BookGetSerializer(dataQuery, many = True)
                 bookList += tempBookQuery.data
             tempAnyCommunityData = AnyCommunity.objects.order_by('createAt').filter(UID = flag)
@@ -251,7 +252,7 @@ def getMyProfileData(request):
                 del i['like']
                 i['isAccessible'] = True
                 i['nickname'] = temp.nickname
-                tempQuery = Book.objects.get(BID = i['BID'])
+                tempQuery = TempBook.objects.get(TBID = i['TBID'])
                 i['AUTHOR'] = tempQuery.AUTHOR
                 i['bookTitle'] = tempQuery.TITLE
                 i['thumbnail'] = tempQuery.thumbnailImage
@@ -307,13 +308,13 @@ def comment_like_counter(flag, dataList):
                                 type=openapi.TYPE_OBJECT,
                                 properties={
                                     'tag': openapi.Schema('태그이름', type=openapi.TYPE_STRING),
-                                    'TID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
+                                    'TMID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
                                     'data' :openapi.Schema(
                                         type=openapi.TYPE_ARRAY,
                                         items=openapi.Items(
                                             type=openapi.TYPE_OBJECT,
                                             properties={
-                                                'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                                'TBID':openapi.Schema('TBID', type=openapi.TYPE_INTEGER),
                                                 'TITLE':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
                                                 'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
                                                 'thumbnailImage':openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
@@ -342,7 +343,7 @@ def comment_like_counter(flag, dataList):
                                         type=openapi.TYPE_OBJECT,
                                         properties={
                                         'tag' : openapi.Schema('태그이름',type=openapi.TYPE_STRING),
-                                        'TID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
+                                        'TMID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
                                         }
                                         )
                                 ),
@@ -363,8 +364,8 @@ def getHomeData(request):
         # exceptDict = [{'tag':"",'data':[]}]
         exceptDict = None
         try:
-            bookQuery = Book.objects
-            tagQuery = Tag.objects
+            bookQuery = TempBook.objects
+            tagQuery = TagModel.objects
             bookList = [{'tag':"오늘의 추천 도서", 'data':[]}]
             userData = dict()
         except:
@@ -373,9 +374,10 @@ def getHomeData(request):
         if request.headers.get('access_token', None) is not None: #회원일 때
             if len(request.headers.get('access_token', None)) != 0:
                 flag = checkAuth_decodeToken(request)
-                if flag == 1:
+                print(flag)
+                if flag == -1:
                     return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'communityList':[],'userData':None}, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
-                elif flag == 2:
+                elif flag == -2:
                     return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'communityList':[],'userData':None}, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
                 userQuery = User.objects.get(UID = flag)
                 userData['UID'] = int(userQuery.UID)
@@ -386,18 +388,18 @@ def getHomeData(request):
                 else:
                     userStack = userTag
                 for i in userStack:
-                    temp = tagQuery.get(TID=i)
-                    tempTag.append({'TID' : i,'tag':temp.nameTag})
+                    temp = tagQuery.get(TMID=i)
+                    tempTag.append({'TMID' : i,'tag':temp.nameTag})
                 userData['tagData'] = tempTag
                 userData['nickname'] = userQuery.nickname
                 userData['thumbnail'] = userQuery.thumbnail
         
         for i in userStack:
-            temp = tagQuery.get(TID = i)
+            temp = tagQuery.get(TMID = i)
             bookTemp = bookQuery.filter(TAG__contains = [i])
             serializer = BookGetSerializer(bookTemp, many=True)
             tempSpiltData = serializer.data
-            bookList.append({'tag':temp.nameTag, 'TID':i, 'data':tempSpiltData[0:25]})
+            bookList.append({'tag':temp.nameTag, 'TMID':i, 'data':tempSpiltData[0:25]})
         
         return JsonResponse({'success':True,'result' :{'bookList':bookList,'communityList':[],'userData':userData},'errorMessage':""},status=status.HTTP_200_OK)
 
@@ -443,15 +445,15 @@ def updateBoundary(request):
         errorFlag = False
         if flag == 0:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST, safe=False)
-        elif flag == 1:
+        elif flag == -1:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN, safe=False)
-        elif flag == 2:
+        elif flag == -2:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED, safe=False)
         else:
             if data['tag'] is not None and len(data['tag']) != 0:
-                tagQuery = Tag.objects
+                tagQuery = TagModel.objects
                 for i in data['tag']:
-                    if tagQuery.get(TID = int(i)) is None:
+                    if tagQuery.get(TMID = int(i)) is None:
                         errorFlag = True
                         break
                 if errorFlag:
@@ -461,7 +463,7 @@ def updateBoundary(request):
                 userData.save()
                 tempTag = []
                 for i in userData.tag_array:
-                    temp = tagQuery.get(TID=i)
+                    temp = tagQuery.get(TMID=i)
                     tempTag.append(temp.nameTag)
 
                 return JsonResponse({'success':True, 'result':{'tag':tempTag}, 'errorMessage':""},status = status.HTTP_200_OK, safe=False)
@@ -482,7 +484,7 @@ def updateBoundary(request):
                         'tag' : openapi.Schema('태그 데이터', type=openapi.TYPE_ARRAY, items=openapi.Items(
                             type=openapi.TYPE_OBJECT,
                             properties={
-                                'TID':openapi.Schema('TID', type=openapi.TYPE_INTEGER),
+                                'TMID':openapi.Schema('TMID', type=openapi.TYPE_INTEGER),
                                 'nameTag':openapi.Schema('태그 이름', type=openapi.TYPE_STRING)
                             }
                         )
@@ -498,11 +500,9 @@ def updateBoundary(request):
 @api_view(['GET'])
 def getTags(request):
     if request.method == 'GET':
-        tags = Tag.objects.all()
+        tags = TagModel.objects.all()
         dataset = TagSerializer(tags, many=True)
         temp = dataset.data
-        for i in range(0,len(temp)):
-            del temp[i]['contents']
         
         return JsonResponse({'success':True, 'result':{'tag':temp}, 'errorMessage':""},status=status.HTTP_200_OK)
 
@@ -524,13 +524,13 @@ def getTags(request):
                                 type=openapi.TYPE_OBJECT,
                                 properties={
                                     'tag': openapi.Schema('태그이름', type=openapi.TYPE_STRING),
-                                    'TID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
+                                    'TMID' : openapi.Schema('태그 아이디', type=openapi.TYPE_INTEGER),
                                     'data' :openapi.Schema(
                                         type=openapi.TYPE_ARRAY,
                                         items=openapi.Items(
                                             type=openapi.TYPE_OBJECT,
                                             properties={
-                                                'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                                'TBID':openapi.Schema('TBID', type=openapi.TYPE_INTEGER),
                                                 'TITLE':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
                                                 'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
                                                 'thumbnailImage':openapi.Schema('책 이미지', type=openapi.TYPE_STRING),
@@ -555,8 +555,8 @@ def getMoreTag(request):
 
         exceptDict = None
         try:
-            bookQuery = Book.objects
-            tagQuery = Tag.objects
+            bookQuery = TempBook.objects
+            tagQuery = TagModel.objects
             bookList = [{'tag':"오늘의 추천 도서", 'data':[]}]
             nickname = "비회원"
         except:
@@ -565,9 +565,9 @@ def getMoreTag(request):
         if request.headers.get('access_token', None) is not None: #회원일 때
             if len(request.headers.get('access_token', None)) != 0:
                 flag = checkAuth_decodeToken(request)
-                if flag == 1:
+                if flag == -1:
                     return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'nickname':exceptDict}, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
-                elif flag == 2:
+                elif flag == -2:
                     return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'nickname':exceptDict}, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
                 userQuery = User.objects.get(UID = flag)
 
@@ -576,16 +576,16 @@ def getMoreTag(request):
                 if userTag is not None:
                     userStack = userTag
                 for i in userStack:
-                    temp = tagQuery.get(TID=i)
-                    tempTag.append({'TID' : i,'tag':temp.nameTag})
+                    temp = tagQuery.get(TMID=i)
+                    tempTag.append({'TMID' : i,'tag':temp.nameTag})
                 nickname = userQuery.nickname
         
         for i in userStack:
-            temp = tagQuery.get(TID = i)
+            temp = tagQuery.get(TMID = i)
             bookTemp = bookQuery.filter(TAG__contains = [i])
             serializer = BookGetSerializer(bookTemp, many=True)
             tempSpiltData = serializer.data
-            bookList.append({'tag':temp.nameTag, 'TID':i, 'data':tempSpiltData[0:25]})
+            bookList.append({'tag':temp.nameTag, 'TMID':i, 'data':tempSpiltData[0:25]})
         
         return JsonResponse({'success':True,'result' :{'bookList':bookList,'nickname':nickname},'errorMessage':""},status=status.HTTP_200_OK)
 
@@ -624,9 +624,9 @@ def updateUserProfile_nickname(request):
     exceptDict = None
     if flag == 0:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-    elif flag == 1:
+    elif flag == -1:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
-    elif flag == 2:
+    elif flag == -2:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
     
     if request.method == 'PUT':
@@ -658,7 +658,7 @@ def updateUserProfile_nickname(request):
                             type=openapi.TYPE_OBJECT,
                             properties={
                                 'RID':openapi.Schema('RID', type=openapi.TYPE_INTEGER),
-                                'BID':openapi.Schema('BID', type=openapi.TYPE_INTEGER),
+                                'TBID':openapi.Schema('TBID', type=openapi.TYPE_INTEGER),
                                 'UID':openapi.Schema('UID', type=openapi.TYPE_INTEGER),
                                 'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
                                 'views':openapi.Schema('views', type=openapi.TYPE_INTEGER),
@@ -687,9 +687,9 @@ def getUserReview(request):
     exceptDict = None
     if flag == 0:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-    elif flag == 1:
+    elif flag == -1:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
-    elif flag == 2:
+    elif flag == -2:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
     
     if request.method =='GET':
@@ -709,7 +709,7 @@ def getUserReview(request):
                     i['isAccessible'] = False
                 temp = User.objects.get(UID=i['UID'])
                 i['nickname'] = temp.nickname
-                tempQuery = Book.objects.get(BID = i['BID'])
+                tempQuery = TempBook.objects.get(TBID = i['TBID'])
                 i['AUTHOR'] = tempQuery.AUTHOR
                 i['bookTitle'] = tempQuery.TITLE
                 i['thumbnail'] = tempQuery.thumbnailImage

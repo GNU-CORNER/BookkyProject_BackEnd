@@ -9,7 +9,7 @@ from drf_yasg.utils       import swagger_auto_schema
 from drf_yasg import openapi
 import base64
 from bookky.serializers.userserializers import UserRegisterSerializer
-from bookky.models import User, RefreshTokenStorage, Tag
+from bookky.models import User, RefreshTokenStorage, TagModel
 from bookky.auth.auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token, getAuthenticate, checkAuthentication, checkAuth_decodeToken
 from bookky_backend import settings
 import os
@@ -42,9 +42,9 @@ def userThumbnailPost(request):
     exceptDict = None
     if flag == 0:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
-    elif flag == 1:
+    elif flag == -1:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
-    elif flag == 2:
+    elif flag == -2:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
     
     if request.method == 'POST':

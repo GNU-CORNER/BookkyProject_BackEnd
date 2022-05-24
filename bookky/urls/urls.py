@@ -26,6 +26,7 @@ urlpatterns = [ #POST형식으로 바꿔야함
     path('auth/refresh',userviews.refresh_token), #POST,
     path('community/hotcommunity',communityviews.getHotCommunity),
     path('tags', userfunctionviews.getTags),
+    # path('test', views.putTagData),
     path('review/<int:pk>',reviewviews.reviews),
     path('review/like/<int:pk>',reviewviews.reviewLike),
     path('community/like/<int:pk1>/<int:pk2>', communityviews.communityLike),
