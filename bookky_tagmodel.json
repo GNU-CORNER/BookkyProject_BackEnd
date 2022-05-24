@@ -1,0 +1,637 @@
+[
+  {
+    "TMID": 2,
+    "name": "전산수학",
+    "searchName": "전산수학"
+  },
+  {
+    "TMID": 3,
+    "name": "자료구조",
+    "searchName": "자료구조"
+  },
+  {
+    "TMID": 4,
+    "name": "알고리즘",
+    "searchName": "알고리즘"
+  },
+  {
+    "TMID": 7,
+    "name": "컴퓨터구조",
+    "searchName": "컴퓨터구조"
+  },
+  {
+    "TMID": 10,
+    "name": "정형기법",
+    "searchName": "정형기법"
+  },
+  {
+    "TMID": 11,
+    "name": "소프트웨어",
+    "searchName": "소프트웨어"
+  },
+  {
+    "TMID": 12,
+    "name": "프로그래밍 언어론",
+    "searchName": "프로그래밍언어론"
+  },
+  {
+    "TMID": 13,
+    "name": "데이터베이스",
+    "searchName": "데이터베이스"
+  },
+  {
+    "TMID": 15,
+    "name": "빅데이터",
+    "searchName": "빅데이터"
+  },
+  {
+    "TMID": 16,
+    "name": "컴퓨터 그래픽",
+    "searchName": "컴퓨터그래픽"
+  },
+  {
+    "TMID": 17,
+    "name": "정보보호",
+    "searchName": "정보보호"
+  },
+  {
+    "TMID": 18,
+    "name": "컴퓨팅 사고",
+    "searchName": "컴퓨팅사고"
+  },
+  {
+    "TMID": 19,
+    "name": "컴퓨터 비전",
+    "searchName": "컴퓨터비전"
+  },
+  {
+    "TMID": 22,
+    "name": "프레임워크",
+    "searchName": "프레임워크"
+  },
+  {
+    "TMID": 23,
+    "name": "케이스도구",
+    "searchName": "케이스도구"
+  },
+  {
+    "TMID": 24,
+    "name": "머신러닝",
+    "searchName": "머신러닝"
+  },
+  {
+    "TMID": 25,
+    "name": "딥러닝",
+    "searchName": "딥러닝"
+  },
+  {
+    "TMID": 26,
+    "name": "강화학습",
+    "searchName": "강화학습"
+  },
+  {
+    "TMID": 27,
+    "name": "코딩 테스트",
+    "searchName": "코딩테스트"
+  },
+  {
+    "TMID": 28,
+    "name": "모바일",
+    "searchName": "모바일"
+  },
+  {
+    "TMID": 29,
+    "name": "클론코딩",
+    "searchName": "클론코딩"
+  },
+  {
+    "TMID": 30,
+    "name": "이론",
+    "searchName": "이론"
+  },
+  {
+    "TMID": 31,
+    "name": "게임",
+    "searchName": "게임"
+  },
+  {
+    "TMID": 32,
+    "name": "실습",
+    "searchName": "실습"
+  },
+  {
+    "TMID": 33,
+    "name": "초보자",
+    "searchName": "초보자"
+  },
+  {
+    "TMID": 34,
+    "name": "프론트 엔드",
+    "searchName": "프론트엔드"
+  },
+  {
+    "TMID": 35,
+    "name": "함수형 프그래밍",
+    "searchName": "함수형프그래밍"
+  },
+  {
+    "TMID": 36,
+    "name": "명령형 프로그래밍",
+    "searchName": "명령형프로그래밍"
+  },
+  {
+    "TMID": 37,
+    "name": "객체지향 프로그래밍",
+    "searchName": "객체지향프로그래밍"
+  },
+  {
+    "TMID": 38,
+    "name": "절차적 프로그래밍",
+    "searchName": "절차적프로그래밍"
+  },
+  {
+    "TMID": 39,
+    "name": "NFT",
+    "searchName": "NFT"
+  },
+  {
+    "TMID": 40,
+    "name": "AR",
+    "searchName": "AR"
+  },
+  {
+    "TMID": 41,
+    "name": "VR",
+    "searchName": "VR"
+  },
+  {
+    "TMID": 42,
+    "name": "클라우드",
+    "searchName": "클라우드"
+  },
+  {
+    "TMID": 43,
+    "name": "정보통신",
+    "searchName": "정보통신"
+  },
+  {
+    "TMID": 44,
+    "name": "IOT",
+    "searchName": "IOT"
+  },
+  {
+    "TMID": 45,
+    "name": "로봇",
+    "searchName": "로봇"
+  },
+  {
+    "TMID": 46,
+    "name": "아두이노",
+    "searchName": "아두이노"
+  },
+  {
+    "TMID": 47,
+    "name": "마이크로프로세서",
+    "searchName": "마이크로프로세서"
+  },
+  {
+    "TMID": 48,
+    "name": "이더리움",
+    "searchName": "이더리움"
+  },
+  {
+    "TMID": 49,
+    "name": "데이터마이닝",
+    "searchName": "데이터마이닝"
+  },
+  {
+    "TMID": 50,
+    "name": "데이터 분석",
+    "searchName": "데이터분석"
+  },
+  {
+    "TMID": 51,
+    "name": "암호화폐",
+    "searchName": "암호화폐"
+  },
+  {
+    "TMID": 52,
+    "name": "Fuse",
+    "searchName": "FUSE"
+  },
+  {
+    "TMID": 53,
+    "name": "Ionic2",
+    "searchName": "IONIC2"
+  },
+  {
+    "TMID": 54,
+    "name": "Phone Gap",
+    "searchName": "PHONEGAP"
+  },
+  {
+    "TMID": 55,
+    "name": "Flutter",
+    "searchName": "FLUTTER"
+  },
+  {
+    "TMID": 56,
+    "name": "Android",
+    "searchName": "ANDROID"
+  },
+  {
+    "TMID": 57,
+    "name": "iOS",
+    "searchName": "IOS"
+  },
+  {
+    "TMID": 58,
+    "name": "해킹",
+    "searchName": "해킹"
+  },
+  {
+    "TMID": 59,
+    "name": "Docker",
+    "searchName": "DOCKER"
+  },
+  {
+    "TMID": 60,
+    "name": "Nginx",
+    "searchName": "NGINX"
+  },
+  {
+    "TMID": 61,
+    "name": "Kubernetes",
+    "searchName": "KUBERNETES"
+  },
+  {
+    "TMID": 62,
+    "name": "리버싱",
+    "searchName": "리버싱"
+  },
+  {
+    "TMID": 63,
+    "name": "디버깅",
+    "searchName": "디버깅"
+  },
+  {
+    "TMID": 64,
+    "name": "테스트",
+    "searchName": "테스트"
+  },
+  {
+    "TMID": 65,
+    "name": "리팩토링",
+    "searchName": "리팩토링"
+  },
+  {
+    "TMID": 66,
+    "name": "Agile",
+    "searchName": "AGILE"
+  },
+  {
+    "TMID": 68,
+    "name": "Oracle",
+    "searchName": "ORACLE"
+  },
+  {
+    "TMID": 69,
+    "name": "소켓",
+    "searchName": "소켓"
+  },
+  {
+    "TMID": 70,
+    "name": "TCP/IP",
+    "searchName": "TCP/IP"
+  },
+  {
+    "TMID": 71,
+    "name": "Figma",
+    "searchName": "FIGMA"
+  },
+  {
+    "TMID": 72,
+    "name": "Git",
+    "searchName": "GIT"
+  },
+  {
+    "TMID": 73,
+    "name": "Notion",
+    "searchName": "NOTION"
+  },
+  {
+    "TMID": 74,
+    "name": "Window",
+    "searchName": "WINDOW"
+  },
+  {
+    "TMID": 75,
+    "name": "Unix",
+    "searchName": "UNIX"
+  },
+  {
+    "TMID": 76,
+    "name": "Linux",
+    "searchName": "LINUX"
+  },
+  {
+    "TMID": 77,
+    "name": "TensorFlow",
+    "searchName": "TENSORFLOW"
+  },
+  {
+    "TMID": 78,
+    "name": "CNN",
+    "searchName": "CNN"
+  },
+  {
+    "TMID": 79,
+    "name": "RNN",
+    "searchName": "RNN"
+  },
+  {
+    "TMID": 80,
+    "name": "MATLAB",
+    "searchName": "MATLAB"
+  },
+  {
+    "TMID": 81,
+    "name": "Unreal Engine",
+    "searchName": "UNREALENGINE"
+  },
+  {
+    "TMID": 82,
+    "name": "Unity",
+    "searchName": "UNITY"
+  },
+  {
+    "TMID": 83,
+    "name": "Entry",
+    "searchName": "ENTRY"
+  },
+  {
+    "TMID": 84,
+    "name": "App Inventor",
+    "searchName": "APPINVENTOR"
+  },
+  {
+    "TMID": 85,
+    "name": "Scratch",
+    "searchName": "SCRATCH"
+  },
+  {
+    "TMID": 86,
+    "name": "Delphi",
+    "searchName": "DELPHI"
+  },
+  {
+    "TMID": 87,
+    "name": "Rust",
+    "searchName": "RUST"
+  },
+  {
+    "TMID": 88,
+    "name": "Kotlin",
+    "searchName": "KOTLIN"
+  },
+  {
+    "TMID": 89,
+    "name": "Python",
+    "searchName": "PYTHON"
+  },
+  {
+    "TMID": 90,
+    "name": "Swift",
+    "searchName": "SWIFT"
+  },
+  {
+    "TMID": 91,
+    "name": "TypeScript",
+    "searchName": "TYPESCRIPT"
+  },
+  {
+    "TMID": 92,
+    "name": "C",
+    "searchName": "C"
+  },
+  {
+    "TMID": 93,
+    "name": "C#",
+    "searchName": "C#"
+  },
+  {
+    "TMID": 94,
+    "name": "C++",
+    "searchName": "C++"
+  },
+  {
+    "TMID": 95,
+    "name": "Go",
+    "searchName": "GO"
+  },
+  {
+    "TMID": 97,
+    "name": "JavaScript",
+    "searchName": "JAVASCRIPT"
+  },
+  {
+    "TMID": 98,
+    "name": "MFC",
+    "searchName": "MFC"
+  },
+  {
+    "TMID": 99,
+    "name": ".NET",
+    "searchName": ".NET"
+  },
+  {
+    "TMID": 100,
+    "name": "Objective C",
+    "searchName": "OBJECTIVEC"
+  },
+  {
+    "TMID": 101,
+    "name": "Perl",
+    "searchName": "PERL"
+  },
+  {
+    "TMID": 102,
+    "name": "PHP",
+    "searchName": "PHP"
+  },
+  {
+    "TMID": 103,
+    "name": "R",
+    "searchName": "R"
+  },
+  {
+    "TMID": 104,
+    "name": "Ruby",
+    "searchName": "RUBY"
+  },
+  {
+    "TMID": 106,
+    "name": "XML",
+    "searchName": "XML"
+  },
+  {
+    "TMID": 107,
+    "name": "GitHub",
+    "searchName": "GITHUB"
+  },
+  {
+    "TMID": 108,
+    "name": "GitLab",
+    "searchName": "GITLAB"
+  },
+  {
+    "TMID": 109,
+    "name": "SPSS",
+    "searchName": "SPSS"
+  },
+  {
+    "TMID": 110,
+    "name": "텍스트 마이닝",
+    "searchName": "텍스트마이닝"
+  },
+  {
+    "TMID": 111,
+    "name": "OpenGL",
+    "searchName": "OPENGL"
+  },
+  {
+    "TMID": 112,
+    "name": "SQL",
+    "searchName": "SQL"
+  },
+  {
+    "TMID": 113,
+    "name": "MySQL",
+    "searchName": "MYSQL"
+  },
+  {
+    "TMID": 114,
+    "name": "MongoDB",
+    "searchName": "MONGODB"
+  },
+  {
+    "TMID": 115,
+    "name": "Tableau",
+    "searchName": "TABLEAU"
+  },
+  {
+    "TMID": 116,
+    "name": "PostgreSQL",
+    "searchName": "POSTGRESQL"
+  },
+  {
+    "TMID": 117,
+    "name": "Svelte",
+    "searchName": "SVELTE"
+  },
+  {
+    "TMID": 118,
+    "name": "Ajax",
+    "searchName": "AJAX"
+  },
+  {
+    "TMID": 119,
+    "name": "Vue.js",
+    "searchName": "VUE.JS"
+  },
+  {
+    "TMID": 120,
+    "name": "JQuery",
+    "searchName": "JQUERY"
+  },
+  {
+    "TMID": 121,
+    "name": "JSP",
+    "searchName": "JSP"
+  },
+  {
+    "TMID": 122,
+    "name": "HTML",
+    "searchName": "HTML"
+  },
+  {
+    "TMID": 123,
+    "name": "CSS",
+    "searchName": "CSS"
+  },
+  {
+    "TMID": 124,
+    "name": "WEB",
+    "searchName": "WEB"
+  },
+  {
+    "TMID": 126,
+    "name": "Azure",
+    "searchName": "AZURE"
+  },
+  {
+    "TMID": 127,
+    "name": "ASP",
+    "searchName": "ASP"
+  },
+  {
+    "TMID": 128,
+    "name": "WSL",
+    "searchName": "WSL"
+  },
+  {
+    "TMID": 129,
+    "name": "임베디드 시스템",
+    "searchName": "임베디드시스템"
+  },
+  {
+    "TMID": 130,
+    "name": "AWS",
+    "searchName": "AWS"
+  },
+  {
+    "TMID": 131,
+    "name": "React",
+    "searchName": "REACT"
+  },
+  {
+    "TMID": 67,
+    "name": "데이터 파이프라인",
+    "searchName": "데이터파이프라인"
+  },
+  {
+    "TMID": 96,
+    "name": "Java",
+    "searchName": "JAVA"
+  },
+  {
+    "TMID": 105,
+    "name": "Visual Basic",
+    "searchName": "VISUALBASIC"
+  },
+  {
+    "TMID": 125,
+    "name": "메타버스",
+    "searchName": "메타버스"
+  },
+  {
+    "TMID": 132,
+    "name": "인공지능",
+    "searchName": "인공지능"
+  },
+  {
+    "TMID": 133,
+    "name": "네트워크",
+    "searchName": "네트워크"
+  },
+  {
+    "TMID": 134,
+    "name": "운영체제",
+    "searchName": "운영체제"
+  },
+  {
+    "TMID": 135,
+    "name": "논리회로",
+    "searchName": "논리회로"
+  }
+]

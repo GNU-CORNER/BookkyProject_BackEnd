@@ -5,4 +5,4 @@ from rest_framework import serializers
 class RecommendPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecommendBook
-        fields =['UID', 'BID'] 
+        fields =['UID', 'TBID'] 

@@ -161,9 +161,9 @@ def checkAuth_decodeToken(request):
             if data['token_type'] == "access_token":
                 return data['UID']
         except jwt.DecodeError:
-            return 1 #AT형식 에러
+            return -1 #AT형식 에러
         except jwt.ExpiredSignatureError:
-            return 2 #AT 유효기간 끝남
+            return -2 #AT 유효기간 끝남
         
 #JWT토큰 디코더
 def jwtDecoder(token):

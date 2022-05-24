@@ -3,7 +3,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
-from bookky.models import User, RefreshTokenStorage, Tag
+from bookky.models import User, RefreshTokenStorage, TagModel
 from bookky.serializers.userserializers import UserRegisterSerializer
 from bookky.auth.auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token, getAuthenticate, checkAuthentication, checkAuth_decodeToken
 from django.core.mail import EmailMessage
@@ -82,10 +82,10 @@ def user(request):
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
     else:
         userID = checkAuth_decodeToken(request)
-        if userID == 1:
+        if userID == -1:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
-        elif userID == 2:
-            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+        elif userID == -2:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
         else:                
             #회원정보 수정(닉네임, 썸네일)
             if (request.method == 'PUT'):
@@ -238,9 +238,9 @@ def userSignIn(request):
                         del temp['pwToken']
                         if temp['tag_array'] is not None:
                             tempTag = []
-                            tagQuery = Tag.objects
+                            tagQuery = TagModel.objects
                             for i in temp['tag_array']:
-                                temps = tagQuery.get(TID = i)                                
+                                temps = tagQuery.get(TMID = i)                                
                                 tempTag.append(temps.nameTag)
                             temp['tag_array'] = tempTag
                         return JsonResponse({"success" : True, "result": {'userData':temp, 'access_token':str(accessToken), 'refresh_token' : str(refreshToken)}, 'errorMessage':""}, status=status.HTTP_200_OK)
@@ -550,7 +550,7 @@ def refresh_token(request):
         if request.headers.get('refresh_token',None) is not None and request.headers.get('access_token', None) is not None: # request 헤더에 RefreshToken이라는 파라미터에 값이 실려 왔는가?
             refresh_access_token = re_generate_Token(request)
             if refresh_access_token == 2:
-                return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"기간이 지난 토큰입니다."}, status=status.HTTP_403_FORBIDDEN)  #RefreshToken의 기간이 지남
+                return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"만료된 토큰입니다."}, status=status.HTTP_401_UNAUTHORIZED)  #RefreshToken의 기간이 지남
             elif refresh_access_token == 3:
                 return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"유효하지 않은 토큰입니다."}, status=status.HTTP_403_FORBIDDEN) #RefreshToken의 형식이 잘못됨
             elif refresh_access_token == 4:
@@ -561,7 +561,7 @@ def refresh_token(request):
         else:
             return JsonResponse({'success':False,'result':exceptDict,'errorMessage':"access_token 혹은 refresh_token이 없습니다."},status=status.HTTP_400_BAD_REQUEST)
     else:
-        return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다."}, status=status.HTTP_403_FORBIDDEN) #POST가 아닌 방식으로 접근 했을 경우
+        return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':str(request.method) + " 호출은 지원하지 않습니다."}, status=status.HTTP_405_METHOD_NOT_ALLOWED) #POST가 아닌 방식으로 접근 했을 경우
 
 @swagger_auto_schema(
     method='post',  
@@ -615,10 +615,10 @@ def signOut(request):
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
         else:
              userID = checkAuth_decodeToken(request)
-             if userID == 1:
+             if userID == -1:
                  return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
-             elif userID == 2:
-                 return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+             elif userID == -2:
+                 return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
              else: 
                 tempQuery = RefreshTokenStorage.objects.get(UID = userID)
                 tempQuery.delete()

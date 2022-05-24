@@ -35,7 +35,7 @@ class MarketCommentSerializer(serializers.ModelSerializer):
 class QnACommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = QnACommunity
-        fields = ['QPID', 'title', 'contents','parentQID', 'like']
+        fields = ['QPID', 'title', 'contents','parentQPID', 'like']
 
 class QnACommunityDetailSerializer(serializers.ModelSerializer):
     class Meta:

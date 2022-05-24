@@ -1,0 +1,946 @@
+/home/hyeok/dev/BookkyProject_BackEnd
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:48:28
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[24/May/2022 21:48:36] "GET /swagger HTTP/1.1" 200 1643
+[24/May/2022 21:48:36] "GET /swagger?format=openapi HTTP/1.1" 200 43870
+[24/May/2022 21:48:37] "GET /swagger?format=openapi HTTP/1.1" 200 43870
+[code_25_get_access] 시간 : 2022-05-24 12:48:46.344845, UID : 1 Access토큰 발급
+[code_47_get_refreshToken] 시간 : 2022-05-24 12:48:46.354045, UID : 1 갱신토큰 발급
+[24/May/2022 21:48:46] "POST /v1/user/signin HTTP/1.1" 200 553
+Forbidden: /v1/home
+[24/May/2022 21:48:54] "GET /v1/home HTTP/1.1" 403 147
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:49:26
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+Forbidden: /v1/home
+[24/May/2022 21:49:28] "GET /v1/home HTTP/1.1" 403 147
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk3MTg1LCJVSUQiOjF9.Qu16RqW2uCKYzJftjVaTHg6JCCctKx-crLzuaOkxPYM
+[code_25_get_access] 시간 : 2022-05-24 12:49:45.917050, UID : 1 Access토큰 발급
+[code_47_get_refreshToken] 시간 : 2022-05-24 12:49:45.926108, UID : 1 갱신토큰 발급
+[24/May/2022 21:49:45] "POST /v1/user/signin HTTP/1.1" 200 553
+Forbidden: /v1/home
+[24/May/2022 21:49:56] "GET /v1/home HTTP/1.1" 403 147
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:51:10
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+django-insecure-%$u31ssin353atj40c1*fnxg!6x+*o-(ie)hl@vqpgs8quc@#^
+HS256
+Forbidden: /v1/home
+[24/May/2022 21:51:13] "GET /v1/home HTTP/1.1" 403 147
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:54:23
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+Forbidden: /v1/home
+[24/May/2022 21:54:26] "GET /v1/home HTTP/1.1" 403 147
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:54:41
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:54:51
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:54:53
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+Forbidden: /v1/home
+[24/May/2022 21:54:55] "GET /v1/home HTTP/1.1" 403 147
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:55:01
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+Forbidden: /v1/home
+[24/May/2022 21:55:01] "GET /v1/home HTTP/1.1" 403 147
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:55:11
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userfunctionviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:55:36
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+Forbidden: /v1/home
+[24/May/2022 21:55:38] "GET /v1/home HTTP/1.1" 403 147
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userfunctionviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:56:05
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+1
+Forbidden: /v1/home
+[24/May/2022 21:56:06] "GET /v1/home HTTP/1.1" 403 147
+[24/May/2022 21:56:07] "OPTIONS /v1/home HTTP/1.1" 200 0
+[24/May/2022 21:56:07] "GET /v1/home HTTP/1.1" 200 7618
+Internal Server Error: /v1/books/tag/undefined
+Traceback (most recent call last):
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/generic/base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/bookviews.py", line 319, in getBooksByTag
+    tagNumber = int(slug)
+ValueError: invalid literal for int() with base 10: 'undefined'
+[24/May/2022 21:56:09] "GET /v1/books/tag/undefined HTTP/1.1" 500 93355
+[24/May/2022 21:56:10] "GET /v1/home HTTP/1.1" 200 7618
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:57:56
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+{'token_type': 'access_token', 'exp': 1653397682, 'UID': 1}
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk3NjgyLCJVSUQiOjF9.Wo4P_TY9zkUh2jxSwhCbw0sWYnn8EQYjirE_cQWWN4k
+[code_25_get_access] 시간 : 2022-05-24 12:58:02.910795, UID : 1 Access토큰 발급
+[code_47_get_refreshToken] 시간 : 2022-05-24 12:58:02.919958, UID : 1 갱신토큰 발급
+[24/May/2022 21:58:02] "POST /v1/user/signin HTTP/1.1" 200 553
+1
+Forbidden: /v1/home
+[24/May/2022 21:58:27] "GET /v1/home HTTP/1.1" 403 147
+1
+Forbidden: /v1/home
+[24/May/2022 21:58:30] "GET /v1/home HTTP/1.1" 403 147
+1
+Forbidden: /v1/home
+[24/May/2022 21:58:30] "GET /v1/home HTTP/1.1" 403 147
+1
+Forbidden: /v1/home
+[24/May/2022 21:58:31] "GET /v1/home HTTP/1.1" 403 147
+1
+Forbidden: /v1/home
+[24/May/2022 21:58:31] "GET /v1/home HTTP/1.1" 403 147
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:58:45
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 21:59:20
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk3NjgyLCJVSUQiOjF9.Wo4P_TY9zkUh2jxSwhCbw0sWYnn8EQYjirE_cQWWN4k
+1
+Forbidden: /v1/home
+[24/May/2022 21:59:21] "GET /v1/home HTTP/1.1" 403 147
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:00:31
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk3NjgyLCJVSUQiOjF9.Wo4P_TY9zkUh2jxSwhCbw0sWYnn8EQYjirE_cQWWN4k
+1
+1
+Forbidden: /v1/home
+[24/May/2022 22:00:32] "GET /v1/home HTTP/1.1" 403 147
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userfunctionviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:01:24
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:02:23
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userfunctionviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:03:17
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/uploadView.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:03:30
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:03:39
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:03:46
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/reviewviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:04:07
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/communityviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:04:56
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/bookviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:05:12
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk3NjgyLCJVSUQiOjF9.Wo4P_TY9zkUh2jxSwhCbw0sWYnn8EQYjirE_cQWWN4k
+1
+1
+[24/May/2022 22:05:34] "GET /v1/home HTTP/1.1" 200 7862
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+[code_25_get_access] 시간 : 2022-05-24 13:05:49.704395, UID : 1 Access토큰 발급
+[code_47_get_refreshToken] 시간 : 2022-05-24 13:05:49.713399, UID : 1 갱신토큰 발급
+[24/May/2022 22:05:49] "POST /v1/user/signin HTTP/1.1" 200 553
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+1
+[24/May/2022 22:06:11] "GET /v1/books/detail/1 HTTP/1.1" 200 3145
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+[24/May/2022 22:06:23] "GET /v1/books/reviews/1 HTTP/1.1" 204 69
+파이썬
+파이썬
+Internal Server Error: /v1/books/search
+Traceback (most recent call last):
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/generic/base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/bookviews.py", line 211, in bookSearch
+    i['tagData'] = findBooksTagName(int(i['TBID']))
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/bookviews.py", line 264, in findBooksTagName
+    temp = tagQuery.get(TMID = i)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/query.py", line 496, in get
+    raise self.model.DoesNotExist(
+bookky.models.TagModel.DoesNotExist: TagModel matching query does not exist.
+[24/May/2022 22:06:34] "GET /v1/books/search?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC HTTP/1.1" 500 17547
+[24/May/2022 22:06:43] "GET /v1/books/tag/1 HTTP/1.1" 204 110
+[24/May/2022 22:06:46] "GET /v1/books/tag/3 HTTP/1.1" 200 6798
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+[24/May/2022 22:06:58] "GET /v1/myprofile HTTP/1.1" 200 191
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+0
+Internal Server Error: /v1/review/3
+Traceback (most recent call last):
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/generic/base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/reviewviews.py", line 212, in reviews
+    tempQuery = TempBook.objects.get(TBID = i['TBID'])
+UnboundLocalError: local variable 'i' referenced before assignment
+[24/May/2022 22:07:15] "POST /v1/review/3 HTTP/1.1" 500 17125
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+[24/May/2022 22:07:29] "GET /v1/review/3 HTTP/1.1" 204 176
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+1
+[24/May/2022 22:07:38] "POST /v1/user/favoritebook/3 HTTP/1.1" 200 69
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+1
+[24/May/2022 22:07:44] "GET /v1/user/favoritebook/3 HTTP/1.1" 200 231
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+1
+[24/May/2022 22:07:52] "GET /v1/user/favoritebook/0 HTTP/1.1" 200 231
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+[24/May/2022 22:08:06] "GET /v1/user/myreview HTTP/1.1" 200 488
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/reviewviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:10:09
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+0
+[24/May/2022 22:10:23] "POST /v1/review/1 HTTP/1.1" 201 540
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+[24/May/2022 22:10:29] "GET /v1/review/1 HTTP/1.1" 200 486
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+[24/May/2022 22:10:34] "GET /v1/review/3 HTTP/1.1" 204 176
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+[24/May/2022 22:10:35] "GET /v1/review/3 HTTP/1.1" 204 176
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+[24/May/2022 22:10:39] "GET /v1/review/3 HTTP/1.1" 204 176
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+[24/May/2022 22:10:53] "GET /v1/review/3 HTTP/1.1" 204 176
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+[24/May/2022 22:11:17] "GET /v1/review/2 HTTP/1.1" 200 518
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4MTQ5LCJVSUQiOjF9.8NTZjYzx0u5ShKDRMrHhrpzpCuJDQOApsBRgttaEkq0
+1
+[24/May/2022 22:11:29] "PUT /v1/review/like/1 HTTP/1.1" 200 66
+Internal Server Error: /v1/tags
+Traceback (most recent call last):
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/generic/base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userfunctionviews.py", line 507, in getTags
+    del temp[i]['contents']
+KeyError: 'contents'
+[24/May/2022 22:11:40] "GET /v1/tags HTTP/1.1" 500 16901
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userfunctionviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:12:03
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[24/May/2022 22:12:05] "GET /v1/home HTTP/1.1" 200 7618
+[24/May/2022 22:12:08] "GET /v1/tags HTTP/1.1" 200 9737
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4NTQ2LCJVSUQiOjF9.QdlEo5f6u8s-ThwdAMAEp2icsNpNTiBnocHiFiDrtmI
+[code_25_get_access] 시간 : 2022-05-24 13:12:26.522562, UID : 1 Access토큰 발급
+[code_47_get_refreshToken] 시간 : 2022-05-24 13:12:26.531729, UID : 1 갱신토큰 발급
+[24/May/2022 22:12:26] "POST /v1/user/signin HTTP/1.1" 200 553
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4NTQ2LCJVSUQiOjF9.QdlEo5f6u8s-ThwdAMAEp2icsNpNTiBnocHiFiDrtmI
+1
+1
+[24/May/2022 22:12:36] "GET /v1/user/favoritebook/0 HTTP/1.1" 200 231
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4NTQ2LCJVSUQiOjF9.QdlEo5f6u8s-ThwdAMAEp2icsNpNTiBnocHiFiDrtmI
+1
+[24/May/2022 22:12:43] "GET /v1/user/myreview HTTP/1.1" 200 942
+[24/May/2022 22:13:09] "GET /swagger HTTP/1.1" 200 1643
+[24/May/2022 22:13:10] "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+[24/May/2022 22:13:10] "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+[24/May/2022 22:13:10] "GET /static/drf-yasg/url-polyfill.min.js HTTP/1.1" 200 6092
+[24/May/2022 22:13:10] "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+[24/May/2022 22:13:10] "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 14715
+[24/May/2022 22:13:10] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 200 143074
+[24/May/2022 22:13:10] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 329649
+[24/May/2022 22:13:10] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1038857
+[24/May/2022 22:13:10] "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 200 628
+[24/May/2022 22:13:10] "GET /swagger?format=openapi HTTP/1.1" 200 43870
+[24/May/2022 22:13:11] "GET /swagger?format=openapi HTTP/1.1" 200 43870
+Bad Request: /v1/user/signin
+[24/May/2022 22:13:45] "POST /v1/user/signin HTTP/1.1" 400 123
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4NjQ1LCJVSUQiOjJ9.t0y7NfnNCz9RR6mPi_GpEUDufoHbTXNqKMgJ09fGWPY
+[code_25_get_access] 시간 : 2022-05-24 13:14:05.888366, UID : 2 Access토큰 발급
+[code_47_get_refreshToken] 시간 : 2022-05-24 13:14:05.891240, UID : 2 갱신토큰 발급
+[24/May/2022 22:14:05] "POST /v1/user/signup HTTP/1.1" 201 569
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjUzMzk4NjUyLCJVSUQiOjJ9.PffDiEGy2FpbLrY4h15CRYevmrxdrKp6ZEc2fpE0u8U
+[code_25_get_access] 시간 : 2022-05-24 13:14:12.608202, UID : 2 Access토큰 발급
+[code_47_get_refreshToken] 시간 : 2022-05-24 13:14:12.611068, UID : 2 갱신토큰 발급
+[24/May/2022 22:14:12] "POST /v1/user/signin HTTP/1.1" 200 569
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/auth/auth.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+May 24, 2022 - 22:14:24
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[24/May/2022 22:14:31] "GET /v1/community/postlist/0 HTTP/1.1" 200 82
+[24/May/2022 22:14:53] "POST /v1/community/writepost/0 HTTP/1.1" 201 83
+[24/May/2022 22:14:57] "GET /v1/community/postlist/0 HTTP/1.1" 200 189
