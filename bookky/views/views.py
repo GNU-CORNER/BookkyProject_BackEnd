@@ -120,8 +120,8 @@ def putTagData(request):
 #     # json_bookData = dict()
     
 
-    with open("bookky_tagmodel.json","r") as rt_json:
-       json_bookData = json.load(rt_json)
+    # with open("bookky_tagmodel.json","r") as rt_json:
+    #    json_bookData = json.load(rt_json)
     
     # for i in json_bookData:
     #    if i.get('ISBN') is not None:
@@ -129,10 +129,10 @@ def putTagData(request):
     #        tempQuery.thumbnail = i.get('thumbnail')
     #        tempQuery.save()
 
-    for i in json_bookData :
-        data = {
-            'nameTag' : i.get('name'),
-            'searchName' : i.get('searchName')
+    # for i in json_bookData :
+    #     data = {
+    #         'nameTag' : i.get('name'),
+    #         'searchName' : i.get('searchName')
             # 'TBID' : i.get('TBID'),
             # 'TITLE':i.get('TITLE'), 
             # 'SUBTITLE':i.get('SUBTITLE'),
@@ -150,12 +150,12 @@ def putTagData(request):
             # 'RATING' : i.get('RATING'),
             # 'thumbnailImage' : i.get('thumbnailImage'),
             # 'searchName' : i.get('searchName')
-        }
-        serializer = TagSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-        else:
-            print(serializer.errors)
+        # }
+        # serializer = TagSerializer(data=data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        # else:
+        #     print(serializer.errors)
 
 #     # for i in json_bookData.get('tag'):
 #     #     temp = TagModel(
@@ -173,18 +173,18 @@ def putTagData(request):
 #     #     else:
 #     #         print(serializer.errors)
 
-#     with open("Add_Tag_Book.json","r") as rt_json:
-#         json_bookData = json.load(rt_json)
+    with open("Add_Tag_Book.json","r") as rt_json:
+        json_bookData = json.load(rt_json)
 
 
-#     bookData = TempBook.objects.all()
-#     for i in range(len(json_bookData)):
+    bookData = TempBook.objects.all()
+    for i in range(len(json_bookData)):
     
-#         Allah_BID = json_bookData[i]["Allah_BID"]
-#         Tag = json_bookData[i]["Tag"]
-#         print(Allah_BID,Tag)
-#         x = bookData.get(Allah_BID = Allah_BID)
-#         x.TAG = Tag
-#         x.save()
+        Allah_BID = json_bookData[i]["Allah_BID"]
+        Tag = json_bookData[i]["Tag"]
+        #print(Allah_BID,Tag)
+        x = bookData.get(Allah_BID = Allah_BID)
+        x.TAG = Tag
+        x.save()
 
     return JsonResponse({'success':True,'result': 'Gang', 'errorMessage':""}, safe=False, status=status.HTTP_200_OK)    

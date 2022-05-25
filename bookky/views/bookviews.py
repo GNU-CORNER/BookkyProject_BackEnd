@@ -193,6 +193,7 @@ def bookSearch(request): #책 검색 API
     exceptDict = None    
     if request.method == 'GET' :
         #slug 정규식 처리 필요함, 한국어 처리 필요
+        print(request.GET.get('keyword'))
         if request.GET.get('keyword') is not None and len(request.GET.get('keyword'))>1:
             keyword = request.GET.get('keyword')
             print(keyword)
@@ -261,6 +262,7 @@ def findBooksTagName(TBID):
         for i in tempList:
             if i == 0:
                 continue
+            print(i)
             temp = tagQuery.get(TMID = i)
             tagNames.append({'tag':temp.nameTag, 'TMID':temp.TMID})
     return tagNames
