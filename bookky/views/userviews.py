@@ -6,9 +6,16 @@ from rest_framework.decorators import api_view
 from bookky.models import User, RefreshTokenStorage, TagModel
 from bookky.serializers.userserializers import UserRegisterSerializer
 from bookky.auth.auth import setToken, get_access, checkToken, get_refreshToken, re_generate_Token, getAuthenticate, checkAuthentication, checkAuth_decodeToken
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 from drf_yasg.utils       import swagger_auto_schema
 from drf_yasg import openapi
+from django.template.loader import render_to_string
+from sendgrid.helpers.mail import *
+from sendgrid import *
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail, Email
+import bookky_backend.emailsetting as emailsetting
+import os 
 
 def emailCheck(email):
     if len(User.objects.filter(email = email)) == 0:
@@ -37,39 +44,9 @@ def emailCheck(email):
         )
     }
 )
-@swagger_auto_schema(
-    method='put',  
-    operation_description="회원정보 수정",
-    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
-    request_body=openapi.Schema(
-        type=openapi.TYPE_OBJECT,
-        properties={'email': openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
-        },
-        required=['email']
-    ),  # 필수값을 지정 할 Schema를 입력해주면 된다.
-    responses={
-        200: openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
-                'result': openapi.Schema(
-                    type=openapi.TYPE_OBJECT,
-                    properties={
-                        'userData':openapi.Schema(
-                            type = openapi.TYPE_OBJECT,
-                            properties={
-                                'email' : openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
-                            }
-                        )
-                    }
-                ),
-                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
-            }
-        )
-    }
-)
+
 #사용자 회원정보 업데이트, 회원탈퇴 API
-@api_view(['GET','PUT', 'DELETE'])
+@api_view(['DELETE'])
 def user(request):
     # exceptDict = {"UID": 0,"email": "","nickname": "","pushToken": "","pushNoti": False,"thumbnail": "", "loginMethod": 0, "tag_array": []}
     exceptDict = None
@@ -430,13 +407,23 @@ def checkEmail(request):
         except User.DoesNotExist:
             return JsonResponse({'success':False, 'result':exceptDict,'errorMessage':"DB연결이 끊겼거나 User 테이블이 존재하지 않음"}, status=status.HTTP_404_NOT_FOUND) #DB와 연결이 끊겼을 때
         if data is not None: #해당 이메일이 UserDB에 존재하는지 확인 (중복확인)
-            print(data.replace('%40', '@'))
             if(len(userData.filter(email=data))) != 0: #중복확인 불 통과
                 return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"이미 존재하는 이메일입니다."}, status=status.HTTP_200_OK)
             else: #중복확인 통과
                 temp = getAuthenticate(data)
-                email = EmailMessage('북키 서비스 인증 메일입니다.', str(temp), to=[str(data)]) #인증코드 발송 코드 //Todo: 인증메일 양식 만들어야함
-                email.send()
+                sg = SendGridAPIClient(emailsetting.EMAIL_HOST_PASSWORD)
+                message = Mail(
+
+                    to_emails=str(data),
+                    from_email=Email('bookkydevteam@gmail.com', "북키"),
+                )
+                message.template_id = 'd-7cb30c9512e34cbf83c3bdf6150f0a8e'
+                message.dynamic_template_data = {
+                    'code': str(temp),
+                }
+                
+                sg.send(message)
+                # send_mail('북키 서비스 인증 메일입니다.', content, 'bookkydevteam@gmail.com',[str(data)], fail_silently=False)
                 return JsonResponse({'success':True, 'result':{'email' : data}, 'errorMessage':""}, status=status.HTTP_200_OK)
         else:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"email 입력 값이 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
@@ -658,3 +645,111 @@ def nicknameCheck(request):
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"존재하는 닉네임"}, status = status.HTTP_400_BAD_REQUEST)
     else:
         return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"nickname이 존재하지 않음"}, status = status.HTTP_400_BAD_REQUEST)
+
+@swagger_auto_schema(
+    method='put',
+    request_body=openapi.Schema(
+        '이메일 인증을 무조건 진행하고 비밀번호 초기화로 진행',
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'email': openapi.Schema('사용자 email ID', type=openapi.TYPE_STRING),
+            'pwToken': openapi.Schema('비밀번호', type=openapi.TYPE_STRING)
+        },
+        required=['email', 'pwToken']  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    ),
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema('성공 메시지', type=openapi.TYPE_STRING),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
+@api_view(['PUT'])
+def initPassword(request): #비밀번호 초기화하는 API,비밀번호 찾기에 들어감 (이메일을 통해서 비밀번호 초기화 시작)
+    flag = None
+    exceptDict = None
+    data = JSONParser().parse(request)
+    if request.method == 'PUT':    
+        userQuery = User.objects.get(email = data['email'])
+        if len(data['pwToken']) >= 8 and userQuery.loginMethod == 0:
+            userQuery.pwToken = setToken(data['pwToken'])
+            userQuery.save()
+            return JsonResponse({'success':True, 'result':"비밀번호 초기화 완료",'errorMessage':""}, status=status.HTTP_200_OK)
+        else:
+            return JsonResponse({'success':True, 'result':"",'errorMessage':"비밀번호가 8자리가 아니거나, 북키회원이 아닌소셜 회원임"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@swagger_auto_schema(
+    method='get',
+    operation_description= "이메일 인증코드 전송 및 이메일 존재 확인",
+    manual_parameters=[
+        openapi.Parameter('email',openapi.IN_QUERY,type=openapi.TYPE_STRING, description='이메일'),
+    ],
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'email' : openapi.Schema('이메일', type=openapi.TYPE_STRING)
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
+@api_view(['GET'])
+def authenticateEmail(request):
+    """
+    이메일 인증코드 발급 & 이메일이 존재하는지 확인
+
+    - 인증코드 만료시간 3분임
+
+# Response
+```json
+{
+    "success": Boolean, //False 이면 중복
+    "result": {
+        "email": String
+    },
+    "errorMessage": String
+}
+```
+
+    """
+    
+    if(request.method == 'GET'):
+        # exceptDict = {'email':""}
+        exceptDict = None
+        try:
+            data = request.GET.get('email')
+            userData = User.objects.filter(email=data) 
+        except User.DoesNotExist:
+            return JsonResponse({'success':False, 'result':exceptDict,'errorMessage':"DB연결이 끊겼거나 User 테이블이 존재하지 않음"}, status=status.HTTP_404_NOT_FOUND) #DB와 연결이 끊겼을 때
+        if data is not None: #해당 이메일이 UserDB에 존재하는지 확인 (중복확인)
+            if(len(userData.filter(email=data))) == 0: #중복확인 불 통과
+                return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"존재하지 않는 이메일입니다."}, status=status.HTTP_200_OK)
+            else: #중복확인 통과
+                temp = getAuthenticate(data)
+                sg = SendGridAPIClient(emailsetting.EMAIL_HOST_PASSWORD)
+                message = Mail(
+                    to_emails=str(data),
+                    from_email=Email('bookkydevteam@gmail.com', "북키"),
+                )
+                message.template_id = 'd-7cb30c9512e34cbf83c3bdf6150f0a8e'
+                message.dynamic_template_data = {
+                    'code': str(temp),
+                }
+                
+                sg.send(message)
+                # send_mail('북키 서비스 인증 메일입니다.', content, 'bookkydevteam@gmail.com',[str(data)], fail_silently=False) #인증코드 발송 코드 //Todo: 인증메일 양식 만들어야함
+                return JsonResponse({'success':True, 'result':{'email' : data}, 'errorMessage':""}, status=status.HTTP_200_OK)
+        else:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"email 입력 값이 없습니다."}, status=status.HTTP_400_BAD_REQUEST)

@@ -1,0 +1,46 @@
+/home/hyeok/dev/BookkyProject_BackEnd
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 4 issues (0 silenced).
+June 01, 2022 - 12:57:34
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+Internal Server Error: /v1/community/writepost/0
+Traceback (most recent call last):
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/generic/base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/communityviews.py", line 562, in writeCommunityPost
+    header, Data = Image.split(';base64,') #base64형태는 data:image/png;base64,로 시작함 즉 파일 형태와 파일 확장자가 앞에 붙음 이걸 이미지로 디코딩하면 깨져버리기 때문에 분할 해줘야함
+ValueError: not enough values to unpack (expected 2, got 1)
+[01/Jun/2022 12:57:58] "POST /v1/community/writepost/0 HTTP/1.1" 500 17175

@@ -1,10 +1,11 @@
-from bookky.models import FavoriteBook, User, AnyCommunity, QnACommunity, MarketCommunity, TagModel, TempBook, QnAComment, MarketComment, AnyComment, Review
+from bookky.models import FavoriteBook, User, AnyCommunity, QnACommunity, MarketCommunity, TagModel, TempBook, QnAComment, MarketComment, AnyComment, Review, HotCommunity
 from bookky.serializers.favoriteserializers import FavoriteBookSerializer
 from bookky.serializers.bookserializers import BookPostSerializer, BookGetSerializer
 from bookky.serializers.tagserializers import TagSerializer
-from bookky.serializers.communityserializers import AnyCommunitySerializer, QnACommunitySerializer, MarketCommunitySerializer
+from bookky.serializers.communityserializers import AnyCommunitySerializer, QnACommunitySerializer, MarketCommunitySerializer,QnACommunityGetSerializer, MarketCommunityGetSerializer,AnyCommunityGetSerializer, HotCommunitySerializer
 from bookky.serializers.reviewserializers import ReviewGetSerializer
 from bookky.views.uploadView import decodeBase64
+from bookky.views.recommendview import todayRecommendBooks
 from bookky.auth.auth import checkAuth_decodeToken
 
 from rest_framework.parsers import JSONParser
@@ -14,7 +15,7 @@ from rest_framework.decorators import api_view
 from django.db.models import Q
 from drf_yasg.utils       import swagger_auto_schema
 from drf_yasg import openapi
-
+import datetime
 @swagger_auto_schema(
     method='get',
     operation_description="사용자 관심도서 출력 : pk에 0값을 넣어 호출",
@@ -74,7 +75,6 @@ from drf_yasg import openapi
 @api_view(['GET','POST'])
 def favoriteBook(request, pk): #관심 도서 등록 및 취소
     flag = checkAuth_decodeToken(request)
-    print(flag)
     # exceptDict = {'BID' : 0, 'UID':0}
     exceptDict = None
     if flag == 0:
@@ -224,16 +224,16 @@ def getMyProfileData(request):
             tempMarketCommunityData = MarketCommunity.objects.order_by('createAt').filter(UID = flag)
 
             anySerializer = AnyCommunitySerializer(tempAnyCommunityData, many=True)
-            qnaSerializer = MarketCommunitySerializer(tempQnACommunityData, many=True)
-            marketSerializer = QnACommunitySerializer(tempMarketCommunityData, many=True)
+            qnaSerializer = QnACommunitySerializer(tempQnACommunityData, many=True)
+            marketSerializer = MarketCommunitySerializer(tempMarketCommunityData, many=True)
             
             anyList = anySerializer.data
             qnaList = qnaSerializer.data
             marketList = marketSerializer.data
 
             anyCommunityList = comment_like_counter("0", anyList)
-            qnaCommunityList = comment_like_counter("1",qnaList)
-            marketCommunityList = comment_like_counter("2",marketList)
+            marketCommunityList = comment_like_counter("1",marketList)
+            qnaCommunityList = comment_like_counter("2",qnaList)
 
             community = anyCommunityList + qnaCommunityList + marketCommunityList
             # community = []
@@ -251,6 +251,7 @@ def getMyProfileData(request):
                     i['isLiked'] = False
                 del i['like']
                 i['isAccessible'] = True
+                i['createAt'] = datetime.datetime.strptime(i["createAt"], '%Y-%m-%dT%H:%M:%S.%f').strftime("%Y-%m-%d %H:%M")
                 i['nickname'] = temp.nickname
                 tempQuery = TempBook.objects.get(TBID = i['TBID'])
                 i['AUTHOR'] = tempQuery.AUTHOR
@@ -268,16 +269,16 @@ def comment_like_counter(flag, dataList):
             i['communityType'] = 0
             i['PID'] = i['APID']
             del i['APID']
-        elif flag == "1":
-            commentData = QnAComment.objects.filter(QPID = i['QPID'])
-            i['communityType'] = 1
-            i['PID'] = i['QPID']
-            del i['QPID']
-        elif flag =="2":
+        elif flag =="1":
             commentData = MarketComment.objects.filter(MPID = i['MPID'])
-            i['communityType'] = 2
+            i['communityType'] = 1
             i['PID'] = i['MPID']
             del i['MPID']
+        elif flag == "2":
+            commentData = QnAComment.objects.filter(QPID = i['QPID'])
+            i['communityType'] = 2
+            i['PID'] = i['QPID']
+            del i['QPID']
         if len(commentData) !=0:
             i['commentCnt'] = len(commentData)
         else:
@@ -366,19 +367,21 @@ def getHomeData(request):
         try:
             bookQuery = TempBook.objects
             tagQuery = TagModel.objects
-            bookList = [{'tag':"오늘의 추천 도서", 'data':[]}]
+            bookList = list()
             userData = dict()
         except:
             return JsonResponse({'success':False, 'result':{}, 'errorMessage':"DB와 연결 끊김"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
         userStack = [1,19, 29]
         if request.headers.get('access_token', None) is not None: #회원일 때
+        
             if len(request.headers.get('access_token', None)) != 0:
                 flag = checkAuth_decodeToken(request)
-                print(flag)
                 if flag == -1:
                     return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'communityList':[],'userData':None}, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
                 elif flag == -2:
                     return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'communityList':[],'userData':None}, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
+
+                bookList = [{'tag':"오늘의 추천 도서",'TMID':9999, 'data':todayRecommendBooks(flag)}]
                 userQuery = User.objects.get(UID = flag)
                 userData['UID'] = int(userQuery.UID)
                 tempTag = []
@@ -401,7 +404,55 @@ def getHomeData(request):
             tempSpiltData = serializer.data
             bookList.append({'tag':temp.nameTag, 'TMID':i, 'data':tempSpiltData[0:25]})
         
-        return JsonResponse({'success':True,'result' :{'bookList':bookList,'communityList':[],'userData':userData},'errorMessage':""},status=status.HTTP_200_OK)
+        communityList = list()
+        
+        marketCommunityQuery = MarketCommunity.objects.order_by('-updateAt').all()
+        qnaCommunityQuery = QnACommunity.objects.order_by('-updateAt').all()
+        anyCommunityQuery = AnyCommunity.objects.order_by('-updateAt').all()
+        hotCommunityQuery = HotCommunity.objects.order_by('-updateAt').all()
+        
+        hotSerializer = HotCommunitySerializer(hotCommunityQuery, many=True)   
+        anySerializer = AnyCommunityGetSerializer(anyCommunityQuery, many=True)
+        marketSerializer = MarketCommunityGetSerializer(marketCommunityQuery, many=True)
+        qnaSerializer = QnACommunityGetSerializer(qnaCommunityQuery, many=True)#fields = ['APID', 'title', 'updateAt']
+        hotList = list()
+        for i in hotSerializer.data:
+            if i['APID'] is not None:
+                anyData = AnyCommunity.objects.get(APID=i['APID'])
+                hotList.append({'PID':anyData.APID, 'title':anyData.title, 'updateAt':i['updateAt'], 'communityType':3})
+                #자유게시판
+            elif i['MPID'] is not None:
+                marketData = MarketCommunity.objects.get(MPID=i['MPID'])
+                hotList.append({'PID':marketData.MPID, 'title':marketData.title, 'updateAt':i['updateAt'], 'communityType':4})
+                #장터 게시판
+            elif i['QPID'] is not None:
+                qnaData = QnACommunity.objects.get(QPID=i['QPID'])
+                hotList.append({'PID':qnaData.QPID, 'title':qnaData.title, 'updateAt':i['updateAt'], 'communityType':5})
+                #QnA게시판
+
+        for i in anySerializer.data:
+            temp = i['APID']
+            i['PID'] = temp
+            del i['APID']
+            i['communityType'] = 0
+        for i in marketSerializer.data:
+            temp = i['MPID']        
+            i['PID'] = temp
+            del i['MPID']
+            i['communityType'] = 1
+        for i in qnaSerializer.data:
+            temp = i['QPID']
+            i['PID'] = temp
+            del i['QPID']
+            i['communityType'] = 2
+
+        communityList += anySerializer.data
+        communityList += qnaSerializer.data
+        communityList += marketSerializer.data
+        communityList += hotList
+        communityList = sorted(communityList, key=lambda communityList: communityList['updateAt'], reverse = True) #핫게시판 글 어케할지?
+        
+        return JsonResponse({'success':True,'result' :{'bookList':bookList,'communityList':communityList[ :3],'userData':userData},'errorMessage':""},status=status.HTTP_200_OK)
 
 
 @swagger_auto_schema(
@@ -557,7 +608,7 @@ def getMoreTag(request):
         try:
             bookQuery = TempBook.objects
             tagQuery = TagModel.objects
-            bookList = [{'tag':"오늘의 추천 도서", 'data':[]}]
+            bookList = list()
             nickname = "비회원"
         except:
             return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'nickname':exceptDict}, 'errorMessage':"DB와 연결 끊김"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -570,11 +621,12 @@ def getMoreTag(request):
                 elif flag == -2:
                     return JsonResponse({'success':False, 'result':{'bookList':exceptDict,'nickname':exceptDict}, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
                 userQuery = User.objects.get(UID = flag)
-
+                bookList = [{'tag':"오늘의 추천 도서",'TMID':9999 ,'data':todayRecommendBooks(flag)}]
                 tempTag = []
                 userTag = userQuery.tag_array
                 if userTag is not None:
                     userStack = userTag
+                    print(str(userStack))
                 for i in userStack:
                     temp = tagQuery.get(TMID=i)
                     tempTag.append({'TMID' : i,'tag':temp.nameTag})
@@ -586,7 +638,7 @@ def getMoreTag(request):
             serializer = BookGetSerializer(bookTemp, many=True)
             tempSpiltData = serializer.data
             bookList.append({'tag':temp.nameTag, 'TMID':i, 'data':tempSpiltData[0:25]})
-        
+        print(len(bookList))
         return JsonResponse({'success':True,'result' :{'bookList':bookList,'nickname':nickname},'errorMessage':""},status=status.HTTP_200_OK)
 
 @swagger_auto_schema(
@@ -609,7 +661,8 @@ def getMoreTag(request):
                 'result': openapi.Schema(
                     type=openapi.TYPE_OBJECT,
                     properties={
-
+                        'route' : openapi.Schema('사진 경로', type=openapi.TYPE_STRING),
+                        'nickname' : openapi.Schema('닉네임', type=openapi.TYPE_STRING)
                     }
                 ),
                 'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
@@ -632,15 +685,20 @@ def updateUserProfile_nickname(request):
     if request.method == 'PUT':
         parseData = JSONParser().parse(request)
         userQuery = User.objects.get(UID = int(flag))
-        
-        if len(parseData['nickname']) > 1 and parseData['nickname'] is not None:
-            imagesname = decodeBase64(parseData['images'], "userThumbnail/"+str(userQuery.email)+'/')
-            userQuery.nickname = parseData['nickname']
-            userQuery.thumbnail = "http://203.255.3.144:8010/thumbnail/userThumbnail/"+str(userQuery.email)+'/'+imagesname
+        name = userQuery.nickname
+        route = userQuery.thumbnail
+        if len(parseData['nickname']) > 0 or len(parseData['images']) > 0 :
+            if len(parseData['nickname']) > 1 and parseData['nickname'] is not None:
+                userQuery.nickname = parseData['nickname']
+                nickname = parseData['nickname']
+            if parseData['images'] is not None and len(parseData['images']) > 0:
+                imagesname = decodeBase64(parseData['images'], "userThumbnail/"+str(userQuery.email)+'/')
+                userQuery.thumbnail = "http://203.255.3.144:8010/thumbnail/userThumbnail/"+str(userQuery.email)+'/'+imagesname
+                route = "http://203.255.3.144:8010/thumbnail/userThumbnail/"+str(userQuery.email)+'/'+imagesname
             userQuery.save()
-            return JsonResponse({'route':"http://203.255.3.144:8010/thumbnail/userThumbnail/"+str(userQuery.email)+'/'+imagesname, 'nickname': parseData['nickname']},status=status.HTTP_200_OK)
+            return JsonResponse({'success':True, 'result':{'route':route, 'nickname': nickname}, 'errorMessage':""},status=status.HTTP_200_OK)
         else:
-            return JsonResponse({'success':False})
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"정보가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
 
 @swagger_auto_schema(
     method='get',
@@ -709,6 +767,7 @@ def getUserReview(request):
                     i['isAccessible'] = False
                 temp = User.objects.get(UID=i['UID'])
                 i['nickname'] = temp.nickname
+                i['createAt'] = datetime.datetime.strptime(i["createAt"], '%Y-%m-%dT%H:%M:%S.%f').strftime("%Y-%m-%d %H:%M")
                 tempQuery = TempBook.objects.get(TBID = i['TBID'])
                 i['AUTHOR'] = tempQuery.AUTHOR
                 i['bookTitle'] = tempQuery.TITLE
@@ -716,3 +775,64 @@ def getUserReview(request):
             return JsonResponse({'success':True, 'result':{'reviewList':serializers.data}, 'errorMessage':""}, status = status.HTTP_200_OK)
         else:
             return JsonResponse({'success':True, 'result':{'reviewList':exceptDict},'errorMessage':""},status=status.HTTP_204_NO_CONTENT)
+
+
+@swagger_auto_schema(
+    method='get',
+    operation_description="사용자의 글을 가져오는 API",
+    manual_parameters=[openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING)],
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        "communityList": openapi.Schema('사용자의 글리스트', type=openapi.TYPE_ARRAY, items=openapi.Items(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                                'title':openapi.Schema('제목', type=openapi.TYPE_INTEGER),
+                                'contents':openapi.Schema('내용', type=openapi.TYPE_INTEGER),
+                                'communityType':openapi.Schema('게시판 종류 0-자게, 1-qna, 2-market', type=openapi.TYPE_INTEGER),
+                                'PID':openapi.Schema('PID', type=openapi.TYPE_INTEGER),
+                                'commentCnt':openapi.Schema('댓글 개수', type=openapi.TYPE_INTEGER),
+                                'likeCnt':openapi.Schema('좋아요 개수', type=openapi.TYPE_INTEGER),
+                            })
+                        )
+                    }
+                ),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
+@api_view(['GET'])
+def getUserPost(request):
+    flag = checkAuth_decodeToken(request)
+    exceptDict = None
+    if flag == 0:
+        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 없습니다."}, status = status.HTTP_400_BAD_REQUEST)
+    elif flag == -1:
+        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT입니다."}, status = status.HTTP_403_FORBIDDEN)
+    elif flag == -2:
+        return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"AT가 만료되었습니다."}, status = status.HTTP_401_UNAUTHORIZED)
+    if request.method =='GET':
+        anyCommunityQuery = AnyCommunity.objects.order_by('-updateAt').filter(UID = flag)
+        qnaCommunityQuery = QnACommunity.objects.order_by('-updateAt').filter(UID = flag)
+        marketCommunityQuery = MarketCommunity.objects.order_by('-updateAt').filter(UID = flag)
+        communityList = list()
+        anyCommunityList = AnyCommunitySerializer(anyCommunityQuery, many = True) #빈 객체에 대한 예외처리는?
+        qnaCommunityList = QnACommunitySerializer(qnaCommunityQuery, many = True)
+        marketCommunityList = MarketCommunitySerializer(marketCommunityQuery, many=True)
+
+        anyList = anyCommunityList.data
+        qnaList = qnaCommunityList.data
+        marketList =  marketCommunityList.data
+
+        anyCommunityList = comment_like_counter("0", anyList) #빈 리스트에 대한 예외처리가 필요함
+        marketCommunityList = comment_like_counter("1",marketList)
+        qnaCommunityList = comment_like_counter("2",qnaList)
+        communityList = anyCommunityList+qnaCommunityList+marketCommunityList #핫 게시판의 글을 가져오는거 만들어야함
+
+        return JsonResponse({'success':True, 'result':{'communityList':communityList}, 'errorMessage':""}, status=status.HTTP_200_OK)

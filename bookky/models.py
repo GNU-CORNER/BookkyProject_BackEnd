@@ -31,9 +31,9 @@ class AnyCommunity(models.Model):                                               
     UID                     = models.ForeignKey("User", on_delete=models.CASCADE ,null=False)                               #유저 외래키
     contents                = models.TextField(verbose_name='내용')                                                          #내용
     title                   = models.CharField(max_length=255, null=False)                                                   #제목
-    postImage               = models.CharField(max_length=255, null=True)                                                   #여러개 어떻게?
-    createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
-    updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
+    postImage               = ArrayField(models.TextField(null=True), size = 6, null=True, default = list())                                   # 이미지, 배열
+    createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
+    updateAt                = models.DateTimeField(auto_now=True, null=False)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
     like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
 
@@ -47,9 +47,9 @@ class MarketCommunity(models.Model):                                            
     UID                     = models.ForeignKey("User", on_delete=models.CASCADE ,null=False)                               #유저 외래키
     contents                = models.TextField(verbose_name='내용')                                                          #내용
     title                   = models.CharField(max_length=255, null=False)                                                   #제목
-    postImage               = models.CharField(max_length=255, null=True)                                                   #여러개 어떻게?
-    createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
-    updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
+    postImage               = ArrayField(models.TextField(null=True), size = 6, null=True, default = list())                                   # 이미지, 배열
+    createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
+    updateAt                = models.DateTimeField(auto_now=True, null=False)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
     like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
 
@@ -63,9 +63,9 @@ class QnACommunity(models.Model):                                               
     UID                     = models.ForeignKey("User", on_delete=models.CASCADE ,null=False)                               #유저 외래키
     contents                = models.TextField(verbose_name='내용')                                                          #내용
     title                   = models.CharField(max_length=255, null=False)                                                   #제목
-    postImage               = models.CharField(max_length=255, null=True)                                                   #여러개 어떻게?
-    createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
-    updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
+    postImage               = ArrayField(models.TextField(null=True), size = 6, null=True, default = list())                                   # 이미지, 배열
+    createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
+    updateAt                = models.DateTimeField(auto_now=True, null=False)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
     like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
     parentQPID              = models.IntegerField(null=False)                                                #답글 부모 QPID
@@ -79,8 +79,8 @@ class HotCommunity(models.Model):                                               
     QPID                    = models.ForeignKey("QnACommunity", on_delete=models.CASCADE ,null=True)                        #유저 외래키
     APID                    = models.ForeignKey("AnyCommunity", on_delete=models.CASCADE ,null=True)                        #유저 외래키
     MPID                    = models.ForeignKey("MarketCommunity", on_delete=models.CASCADE ,null=True)                     #유저 외래키
-    createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
-    updateAt                = models.DateField(auto_now=True, null=False)                                                   #수정날짜
+    createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
+    updateAt                = models.DateTimeField(auto_now=True, null=False)                                                   #수정날짜
     communityType           = models.IntegerField(null=False, default=0)
     def __str__(self):
         return self.HPID
@@ -92,9 +92,9 @@ class AnyComment(models.Model):
     APID                    = models.ForeignKey("AnyCommunity", on_delete=models.CASCADE ,null=False)                       #게시글 외래키
     parentID                = models.IntegerField(null=False, default = 0)                                                  #댓글ID
     comment                 = models.TextField(verbose_name='내용')                                                          #내용
-    createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
-    updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
-    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000)                                   #좋아요, 숫자는 최대
+    createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
+    updateAt                = models.DateTimeField(auto_now=True, null=False)                                                                   #수정날짜
+    like                    = ArrayField(models.IntegerField(null=True), null=False, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
 
     def __str__(self):
         return self.ACID
@@ -106,9 +106,9 @@ class QnAComment(models.Model):
     QPID                    = models.ForeignKey("QnACommunity", on_delete=models.CASCADE ,null=False)                       #게시글 외래키
     parentID                = models.IntegerField(null=False, default = 0)                                                  #댓글ID
     comment                 = models.TextField(verbose_name='내용')                                                          #내용
-    createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
-    updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
-    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000)                                   #좋아요, 숫자는 최대
+    createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
+    updateAt                = models.DateTimeField(auto_now=True, null=False)                                                                   #수정날짜
+    like                    = ArrayField(models.IntegerField(null=True), null=False, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
 
     def __str__(self):
         return self.QCID
@@ -120,9 +120,9 @@ class MarketComment(models.Model):
     MPID                    = models.ForeignKey("MarketCommunity", on_delete=models.CASCADE ,null=False)                    #게시글 외래키
     parentID                = models.IntegerField(null=False, default = 0)                                                  #댓글ID
     comment                 = models.TextField(verbose_name='내용')                                                          #내용
-    createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
-    updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
-    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000)                                   #좋아요, 숫자는 최대
+    createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
+    updateAt                = models.DateTimeField(auto_now=True, null=False)                                                                   #수정날짜
+    like                    = ArrayField(models.IntegerField(null=True), null=False, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
 
     def __str__(self):
         return self.MCID
@@ -134,9 +134,9 @@ class Review(models.Model):
     UID                     = models.ForeignKey("User", on_delete=models.CASCADE ,null=False)                               #유저 외래키
     contents                = models.TextField(verbose_name='내용')                                                          #내용
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
-    createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
-    updateAt                = models.DateField(auto_now=True, null=False)                                                                   #수정날짜
-    like                    = ArrayField(models.IntegerField(null=True), null=True, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
+    createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
+    updateAt                = models.DateTimeField(auto_now=True, null=False)                                                                   #수정날짜
+    like                    = ArrayField(models.IntegerField(null=True), null=False, size = 10000000, default = list())                                   #좋아요, 숫자는 최대
     rating                  = models.FloatField(null=False, default=2.5)
     def __str__(self):
         return self.RID
@@ -154,7 +154,7 @@ class Notification(models.Model):
     NID                     = models.BigAutoField(primary_key=True)
     UID                     = models.ForeignKey("User", on_delete=models.CASCADE ,null=False)                               #유저 외래키
     contents                = models.CharField(max_length=50, null=True)                                                    #내용
-    createAt                = models.DateField(auto_now_add=True, null=False)                                                   #생성날짜
+    createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
 
     def __str__(self):
         return self.NID
@@ -164,7 +164,7 @@ class RefreshTokenStorage(models.Model) :
     RTID                    = models.BigAutoField(primary_key=True)
     UID                     = models.ForeignKey("User", on_delete=models.CASCADE ,null=False)
     refresh_token           = models.CharField(max_length=255, null=False, blank=False)
-    createAt                = models.DateField(auto_now=True)
+    createAt                = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.RTID
@@ -173,7 +173,7 @@ class AuthenticationCodeStorage(models.Model) :
     ATCID                   = models.BigAutoField(primary_key=True)
     email                   = models.EmailField(max_length=100, null=False)
     authCode_token          = models.CharField(max_length=255, null=False, blank=False)
-    createAt                = models.DateField(auto_now_add=True)
+    createAt                = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return self.email
@@ -205,7 +205,7 @@ class TempBook(models.Model):
     BOOK_INDEX              = models.TextField(verbose_name='목차', null=True, blank=True)                          #목차
     BOOK_INTRODUCTION       = models.TextField(verbose_name='소개', null=True, blank=True)                          #책 소개
     PUBLISH_DATE            = models.CharField(max_length=30, null=True)                    #등록날짜
-    TAG                     = ArrayField(models.IntegerField(null=True), size = 50, null=True)         #태그
+    TAG                     = ArrayField(models.IntegerField(null=True), size = 50, null=False,default=list())         #태그
     RATING                  = models.FloatField(null=False, default = 2.5)                  #별점 (기본값 2.5점)
     Allah_BID               = models.CharField(max_length=30, null=True)                    #알라딘 고유 책번호
     thumbnailImage          = models.CharField(max_length=255, null=True)

@@ -16,3 +16,8 @@ class BookSearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = TempBook
         fields = ['TBID', 'TITLE','AUTHOR','thumbnailImage','RATING','BOOK_INTRODUCTION','PUBLISH_DATE','PUBLISHER']
+
+class BookSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TempBook
+        fields = ['TBID', 'TITLE', 'AUTHOR', 'thumbnailImage', 'PUBLISHER']

@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_db_views',
     'rest_framework',
     'drf_yasg',
     'bookky',
@@ -130,7 +131,7 @@ SWAGGER_SETTINGS = {
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -151,9 +152,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = emailsetting.EMAIL_BACKEND
-EMAIL_HOST = emailsetting.EMAIL_HOST
-EMAIL_USE_TLS = emailsetting.EMAIL_USE_TLS
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_USE_TLS = True
 EMAIL_PORT = emailsetting.EMAIL_PORT
 EMAIL_HOST_USER = emailsetting.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = emailsetting.EMAIL_HOST_PASSWORD
