@@ -28,12 +28,7 @@ import os
 #         print(fileupload)
 #         print(type(img))
 #         fileupload.save()
-
-        
-
 #         return JsonResponse({"success":True})
-
-
 
 @api_view(['POST'])
 def userThumbnailPost(request):
@@ -58,17 +53,19 @@ def userThumbnailPost(request):
             return JsonResponse({'success':False})
 
 
-def decodeBase64(encodedImage, path):
+def decodeBase64(encodedImage, Path):
     header, data = encodedImage.split(';base64,') #base64형태는 data:image/png;base64,로 시작함 즉 파일 형태와 파일 확장자가 앞에 붙음 이걸 이미지로 디코딩하면 깨져버리기 때문에 분할 해줘야함
     data_format, ext = header.split('/') #data타입과 확장자 분리함
     # imageArray = [] #만약에 다수의 이미지가 넘어오면 리턴타입도 복수로 바꿔주는게?
-    print(encodedImage)
     # num = 0
     try:
         # for image_string in self.context.get("images"):
         image_data = base64.b64decode(data)
-        image_root = settings.MEDIA_ROOT+'/thumbnail/' + path + "thumbnail" + "." + ext
-        imagesname = "thumbnail" + "." + ext
+        image_root = settings.MEDIA_ROOT+'/thumbnail/' + Path + "thumbnail" + "." + ext
+        imagesname = 'thumbnail' + "." + ext
+        if not os.path.exists(settings.MEDIA_ROOT+'/thumbnail/' + Path):
+            os.makedirs(settings.MEDIA_ROOT+'/thumbnail/' + Path)
+
         with open(image_root, 'wb') as f:
             f.write(image_data)
         # num += 1

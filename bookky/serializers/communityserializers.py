@@ -10,7 +10,7 @@ class AnyCommunitySerializer(serializers.ModelSerializer):
 class AnyCommunityDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnyCommunity
-        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID']
+        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID','postImage','TBID']
 
 class AnyCommentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,11 +25,11 @@ class MarketCommunitySerializer(serializers.ModelSerializer):
 class MarketCommunityDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketCommunity
-        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID']
+        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID','postImage','TBID']
 
 class MarketCommentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AnyComment
+        model = MarketComment
         fields = ['MCID', 'UID', 'MPID', 'parentID', 'comment', 'updateAt', 'like']
 
 class QnACommunitySerializer(serializers.ModelSerializer):
@@ -40,18 +40,34 @@ class QnACommunitySerializer(serializers.ModelSerializer):
 class QnACommunityDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = QnACommunity
-        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID']
+        fields = ['title', 'contents', 'views', 'createAt','updateAt','like','UID', 'parentQPID','postImage','TBID']
 
 class QnACommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = QnAComment
-        fields = ['QCID', 'UID', 'MPID', 'parentID', 'comment', 'updateAt', 'like']
+        fields = ['QCID', 'UID', 'QPID', 'parentID', 'comment', 'updateAt', 'like']
 
 
 class HotCommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = HotCommunity
-        fields = ['HPID', 'ACID', 'MCID', 'QCID']
+        fields = ['HPID', 'APID', 'MPID', 'QPID', 'updateAt', 'createAt']
+
+class AnyCommunityGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnyCommunity
+        fields = ['APID', 'title', 'updateAt']
+
+class MarketCommunityGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MarketCommunity
+        fields = ['MPID', 'title', 'updateAt']
+
+class QnACommunityGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QnACommunity
+        fields = ['QPID', 'title', 'updateAt']
+
 
 '''
 class AnyCommunity(models.Model):                                                                                           #자유게시판

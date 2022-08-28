@@ -1,0 +1,490 @@
+[
+    {
+        "TID" : 1,
+        "nameTag" : "이론서",
+        "type" : "l",
+        "parent":0
+    },
+      {
+        "nameTag" : "운영체제",
+        "type" : "m",
+        "parent":1
+      },
+        {
+          "TMID": 66,
+          "nameTag": "Unix",
+          "type" : "s",
+          "parent":1
+        },
+        {
+          "TMID": 67,
+          "nameTag": "Linux",
+          "type" : "s",
+          "parent":1
+        },
+        {
+            "TMID": 65,
+            "nameTag": "Window",
+            "type" : "s",
+            "parent":1
+        },
+        {
+            "TMID": 116,
+            "nameTag": "WSL",
+            "type" : "s",
+            "parent":1
+        },
+      {
+        "TMID": 1,
+        "nameTag": "전산수학",
+        "type" : "m",
+        "parent":1
+      },
+      {
+        "TMID": 2,
+        "nameTag": "자료구조",
+        "type" : "m",
+        "parent":1
+      },
+      {
+        "TMID": 3,
+        "nameTag": "알고리즘",
+        "type" : "m",
+        "parent":1
+      },
+       {
+        "TMID": 19,
+        "nameTag": "코딩 테스트",
+        "type" : "s",
+        "parent":1
+       },
+      {
+        "TMID": 4,
+        "nameTag": "컴퓨터구조",
+        "type" : "m",
+        "parent":1
+      },
+      {
+        "TMID": 5,
+        "nameTag": "정형기법",
+        "type" : "m",
+        "parent":1
+      },
+      {
+        "TMID": 7,
+        "nameTag": "프로그래밍 언어론",
+        "type" : "m",
+        "parent":1
+      },
+      {
+        "TMID": 10,
+        "nameTag": "컴퓨터 그래픽",
+        "type" : "m",
+        "parent":1
+      },
+      {
+        "TMID": 11,
+        "nameTag": "정보보호",
+        "type" : "m",
+        "parent":1
+      },
+      {
+        "TMID": 12,
+        "nameTag": "컴퓨팅 사고",
+        "type" : "m",
+        
+      },
+      {
+        "TMID": 13,
+        "nameTag": "컴퓨터 비전",
+        "type" : "m",
+      },
+      {
+        "TMID": 125,
+        "nameTag": "네트워크",
+        "type" : "m",
+      },
+      {
+        "TMID": 126,
+        "nameTag": "운영체제",
+        "type" : "m",
+      },
+      {
+        "TMID": 127,
+        "nameTag": "논리회로",
+        "type" : "m",
+      },
+    {
+        "TID" : 2,
+        "nameTag" : "실습서",
+        "type" : "l",
+        "parent":0
+    },
+    {
+        "TID" : 3,
+        "nameTag" : "프론트엔드",
+        "type" : "m",
+        "parent":2
+    },
+      {
+        "TMID": 107,
+        "nameTag": "Ajax",
+        "type" : "s",
+      },
+      {
+        "TMID": 108,
+        "nameTag": "Vue.js",
+        "type" : "s",
+        
+      },
+      {
+        "TMID": 109,
+        "nameTag": "JQuery",
+        "type" : "s",
+      },
+      {
+        "TMID": 111,
+        "nameTag": "HTML",
+        "type" : "s",
+      },
+      {
+        "TMID": 112,
+        "nameTag": "CSS",
+        "type" : "s",
+      },
+      {
+        "TMID": 113,
+        "nameTag": "WEB",
+        "type" : "s",
+      },
+      {
+        "TMID": 119,
+        "nameTag": "React",
+        "type" : "s",
+      },
+      {
+        "TMID": 44,
+        "nameTag": "Fuse",
+        "type" : "s",
+      },
+      {
+        "TMID": 45,
+        "nameTag": "Ionic2",
+        "type" : "s",
+      },
+      {
+        "TMID": 46,
+        "nameTag": "Phone Gap",
+        "type" : "s",
+      },
+      {
+        "TMID": 47,
+        "nameTag": "Flutter",
+        "type" : "s",
+      },
+      {
+        "TMID": 48,
+        "nameTag": "Android",
+        "type" : "s",
+      },
+      {
+        "TMID": 49,
+        "nameTag": "iOS",
+        "type" : "s",
+      },
+      {
+        "TMID": 106,
+        "nameTag": "Svelte",
+        "type" : "s",
+      },
+    {
+        "TID" : 4,
+        "nameTag" : "백엔드",
+        "type" : "m",
+        "parent":2
+    },
+
+      {
+        "TMID": 102,
+        "nameTag": "MySQL",
+        "type" : "s",
+      },
+      {
+        "TMID": 103,
+        "nameTag": "MongoDB",
+        "type" : "s",
+      },
+      {
+        "TMID": 104,
+        "nameTag": "Tableau",
+        "type" : "s",
+      },
+      {
+        "TMID": 105,
+        "nameTag": "PostgreSQL",
+        "type" : "s",
+      },
+      {
+        "TMID": 110,
+        "nameTag": "JSP",
+        "type" : "s",
+      },
+      {
+        "TMID": 52,
+        "nameTag": "Nginx",
+        "type" : "s",
+      },
+      {
+        "TMID": 115,
+        "nameTag": "ASP",
+        "type" : "s",
+      },
+      {
+        "TMID": 116,
+        "nameTag": "WSL",
+        "type" : "s",
+      },
+    {
+        "nameTag" : "머신러닝",
+        "type" : "m",
+        "parent":2
+    },
+      {
+        "TMID": 68,
+        "nameTag": "TensorFlow",
+        "type" : "s",
+      },
+      {
+        "TMID": 69,
+        "nameTag": "CNN",
+        "type" : "s",
+      },
+      {
+        "TMID": 70,
+        "nameTag": "RNN",
+        "type" : "s",
+      },
+      {
+        "TMID": 71,
+        "nameTag": "MATLAB",
+        "type" : "s",
+      },
+      {
+        "TMID": 17,
+        "nameTag": "딥러닝",
+        "type" : "s",
+      },
+      {
+        "TMID": 18,
+        "nameTag": "강화학습",
+        "type" : "s",
+      },
+    {
+        "nameTag" : "데이터과학",
+        "type" : "m",
+        "parent":2
+    },
+      {
+        "TMID": 41,
+        "nameTag": "데이터마이닝",
+        "type" : "s",
+      },
+      {
+        "TMID": 42,
+        "nameTag": "데이터 분석",
+        "type" : "s",
+      },
+    {
+        "nameTag" : "클라우드컴퓨팅",
+        "type" : "m",
+        "parent":2
+    },
+      {
+        "TMID": 114,
+        "nameTag": "Azure",
+        "type" : "s",
+      },
+      {
+        "TMID": 53,
+        "nameTag": "Kubernetes",
+        "type" : "s",
+      },
+      {
+        "TMID": 118,
+        "nameTag": "AWS",
+        "type" : "s",
+      },
+    {
+        "nameTag" : "AR,VR",
+        "type" : "m",
+        "parent":2
+    },
+    {
+        "nameTag" : "기타",
+        "type" : "m",
+        "parent":2
+    },
+     {
+        "TMID": 31,
+        "nameTag": "NFT",
+        "type" : "s",
+      },
+      {
+        "TMID": 35,
+        "nameTag": "정보통신",
+        "type" : "s",
+      },
+      {
+        "TMID": 36,
+        "nameTag": "IOT",
+        "type" : "s",
+      },
+      {
+        "TMID": 40,
+        "nameTag": "이더리움",
+        "type" : "s",
+      },
+      {
+        "TMID": 123,
+        "nameTag": "메타버스",
+        "type" : "s",
+      },
+    {
+        "nameTag" : "게임",
+        "type" : "m",
+        "parent":2
+    },
+      {
+        "TMID": 72,
+        "nameTag": "Unreal Engine",
+        "type" : "s",
+      },
+      {
+        "TMID": 73,
+        "nameTag": "Unity",
+        "type" : "s",
+      },
+    {
+        "nameTag" : "언어",
+        "type" : "l",
+        "parent":0
+    },
+      {
+        "TMID": 121,
+        "nameTag": "Java",
+        "type" : "m",
+      },
+      {
+        "TMID": 122,
+        "nameTag": "Visual Basic",
+        "type" : "m",
+      },
+      {
+        "TMID": 101,
+        "nameTag": "SQL",
+        "type" : "m",
+      },
+      {
+        "TMID": 77,
+        "nameTag": "Delphi",
+        "type" : "m",
+      },
+      {
+        "TMID": 78,
+        "nameTag": "Rust",
+        "type" : "m",
+      },
+      {
+        "TMID": 79,
+        "nameTag": "Kotlin",
+        "type" : "m",
+      },
+      {
+        "TMID": 80,
+        "nameTag": "Python",
+        "type" : "m",
+      },
+      {
+        "TMID": 81,
+        "nameTag": "Swift",
+        "type" : "m",
+      },
+      {
+        "TMID": 82,
+        "nameTag": "TypeScript",
+        "type" : "m",
+      },
+      {
+        "TMID": 83,
+        "nameTag": "C",
+        "type" : "m",
+      },
+      {
+        "TMID": 84,
+        "nameTag": "C#",
+        "type" : "m",
+      },
+      {
+        "TMID": 85,
+        "nameTag": "C++",
+        "type" : "m",
+      },
+      {
+        "TMID": 86,
+        "nameTag": "Go",
+        "type" : "m",
+      },
+      {
+        "TMID": 87,
+        "nameTag": "JavaScript",
+        "type" : "m",
+      },
+      {
+        "TMID": 88,
+        "nameTag": "MFC",
+        "type" : "m",
+      },
+      {
+        "TMID": 89,
+        "nameTag": ".NET",
+        "type" : "m",
+      },
+      {
+        "TMID": 90,
+        "nameTag": "Objective C",
+        "type" : "m",
+      },
+      {
+        "TMID": 91,
+        "nameTag": "Perl",
+        "type" : "m",
+      },
+      {
+        "TMID": 92,
+        "nameTag": "PHP",
+        "type" : "m",
+      },
+      {
+        "TMID": 93,
+        "nameTag": "R",
+        "type" : "m",
+      },
+      {
+        "TMID": 94,
+        "nameTag": "Ruby",
+        "type" : "m",
+      },
+      {
+        "TMID": 95,
+        "nameTag": "XML",
+        "type" : "m",
+      },
+]
+
+#"창작활동이 필요합니까" -> 네 (이론서, 실습서)
+#"앞에서 보여지는 것입니까?" -> 그럴겁니다 (예외 체크, 프론트엔드 or )
+#"자바스크립트를 이용합니까?" -> 네
+#"웹과 관련이 있습니까?" -> 네
+#"node.js와 관련이 있습니까?" -> 네
+#"익스프레스입니까?" -> 아니요
+#"리액트입니까?" -> 아니요.

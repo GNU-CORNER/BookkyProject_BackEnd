@@ -11,6 +11,7 @@ from rest_framework.decorators import api_view
 from django.db.models import Q
 from drf_yasg.utils       import swagger_auto_schema
 from drf_yasg import openapi
+import datetime
 #'RID','BID','UID','contents','views','createAt','updateAt','like', 'rating'
 @swagger_auto_schema(
     method='post',
@@ -52,20 +53,25 @@ from drf_yasg import openapi
                 'result': openapi.Schema(
                     type=openapi.TYPE_OBJECT,
                     properties={
-                        'RID':openapi.Schema('RID', type=openapi.TYPE_INTEGER),
-                        'TBID':openapi.Schema('TBID', type=openapi.TYPE_INTEGER),
-                        'UID':openapi.Schema('UID', type=openapi.TYPE_INTEGER),
-                        'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
-                        'views':openapi.Schema('views', type=openapi.TYPE_INTEGER),
-                        'createAt':openapi.Schema('작성날짜', type=openapi.TYPE_STRING),
-                        'rating': openapi.Schema('리뷰 평점', type=openapi.TYPE_INTEGER),
-                        'likeCnt':openapi.Schema('좋아요 개수', type=openapi.TYPE_INTEGER),
-                        'isLiked':openapi.Schema('이글에 좋아요를 했는지?', type=openapi.TYPE_BOOLEAN),
-                        'isAccessible':openapi.Schema('이글에 접근이 가능한지?', type=openapi.TYPE_BOOLEAN),
-                        'nickname':openapi.Schema('사용자 이름', type=openapi.TYPE_STRING),
-                        'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
-                        'bookTitle':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
-                        'thumbnail':openapi.Schema('책 사진', type=openapi.TYPE_STRING),
+                       "reviewList": openapi.Schema('책의 리뷰리스트', type=openapi.TYPE_ARRAY, items=openapi.Items(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                                'RID':openapi.Schema('RID', type=openapi.TYPE_INTEGER),
+                                'TBID':openapi.Schema('TBID', type=openapi.TYPE_INTEGER),
+                                'UID':openapi.Schema('UID', type=openapi.TYPE_INTEGER),
+                                'contents':openapi.Schema('게시글 내용', type=openapi.TYPE_STRING),
+                                'views':openapi.Schema('views', type=openapi.TYPE_INTEGER),
+                                'createAt':openapi.Schema('작성날짜', type=openapi.TYPE_STRING),
+                                'rating': openapi.Schema('리뷰 평점', type=openapi.TYPE_INTEGER),
+                                'likeCnt':openapi.Schema('좋아요 개수', type=openapi.TYPE_INTEGER),
+                                'isLiked':openapi.Schema('이글에 좋아요를 했는지?', type=openapi.TYPE_BOOLEAN),
+                                'isAccessible':openapi.Schema('이글에 접근이 가능한지?', type=openapi.TYPE_BOOLEAN),
+                                'nickname':openapi.Schema('사용자 이름', type=openapi.TYPE_STRING),
+                                'AUTHOR':openapi.Schema('책 저자', type=openapi.TYPE_STRING),
+                                'bookTitle':openapi.Schema('책 제목', type=openapi.TYPE_STRING),
+                                'thumbnail':openapi.Schema('책 사진', type=openapi.TYPE_STRING),
+                            })
+                        )
                     }
                 ),
                 'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
@@ -113,7 +119,7 @@ from drf_yasg import openapi
                 'result': openapi.Schema(
                     type=openapi.TYPE_OBJECT,
                     properties={
-                        'userData':openapi.Schema(
+                        'review':openapi.Schema(
                             type = openapi.TYPE_OBJECT,
                             properties={
                                 'RID':openapi.Schema('RID', type=openapi.TYPE_INTEGER),
@@ -176,9 +182,9 @@ def reviews(request, pk):
             reviewQuery.views = reviewQuery.views + 1
             reviewData[0]['views'] = reviewQuery.views
             reviewQuery.save()
-            return JsonResponse({'success':True, 'result':{'reviewList':reviewData[0]}, 'errorMessage':""}, status = status.HTTP_200_OK)
+            return JsonResponse({'success':True, 'result':{'review':reviewData[0]}, 'errorMessage':""}, status = status.HTTP_200_OK)
         else:
-            return JsonResponse({'success':True, 'result':{'reviewList':exceptDict},'errorMessage':"해당 아이디의 리뷰가 존재하지 않습니다."},status=status.HTTP_204_NO_CONTENT)
+            return JsonResponse({'success':True, 'result':{'review':exceptDict},'errorMessage':"해당 아이디의 리뷰가 존재하지 않습니다."},status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'POST': #리뷰 등록 API
         data = JSONParser().parse(request)
@@ -189,7 +195,6 @@ def reviews(request, pk):
                 Q(TBID = pk) & #책 소개
                 Q(UID = flag)
             )
-            print(len(temp))
             if len(temp) == 0: 
                 serializer = ReviewPostSerializer(data = data)
                 if serializer.is_valid():
@@ -271,6 +276,8 @@ def reviews(request, pk):
             if reviewQuery.UID.UID == flag:
                 bookQuery = TempBook.objects.get(TBID = int(reviewQuery.TBID.TBID))
                 reviewCnt = len(Review.objects.filter(TBID = bookQuery.TBID))
+                if reviewCnt -1 == 0:
+                    reviewCnt = 2
                 tempRating = (float(bookQuery.RATING) * float(reviewCnt) - float(reviewQuery.rating)) / (float(reviewCnt) - 1.0)
                 bookQuery.RATING = tempRating
                 bookQuery.save()
@@ -348,6 +355,8 @@ def bookReviews(request, pk): #책에 관한 리뷰를 받아오는 API
                     i['isAccessible'] = False
                 temp = User.objects.get(UID=i['UID'])
                 i['nickname'] = temp.nickname
+                i['createAt'] = datetime.datetime.strptime(i["createAt"], '%Y-%m-%dT%H:%M:%S.%f').strftime("%Y-%m-%d %H:%M")
+                i['userThumbnail'] = temp.thumbnail
                 tempQuery = TempBook.objects.get(TBID = i['TBID'])
                 i['AUTHOR'] = tempQuery.AUTHOR
                 i['bookTitle'] = tempQuery.TITLE

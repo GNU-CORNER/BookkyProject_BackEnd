@@ -1,0 +1,2041 @@
+/home/hyeok/dev/BookkyProject_BackEnd
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 13, 2022 - 16:20:39
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[13/Aug/2022 16:20:45] "GET /swagger HTTP/1.1" 200 1643
+[13/Aug/2022 16:20:45] "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+[13/Aug/2022 16:20:45] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 329649
+[13/Aug/2022 16:20:45] "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 14715
+[13/Aug/2022 16:20:46] "GET /static/drf-yasg/url-polyfill.min.js HTTP/1.1" 200 6092
+[13/Aug/2022 16:20:46] "GET /swagger?format=openapi HTTP/1.1" 200 53753
+[13/Aug/2022 16:20:47] "GET /swagger?format=openapi HTTP/1.1" 200 53753
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 13, 2022 - 16:36:14
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[13/Aug/2022 16:36:23] "GET /swagger HTTP/1.1" 200 1643
+[13/Aug/2022 16:36:23] "GET /swagger?format=openapi HTTP/1.1" 200 53753
+[13/Aug/2022 16:36:24] "GET /swagger?format=openapi HTTP/1.1" 200 53753
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 13, 2022 - 17:48:44
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 13, 2022 - 18:31:38
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 13, 2022 - 18:40:31
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+Not Found: /v1/robots.txt
+[14/Aug/2022 01:47:19] "GET /v1/robots.txt HTTP/1.1" 404 9468
+Not Found: /v1/humans.txt
+[14/Aug/2022 01:47:19] "GET /v1/humans.txt HTTP/1.1" 404 9468
+Not Found: /v1/ads.txt
+[14/Aug/2022 01:47:20] "GET /v1/ads.txt HTTP/1.1" 404 9459
+Not Found: /v1/
+[14/Aug/2022 01:47:20] "GET /v1/ HTTP/1.1" 404 9438
+Not Found: /v1/
+[14/Aug/2022 15:37:24] "GET /v1/ HTTP/1.0" 404 9433
+Not Found: /v1/robots.txt
+[14/Aug/2022 17:06:23] "GET /v1/robots.txt HTTP/1.1" 404 9468
+Not Found: /v1/
+[14/Aug/2022 17:06:37] "GET /v1/ HTTP/1.1" 404 9433
+[14/Aug/2022 19:09:52] code 400, message Bad HTTP/0.9 request type ("\x03\x00\x00,'à\x00\x00\x00\x00\x00Cookie:")
+[14/Aug/2022 19:09:52] "  ,'à     Cookie: mstshash=eltons" 400 -
+Not Found: /
+[14/Aug/2022 19:09:56] "GET / HTTP/1.1" 404 2595
+Not Found: /v1/
+[14/Aug/2022 22:04:00] "GET /v1/ HTTP/1.1" 404 9438
+Not Found: /robots.txt
+[14/Aug/2022 22:10:51] "GET /robots.txt HTTP/1.1" 404 2643
+Not Found: /v1/
+[14/Aug/2022 22:10:51] "GET /v1/?p=1699 HTTP/1.1" 404 9445
+Not Found: /v1/
+[14/Aug/2022 23:56:12] "GET /v1/ HTTP/1.1" 404 9438
+Not Found: /v1/
+[15/Aug/2022 00:04:24] "GET /v1/ HTTP/1.1" 404 9438
+Not Found: /v1/.env
+[15/Aug/2022 03:24:23] "GET /v1/.env HTTP/1.1" 404 9450
+Not Found: /v1/
+[15/Aug/2022 12:55:04] "GET /v1/ HTTP/1.1" 404 9438
+Not Found: /v1//wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:05] "GET /v1//wp-includes/wlwmanifest.xml HTTP/1.1" 404 9522
+Not Found: /v1//xmlrpc.php
+[15/Aug/2022 12:55:06] "GET /v1//xmlrpc.php?rsd HTTP/1.1" 404 9475
+Not Found: /v1/
+[15/Aug/2022 12:55:06] "GET /v1/ HTTP/1.1" 404 9438
+Not Found: /v1//blog/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:07] "GET /v1//blog/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9537
+Not Found: /v1//web/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:08] "GET /v1//web/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9534
+Not Found: /v1//wordpress/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:09] "GET /v1//wordpress/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9552
+Not Found: /v1//website/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:10] "GET /v1//website/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9546
+Not Found: /v1//wp/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:10] "GET /v1//wp/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9531
+Not Found: /v1//news/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:11] "GET /v1//news/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9537
+Not Found: /v1//2020/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:12] "GET /v1//2020/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9537
+Not Found: /v1//2019/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:13] "GET /v1//2019/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9537
+Not Found: /v1//shop/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:13] "GET /v1//shop/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9537
+Not Found: /v1//wp1/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:14] "GET /v1//wp1/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9534
+Not Found: /v1//test/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:15] "GET /v1//test/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9537
+Not Found: /v1//wp2/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:16] "GET /v1//wp2/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9534
+Not Found: /v1//site/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:16] "GET /v1//site/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9537
+Not Found: /v1//cms/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:17] "GET /v1//cms/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9534
+Not Found: /v1//sito/wp-includes/wlwmanifest.xml
+[15/Aug/2022 12:55:18] "GET /v1//sito/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9537
+Not Found: /v1/
+[15/Aug/2022 16:16:56] "GET /v1/ HTTP/1.1" 404 9438
+Not Found: /
+[15/Aug/2022 17:41:46] "GET / HTTP/1.1" 404 2595
+[15/Aug/2022 17:41:47] code 505, message Invalid HTTP version (2.0)
+[15/Aug/2022 17:41:47] "PRI * HTTP/2.0" 505 -
+Not Found: /v1/
+[15/Aug/2022 18:00:00] "GET /v1/ HTTP/1.0" 404 9433
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/management/commands/runserver.py", line 125, in inner_run
+    autoreload.raise_last_exception()
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/autoreload.py", line 87, in raise_last_exception
+    raise _exception[1]
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/management/__init__.py", line 398, in execute
+    autoreload.check_errors(django.setup)()
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/apps/registry.py", line 116, in populate
+    app_config.import_models()
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/apps/config.py", line 304, in import_models
+    self.models_module = import_module(models_module_name)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py", line 236, in <module>
+    class SuperUser(models.Model):
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py", line 239, in SuperUser
+    authority               = models.Integer(null=False, default = 5)   # 1:최상위 권한, 2:관리자, 5: 일반 사용자
+AttributeError: module 'django.db.models' has no attribute 'Integer'
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 15, 2022 - 19:07:35
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[15/Aug/2022 19:07:40] "GET /swagger HTTP/1.1" 200 1643
+[15/Aug/2022 19:07:40] "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+[15/Aug/2022 19:07:40] "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+[15/Aug/2022 19:07:40] "GET /static/drf-yasg/url-polyfill.min.js HTTP/1.1" 200 6092
+[15/Aug/2022 19:07:40] "GET /swagger?format=openapi HTTP/1.1" 200 53753
+[15/Aug/2022 19:07:41] "GET /swagger?format=openapi HTTP/1.1" 200 53753
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/urls/urls.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/management/commands/runserver.py", line 134, in inner_run
+    self.check(display_num_errors=True)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/management/base.py", line 487, in check
+    all_issues = checks.run_checks(
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/registry.py", line 88, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/urls.py", line 42, in check_url_namespaces_unique
+    all_namespaces = _load_all_namespaces(resolver)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/urls.py", line 61, in _load_all_namespaces
+    url_patterns = getattr(resolver, "url_patterns", [])
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/functional.py", line 49, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 696, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/functional.py", line 49, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 689, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky_backend/urls.py", line 26, in <module>
+    path('v1/', include('bookky.urls.urls')), 
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/conf.py", line 38, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/urls/urls.py", line 2, in <module>
+    from bookky.views import views, userviews, bookviews, socialview, userfunctionviews, communityviews, reviewviews, uploadView, recommendview, userReport
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userReport.py", line 22
+    def userReport(request) #커뮤니티 글 신고 등록 기능  DB에 올라오게끔 해야함
+                            ^
+SyntaxError: invalid syntax
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userReport.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/management/commands/runserver.py", line 134, in inner_run
+    self.check(display_num_errors=True)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/management/base.py", line 487, in check
+    all_issues = checks.run_checks(
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/registry.py", line 88, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/urls.py", line 42, in check_url_namespaces_unique
+    all_namespaces = _load_all_namespaces(resolver)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/urls.py", line 61, in _load_all_namespaces
+    url_patterns = getattr(resolver, "url_patterns", [])
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/functional.py", line 49, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 696, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/functional.py", line 49, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 689, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky_backend/urls.py", line 26, in <module>
+    path('v1/', include('bookky.urls.urls')), 
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/conf.py", line 38, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/urls/urls.py", line 2, in <module>
+    from bookky.views import views, userviews, bookviews, socialview, userfunctionviews, communityviews, reviewviews, uploadView, recommendview, userReport
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userReport.py", line 102
+    if checkAuthority(flag)
+                          ^
+SyntaxError: invalid syntax
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/userReport.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 15, 2022 - 19:13:10
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[15/Aug/2022 19:13:13] "GET /swagger HTTP/1.1" 200 1643
+[15/Aug/2022 19:13:13] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[15/Aug/2022 19:13:14] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[15/Aug/2022 19:24:29] "GET /swagger HTTP/1.1" 200 1643
+[15/Aug/2022 19:24:29] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[15/Aug/2022 19:24:30] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[15/Aug/2022 19:28:07] "GET /v1/home HTTP/1.1" 200 17665
+Not Found: /v1/
+[15/Aug/2022 20:05:45] "GET /v1/ HTTP/1.1" 404 9599
+[15/Aug/2022 20:05:45,190] - Broken pipe from ('18.236.67.105', 49676)
+
+[code_64_re_generate_Token] 시간 : 2022-08-15 12:02:32.324143, UID : 5 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-15 12:02:32.324254, UID : 5 Access토큰 발급
+[15/Aug/2022 21:02:32] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[15/Aug/2022 21:02:32] "GET /v1/home HTTP/1.1" 401 159
+[15/Aug/2022 21:02:43] "GET /v1/myprofile HTTP/1.1" 200 10724
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:21:27.201330, UID : 5 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-15 13:21:27.201442, UID : 5 Access토큰 발급
+[15/Aug/2022 22:21:27] "POST /v1/auth/refresh HTTP/1.1" 200 222
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:21:27] "GET /v1/home HTTP/1.1" 200 37303
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:23:01.297627, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:23:01] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:23:01] "GET /v1/home HTTP/1.1" 200 37303
+[15/Aug/2022 22:23:04] "GET /v1/myprofile HTTP/1.1" 200 10724
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:32:13.042564, UID : 5 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-15 13:32:13.042675, UID : 5 Access토큰 발급
+[15/Aug/2022 22:32:13] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[15/Aug/2022 22:32:13] "GET /v1/home HTTP/1.1" 401 159
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:33:29.868428, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:33:29] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:33:30] "GET /v1/home HTTP/1.1" 200 37303
+[15/Aug/2022 22:33:32] "GET /v1/myprofile HTTP/1.1" 200 10724
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:35:46.602111, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:35:46] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:35:46] "GET /v1/home HTTP/1.1" 200 37303
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:36:23.200090, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:36:23] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:36:23] "GET /v1/home HTTP/1.1" 200 37303
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:36:32.717170, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:36:32] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:36:33] "GET /v1/home HTTP/1.1" 200 37303
+[15/Aug/2022 22:36:36] "GET /v1/myprofile HTTP/1.1" 200 10724
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:37:47.592590, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:37:47] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:37:47] "GET /v1/home HTTP/1.1" 200 37303
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:40:15.771092, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:40:15] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:40:16] "GET /v1/home HTTP/1.1" 200 37303
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:44:20.256225, UID : 5 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-15 13:44:20.256548, UID : 5 Access토큰 발급
+[15/Aug/2022 22:44:20] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[15/Aug/2022 22:44:20] "GET /v1/home HTTP/1.1" 401 159
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:44:41.700178, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:44:41] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:44:42] "GET /v1/home HTTP/1.1" 200 37303
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:49:55.759982, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:49:55] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:49:56] "GET /v1/home HTTP/1.1" 200 37303
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:50:39.653696, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:50:39] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:50:39] "GET /v1/home HTTP/1.1" 200 37303
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:51:03.366788, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:51:03] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:51:03] "GET /v1/home HTTP/1.1" 200 37303
+[code_64_re_generate_Token] 시간 : 2022-08-15 13:52:08.044436, UID : 5유효기간 남음
+Bad Request: /v1/auth/refresh
+[15/Aug/2022 22:52:08] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  4
+[15/Aug/2022 22:52:08] "GET /v1/home HTTP/1.1" 200 37303
+[code_64_re_generate_Token] 시간 : 2022-08-15 14:19:55.323204, UID : 5 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-15 14:19:55.323316, UID : 5 Access토큰 발급
+[15/Aug/2022 23:19:55] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[15/Aug/2022 23:19:55] "GET /v1/home HTTP/1.1" 401 159
+Not Found: /v1/
+[16/Aug/2022 06:38:24] "GET /v1/ HTTP/1.1" 404 9604
+Not Found: /v1//wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:25] "GET /v1//wp-includes/wlwmanifest.xml HTTP/1.1" 404 9688
+Not Found: /v1//xmlrpc.php
+[16/Aug/2022 06:38:26] "GET /v1//xmlrpc.php?rsd HTTP/1.1" 404 9641
+Not Found: /v1/
+[16/Aug/2022 06:38:26] "GET /v1/ HTTP/1.1" 404 9604
+Not Found: /v1//blog/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:27] "GET /v1//blog/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9703
+Not Found: /v1//web/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:27] "GET /v1//web/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9700
+Not Found: /v1//wordpress/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:28] "GET /v1//wordpress/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9718
+Not Found: /v1//website/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:28] "GET /v1//website/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9712
+Not Found: /v1//wp/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:29] "GET /v1//wp/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9697
+Not Found: /v1//news/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:30] "GET /v1//news/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9703
+Not Found: /v1//2018/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:30] "GET /v1//2018/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9703
+Not Found: /v1//2019/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:31] "GET /v1//2019/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9703
+Not Found: /v1//shop/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:31] "GET /v1//shop/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9703
+Not Found: /v1//wp1/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:32] "GET /v1//wp1/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9700
+Not Found: /v1//test/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:32] "GET /v1//test/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9703
+Not Found: /v1//media/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:33] "GET /v1//media/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9706
+Not Found: /v1//wp2/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:33] "GET /v1//wp2/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9700
+Not Found: /v1//site/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:34] "GET /v1//site/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9703
+Not Found: /v1//cms/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:34] "GET /v1//cms/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9700
+Not Found: /v1//sito/wp-includes/wlwmanifest.xml
+[16/Aug/2022 06:38:35] "GET /v1//sito/wp-includes/wlwmanifest.xml HTTP/1.1" 404 9703
+Not Found: /
+[16/Aug/2022 09:09:08] "GET / HTTP/1.0" 404 2592
+[16/Aug/2022 17:07:30] "GET /swagger HTTP/1.1" 200 1643
+[16/Aug/2022 17:07:31] "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+[16/Aug/2022 17:07:31] "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+[16/Aug/2022 17:07:31] "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+[16/Aug/2022 17:07:31] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 200 143074
+[16/Aug/2022 17:07:31] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 329649
+[16/Aug/2022 17:07:31] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1038857
+[16/Aug/2022 17:07:31] "GET /static/drf-yasg/url-polyfill.min.js HTTP/1.1" 200 6092
+[16/Aug/2022 17:07:31] "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 14715
+[16/Aug/2022 17:07:31] "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 200 628
+[16/Aug/2022 17:07:31] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[16/Aug/2022 17:07:32] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[16/Aug/2022 17:21:57] "GET /v1/community/postlist/2 HTTP/1.1" 200 3408
+None
+Bad Request: /v1/community/postdetail/2/69
+[16/Aug/2022 17:22:12] "GET /v1/community/postdetail/2/69 HTTP/1.1" 400 88
+[code_25_get_access] 시간 : 2022-08-16 08:22:28.411038, UID : 2 Access토큰 발급
+[code_47_get_refreshToken] 시간 : 2022-08-16 08:22:28.420246, UID : 2 갱신토큰 발급
+[16/Aug/2022 17:22:28] "POST /v1/user/signin HTTP/1.1" 200 945
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjM4NzQ4LCJVSUQiOjJ9.yaqa5EaxGd09wJcnkX1XdjqO5n4VeQEqFAbg6-m2Tno
+[16/Aug/2022 17:22:42] "GET /v1/community/postdetail/2/69 HTTP/1.1" 200 4927
+Bad Request: /v1/community/comment/2/69
+[16/Aug/2022 17:24:20] "GET /v1/community/comment/2/69 HTTP/1.1" 400 88
+[16/Aug/2022 17:24:23] "GET /v1/community/comment/2/69 HTTP/1.1" 200 579
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/communityviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 17:28:39
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[16/Aug/2022 17:28:40] "GET /v1/community/comment/2/69 HTTP/1.1" 200 615
+[16/Aug/2022 17:29:07] "GET /v1/community/postlist/1 HTTP/1.1" 200 797
+[16/Aug/2022 17:29:15] "GET /v1/community/postlist/0 HTTP/1.1" 200 1926
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjM4NzQ4LCJVSUQiOjJ9.yaqa5EaxGd09wJcnkX1XdjqO5n4VeQEqFAbg6-m2Tno
+[16/Aug/2022 17:29:22] "GET /v1/community/postdetail/0/224 HTTP/1.1" 200 977
+[16/Aug/2022 17:29:40] "GET /v1/community/comment/0/224 HTTP/1.1" 200 611
+[code_64_re_generate_Token] 시간 : 2022-08-16 08:29:58.383147, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-16 08:29:58.383271, UID : 4 Access토큰 발급
+[16/Aug/2022 17:29:58] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[16/Aug/2022 17:29:58] "GET /v1/home HTTP/1.1" 401 159
+[16/Aug/2022 18:36:37] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+Unauthorized: /v1/myprofile
+[16/Aug/2022 18:36:37] "GET /v1/myprofile HTTP/1.1" 401 106
+[code_64_re_generate_Token] 시간 : 2022-08-16 09:36:37.680648, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-16 09:36:37.680772, UID : 4 Access토큰 발급
+[16/Aug/2022 18:36:37] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/myprofile
+[16/Aug/2022 18:36:37] "GET /v1/myprofile HTTP/1.1" 401 106
+[code_64_re_generate_Token] 시간 : 2022-08-16 09:36:37.838928, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 18:36:37] "POST /v1/auth/refresh HTTP/1.1" 400 104
+[code_64_re_generate_Token] 시간 : 2022-08-16 09:36:41.421890, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 18:36:41] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 18:36:41] "GET /v1/home HTTP/1.1" 200 15346
+[16/Aug/2022 18:36:42] "GET /v1/myprofile HTTP/1.1" 200 14140
+[16/Aug/2022 18:36:46] "GET /v1/myprofile HTTP/1.1" 200 14140
+[16/Aug/2022 18:36:53] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 18:36:56] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 18:36:58] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3408
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQzMTk3LCJVSUQiOjR9.YXlM17bIuHj3oGk3SHWZondq4YgFn_spdJggT9-VT9o
+[16/Aug/2022 18:36:59] "GET /v1/community/postdetail/2/69 HTTP/1.1" 200 4918
+[16/Aug/2022 18:37:05] "DELETE /v1/community/deletepost/2 HTTP/1.1" 200 83
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQzMTk3LCJVSUQiOjR9.YXlM17bIuHj3oGk3SHWZondq4YgFn_spdJggT9-VT9o
+[16/Aug/2022 18:37:05] "GET /v1/community/postdetail/2/69 HTTP/1.1" 200 4350
+[16/Aug/2022 18:37:08] "DELETE /v1/community/deletepost/2 HTTP/1.1" 200 83
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQzMTk3LCJVSUQiOjR9.YXlM17bIuHj3oGk3SHWZondq4YgFn_spdJggT9-VT9o
+[16/Aug/2022 18:37:08] "GET /v1/community/postdetail/2/69 HTTP/1.1" 200 3876
+[code_64_re_generate_Token] 시간 : 2022-08-16 09:39:32.217544, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 18:39:32] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 18:39:32] "GET /v1/home HTTP/1.1" 200 15346
+[16/Aug/2022 18:39:33] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 18:39:35] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3408
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQzMTk3LCJVSUQiOjR9.YXlM17bIuHj3oGk3SHWZondq4YgFn_spdJggT9-VT9o
+[16/Aug/2022 18:39:36] "GET /v1/community/postdetail/2/69 HTTP/1.1" 200 3876
+[code_64_re_generate_Token] 시간 : 2022-08-16 09:41:32.785588, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 18:41:32] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 18:41:32] "GET /v1/home HTTP/1.1" 200 15346
+[16/Aug/2022 18:41:33] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 18:41:35] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3408
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQzMTk3LCJVSUQiOjR9.YXlM17bIuHj3oGk3SHWZondq4YgFn_spdJggT9-VT9o
+[16/Aug/2022 18:41:35] "GET /v1/community/postdetail/2/69 HTTP/1.1" 200 3876
+[code_64_re_generate_Token] 시간 : 2022-08-16 09:42:34.178245, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 18:42:34] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 18:42:34] "GET /v1/home HTTP/1.1" 200 15346
+[16/Aug/2022 18:42:50] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 18:42:52] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3408
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQzMTk3LCJVSUQiOjR9.YXlM17bIuHj3oGk3SHWZondq4YgFn_spdJggT9-VT9o
+[16/Aug/2022 18:42:54] "GET /v1/community/postdetail/2/69 HTTP/1.1" 200 3876
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQzMTk3LCJVSUQiOjR9.YXlM17bIuHj3oGk3SHWZondq4YgFn_spdJggT9-VT9o
+[16/Aug/2022 18:46:21] "GET /v1/community/postdetail/2/69 HTTP/1.1" 200 3876
+[16/Aug/2022 18:49:34] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3408
+[16/Aug/2022 18:49:50] "GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC HTTP/1.1" 200 16426
+Unauthorized: /v1/community/writepost/2
+[16/Aug/2022 18:49:57] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3408
+[16/Aug/2022 18:49:58] "POST /v1/community/writepost/2 HTTP/1.1" 401 104
+[16/Aug/2022 18:50:02] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3408
+[16/Aug/2022 18:50:05] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3408
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQzMTk3LCJVSUQiOjR9.YXlM17bIuHj3oGk3SHWZondq4YgFn_spdJggT9-VT9o
+Unauthorized: /v1/community/postdetail/2/69
+[16/Aug/2022 18:50:07] "GET /v1/community/postdetail/2/69 HTTP/1.1" 401 106
+[code_64_re_generate_Token] 시간 : 2022-08-16 09:50:12.173489, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-16 09:50:12.173604, UID : 4 Access토큰 발급
+[16/Aug/2022 18:50:12] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[16/Aug/2022 18:50:12] "GET /v1/home HTTP/1.1" 401 159
+[16/Aug/2022 18:50:20] "GET /v1/myprofile HTTP/1.1" 200 13830
+[16/Aug/2022 18:50:25] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 18:50:27] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3408
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+[16/Aug/2022 18:50:28] "GET /v1/community/postdetail/2/69 HTTP/1.1" 200 3876
+[16/Aug/2022 18:50:30] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3408
+[16/Aug/2022 18:50:47] "GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC HTTP/1.1" 200 16426
+[16/Aug/2022 18:50:51] "POST /v1/community/writepost/2 HTTP/1.1" 201 83
+[16/Aug/2022 18:50:51] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3408
+[16/Aug/2022 18:50:59] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+[16/Aug/2022 18:51:00] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 880
+[16/Aug/2022 18:51:14] "GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC HTTP/1.1" 200 16426
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+[16/Aug/2022 18:51:20] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 880
+[16/Aug/2022 18:51:21] "POST /v1/community/writepost/2 HTTP/1.1" 201 83
+[16/Aug/2022 18:51:25] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+[16/Aug/2022 18:51:26] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1673
+[code_64_re_generate_Token] 시간 : 2022-08-16 09:56:37.818513, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 18:56:37] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 18:56:38] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 18:56:39] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 18:56:41] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+[16/Aug/2022 18:56:41] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1673
+[code_64_re_generate_Token] 시간 : 2022-08-16 09:57:01.309090, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 18:57:01] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 18:57:01] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 18:57:02] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 18:57:04] "GET /v1/community/postlist/1?page=1 HTTP/1.1" 200 797
+[16/Aug/2022 18:57:05] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+[16/Aug/2022 18:57:05] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1673
+[code_64_re_generate_Token] 시간 : 2022-08-16 09:57:19.717024, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 18:57:19] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 18:57:19] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 18:57:20] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 18:57:22] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+[16/Aug/2022 18:57:22] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1673
+[16/Aug/2022 18:57:33] "DELETE /v1/community/deletepost/2 HTTP/1.1" 200 83
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+[16/Aug/2022 18:57:33] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 880
+[16/Aug/2022 18:57:44] "GET /v1/community/post/book?keyword=Python HTTP/1.1" 200 16877
+[16/Aug/2022 18:57:50] "POST /v1/community/writepost/2 HTTP/1.1" 201 83
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+[16/Aug/2022 18:57:51] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[16/Aug/2022 19:00:02] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+[16/Aug/2022 19:00:03] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+[16/Aug/2022 19:00:06] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+Unauthorized: /v1/community/postdetail/2/79
+[16/Aug/2022 19:00:16] "GET /v1/community/postdetail/2/79 HTTP/1.1" 401 106
+[16/Aug/2022 19:00:17] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ0MDEyLCJVSUQiOjR9.sYOQZt9-Z4Qhx3UcR5Io9chID9mgvDAGaqyA_KsjS4k
+Unauthorized: /v1/community/postdetail/2/79
+[16/Aug/2022 19:00:19] "GET /v1/community/postdetail/2/79 HTTP/1.1" 401 106
+[16/Aug/2022 19:03:21] code 400, message Bad request syntax ('\x03\x00\x00\x13\x0eà\x00\x00\x00\x00\x00\x01\x00\x08\x00\x03\x00\x00\x00')
+[16/Aug/2022 19:03:21] "  à          " 400 -
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:08:35.803214, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-16 10:08:35.803333, UID : 4 Access토큰 발급
+[16/Aug/2022 19:08:35] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[16/Aug/2022 19:08:35] "GET /v1/home HTTP/1.1" 401 159
+[16/Aug/2022 19:08:39] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 19:08:40] "GET /v1/community/hotcommunity HTTP/1.1" 200 713
+[16/Aug/2022 19:08:41] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ1MTE1LCJVSUQiOjR9.9EYYyir3cDFzmMeoV8AFz7O5sdX6GsV6dAA3qFiFsj4
+[16/Aug/2022 19:08:42] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:08:55.576972, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 19:08:55] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 19:08:55] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 19:08:56] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 19:08:58] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ1MTE1LCJVSUQiOjR9.9EYYyir3cDFzmMeoV8AFz7O5sdX6GsV6dAA3qFiFsj4
+[16/Aug/2022 19:09:00] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:10:58.120821, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 19:10:58] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 19:10:58] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 19:10:59] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 19:11:00] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ1MTE1LCJVSUQiOjR9.9EYYyir3cDFzmMeoV8AFz7O5sdX6GsV6dAA3qFiFsj4
+[16/Aug/2022 19:11:01] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:16:09.100282, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 19:16:09] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 19:16:09] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 19:16:11] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 19:16:13] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ1MTE1LCJVSUQiOjR9.9EYYyir3cDFzmMeoV8AFz7O5sdX6GsV6dAA3qFiFsj4
+[16/Aug/2022 19:16:14] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ1MTE1LCJVSUQiOjR9.9EYYyir3cDFzmMeoV8AFz7O5sdX6GsV6dAA3qFiFsj4
+[16/Aug/2022 19:16:24] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ1MTE1LCJVSUQiOjR9.9EYYyir3cDFzmMeoV8AFz7O5sdX6GsV6dAA3qFiFsj4
+[16/Aug/2022 19:16:35] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:17:48.014408, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 19:17:48] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 19:17:48] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 19:17:49] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ1MTE1LCJVSUQiOjR9.9EYYyir3cDFzmMeoV8AFz7O5sdX6GsV6dAA3qFiFsj4
+[16/Aug/2022 19:17:50] "GET /v1/community/postdetail/0/224 HTTP/1.1" 200 974
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:18:02.501893, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 19:18:02] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 19:18:02] "GET /v1/home HTTP/1.1" 200 15359
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:22:46.041916, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-16 10:22:46.042037, UID : 4 Access토큰 발급
+[16/Aug/2022 19:22:46] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[16/Aug/2022 19:22:46] "GET /v1/home HTTP/1.1" 401 159
+[16/Aug/2022 19:22:47] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 19:22:48] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ1OTY2LCJVSUQiOjR9.xaS5qnEkWO73B0Dk6ZfRR5BC0O97e2SvUy9chnimSfA
+[16/Aug/2022 19:22:49] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ1OTY2LCJVSUQiOjR9.xaS5qnEkWO73B0Dk6ZfRR5BC0O97e2SvUy9chnimSfA
+[16/Aug/2022 19:22:52] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[16/Aug/2022 19:22:59] "GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC HTTP/1.1" 200 16426
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:27:33.394990, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 19:27:33] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 19:27:33] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 19:27:34] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:29:51.175625, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 19:29:51] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 19:29:51] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 19:30:06] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 19:30:08] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ1OTY2LCJVSUQiOjR9.xaS5qnEkWO73B0Dk6ZfRR5BC0O97e2SvUy9chnimSfA
+[16/Aug/2022 19:30:09] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:30:49.730013, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 19:30:49] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 19:30:49] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 19:30:50] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 19:30:51] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ1OTY2LCJVSUQiOjR9.xaS5qnEkWO73B0Dk6ZfRR5BC0O97e2SvUy9chnimSfA
+[16/Aug/2022 19:30:52] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[16/Aug/2022 19:30:59] "GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC HTTP/1.1" 200 16426
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:34:51.178749, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-16 10:34:51.178866, UID : 4 Access토큰 발급
+[16/Aug/2022 19:34:51] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[16/Aug/2022 19:34:51] "GET /v1/home HTTP/1.1" 401 159
+[16/Aug/2022 19:34:59] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 19:35:00] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjQ2NjkxLCJVSUQiOjR9.y6B-ly99kY6owmPR_px4YBc_frxZvEAErwuC3MQ1ysI
+[16/Aug/2022 19:35:01] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[16/Aug/2022 19:35:11] "GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC HTTP/1.1" 200 16426
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:35:42.714124, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 19:35:42] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 19:35:42] "GET /v1/home HTTP/1.1" 200 15359
+[code_64_re_generate_Token] 시간 : 2022-08-16 10:36:16.616291, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 19:36:16] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 19:36:16] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 19:36:17] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 19:36:23] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 19:40:36
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/communityviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 19:53:05
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/urls/urls.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 19:59:36
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[16/Aug/2022 20:00:28] "GET /swagger HTTP/1.1" 200 1643
+[16/Aug/2022 20:00:28] "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 200 628
+[16/Aug/2022 20:00:28] "GET /swagger?format=openapi HTTP/1.1" 200 54554
+[16/Aug/2022 20:00:29] "GET /swagger?format=openapi HTTP/1.1" 200 54554
+Not Found: /LAB/person
+[16/Aug/2022 20:01:38] "GET /LAB/person HTTP/1.1" 404 2643
+[16/Aug/2022 20:01:49] "GET /v1/LAB/person HTTP/1.1" 200 92
+[16/Aug/2022 20:03:52] "POST /v1/LAB/person HTTP/1.1" 201 193
+[16/Aug/2022 20:04:15] "GET /v1/LAB/person HTTP/1.1" 200 195
+[16/Aug/2022 20:04:27] "GET /v1/LAB/person HTTP/1.1" 200 195
+[16/Aug/2022 20:04:49] "POST /v1/LAB/person HTTP/1.1" 201 193
+[16/Aug/2022 20:04:52] "GET /v1/LAB/person HTTP/1.1" 200 300
+Internal Server Error: /v1/LAB/person
+Traceback (most recent call last):
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/generic/base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/labview.py", line 41, in LABView
+    query = LAB.objects.get(personID = pk)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/query.py", line 482, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/query.py", line 1071, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/query.py", line 1089, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/query.py", line 1096, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/sql/query.py", line 1466, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/sql/query.py", line 1496, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/sql/query.py", line 1342, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/sql/query.py", line 1156, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/sql/query.py", line 1640, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'personID' into field. Choices are: AGE, PersonID, contact, gender, personName
+[16/Aug/2022 20:06:02] "PUT /v1/LAB/person?personId=1 HTTP/1.1" 500 140102
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/labview.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 20:07:03
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[16/Aug/2022 20:07:05] "PUT /v1/LAB/person?personId=1 HTTP/1.1" 201 193
+[16/Aug/2022 20:07:14] "GET /v1/LAB/person HTTP/1.1" 200 300
+Internal Server Error: /v1/LAB/person
+Traceback (most recent call last):
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/generic/base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/labview.py", line 52, in LABView
+    query = LAB.objects.get(personID = pk)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/query.py", line 482, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/query.py", line 1071, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/query.py", line 1089, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/query.py", line 1096, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/sql/query.py", line 1466, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/sql/query.py", line 1496, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/sql/query.py", line 1342, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/sql/query.py", line 1156, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/sql/query.py", line 1640, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'personID' into field. Choices are: AGE, PersonID, contact, gender, personName
+[16/Aug/2022 20:07:26] "DELETE /v1/LAB/person?personId=2 HTTP/1.1" 500 139795
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/labview.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 20:07:34
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[16/Aug/2022 20:07:35] "DELETE /v1/LAB/person?personId=2 HTTP/1.1" 200 94
+[16/Aug/2022 20:07:40] "GET /v1/LAB/person?personId=2 HTTP/1.1" 200 195
+[16/Aug/2022 20:08:51] "GET /v1/LAB/person HTTP/1.1" 200 195
+Internal Server Error: /v1/LAB/person
+Traceback (most recent call last):
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/generic/base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/labview.py", line 52, in LABView
+    query = LAB.objects.get(PersonID = pk)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/db/models/query.py", line 496, in get
+    raise self.model.DoesNotExist(
+bookky.models.LAB.DoesNotExist: LAB matching query does not exist.
+[16/Aug/2022 20:08:58] "DELETE /v1/LAB/person?personId=4 HTTP/1.1" 500 101317
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/labview.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 20:09:51
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[16/Aug/2022 20:09:53] "DELETE /v1/LAB/person?personId=4 HTTP/1.1" 204 99
+[16/Aug/2022 20:10:09] "DELETE /v1/LAB/person?personId=1 HTTP/1.1" 200 94
+Bad Request: /v1/LAB/person
+[16/Aug/2022 20:10:41] "POST /v1/LAB/person?personId=1 HTTP/1.1" 400 102
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/urls/urls.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 20:17:43
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/management/commands/runserver.py", line 134, in inner_run
+    self.check(display_num_errors=True)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/management/base.py", line 487, in check
+    all_issues = checks.run_checks(
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/registry.py", line 88, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/urls.py", line 42, in check_url_namespaces_unique
+    all_namespaces = _load_all_namespaces(resolver)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/checks/urls.py", line 61, in _load_all_namespaces
+    url_patterns = getattr(resolver, "url_patterns", [])
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/functional.py", line 49, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 696, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/utils/functional.py", line 49, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 689, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky_backend/urls.py", line 26, in <module>
+    path('v1/', include('bookky.urls.urls')), 
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/urls/conf.py", line 38, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/urls/urls.py", line 2, in <module>
+    from bookky.views import views, userviews, bookviews, socialview, userfunctionviews, communityviews, reviewviews, uploadView, recommendview, userReport, labview
+ImportError: cannot import name 'labview' from 'bookky.views' (unknown location)
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/urls/urls.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 20:18:39
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[16/Aug/2022 20:49:45] "GET /swagger HTTP/1.1" 200 1643
+[16/Aug/2022 20:49:45] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[16/Aug/2022 20:49:46] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[16/Aug/2022 20:49:55] "GET /v1/books/detail/1 HTTP/1.1" 200 3129
+[16/Aug/2022 20:50:47] "GET /v1/home HTTP/1.1" 200 17678
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:09:04.016915, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-16 12:09:04.017040, UID : 4 Access토큰 발급
+[16/Aug/2022 21:09:04] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[16/Aug/2022 21:09:04] "GET /v1/home HTTP/1.1" 401 159
+[16/Aug/2022 21:09:05] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:09:07] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUyMzQ0LCJVSUQiOjR9.tWAwUB8V9J4npNAz2N0SXHmvxZkKKc4P5dDaTt0kP7k
+[16/Aug/2022 21:09:08] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUyMzQ0LCJVSUQiOjR9.tWAwUB8V9J4npNAz2N0SXHmvxZkKKc4P5dDaTt0kP7k
+[16/Aug/2022 21:09:12] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:09:30.173647, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:09:30] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:09:30] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:09:31] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:09:34] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUyMzQ0LCJVSUQiOjR9.tWAwUB8V9J4npNAz2N0SXHmvxZkKKc4P5dDaTt0kP7k
+[16/Aug/2022 21:09:35] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUyMzQ0LCJVSUQiOjR9.tWAwUB8V9J4npNAz2N0SXHmvxZkKKc4P5dDaTt0kP7k
+[16/Aug/2022 21:09:37] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[16/Aug/2022 21:09:44] "GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC HTTP/1.1" 200 16426
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUyMzQ0LCJVSUQiOjR9.tWAwUB8V9J4npNAz2N0SXHmvxZkKKc4P5dDaTt0kP7k
+[16/Aug/2022 21:13:15] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUyMzQ0LCJVSUQiOjR9.tWAwUB8V9J4npNAz2N0SXHmvxZkKKc4P5dDaTt0kP7k
+[16/Aug/2022 21:13:24] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 1566
+[16/Aug/2022 21:13:24] "POST /v1/community/writepost/2 HTTP/1.1" 201 83
+[16/Aug/2022 21:14:05] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUyMzQ0LCJVSUQiOjR9.tWAwUB8V9J4npNAz2N0SXHmvxZkKKc4P5dDaTt0kP7k
+[16/Aug/2022 21:14:05] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:23:31.633563, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-16 12:23:31.633679, UID : 4 Access토큰 발급
+[16/Aug/2022 21:23:31] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[16/Aug/2022 21:23:31] "GET /v1/home HTTP/1.1" 401 159
+[16/Aug/2022 21:23:32] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:23:34] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUzMjExLCJVSUQiOjR9.3Qu1VH1PT-t7SxKeNpvsZ6WgKIF7Go9G-HTt40BLqkk
+[16/Aug/2022 21:23:35] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:24:49.271741, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:24:49] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:24:49] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:24:50] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:24:51] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUzMjExLCJVSUQiOjR9.3Qu1VH1PT-t7SxKeNpvsZ6WgKIF7Go9G-HTt40BLqkk
+[16/Aug/2022 21:24:52] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:25:34.512198, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:25:34] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:25:34] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:25:35] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:25:36] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUzMjExLCJVSUQiOjR9.3Qu1VH1PT-t7SxKeNpvsZ6WgKIF7Go9G-HTt40BLqkk
+[16/Aug/2022 21:25:37] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:26:08.269094, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:26:08] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:26:08] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:26:09] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:26:10] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUzMjExLCJVSUQiOjR9.3Qu1VH1PT-t7SxKeNpvsZ6WgKIF7Go9G-HTt40BLqkk
+[16/Aug/2022 21:26:11] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[16/Aug/2022 21:26:12] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUzMjExLCJVSUQiOjR9.3Qu1VH1PT-t7SxKeNpvsZ6WgKIF7Go9G-HTt40BLqkk
+[16/Aug/2022 21:26:14] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:28:42.508748, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:28:42] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:28:42] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:28:43] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:28:45] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUzMjExLCJVSUQiOjR9.3Qu1VH1PT-t7SxKeNpvsZ6WgKIF7Go9G-HTt40BLqkk
+[16/Aug/2022 21:28:45] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:34:32.165763, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-16 12:34:32.165883, UID : 4 Access토큰 발급
+[16/Aug/2022 21:34:32] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[16/Aug/2022 21:34:32] "GET /v1/home HTTP/1.1" 401 159
+[16/Aug/2022 21:34:34] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:34:36] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUzODcyLCJVSUQiOjR9.1FkFbnluX67gPXmIVUSXY412XU_g5XQCnwfYogaQj1g
+[16/Aug/2022 21:34:37] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:44:12.840089, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:44:12] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:44:13] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:44:19] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:44:20] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjUzODcyLCJVSUQiOjR9.1FkFbnluX67gPXmIVUSXY412XU_g5XQCnwfYogaQj1g
+[16/Aug/2022 21:44:21] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:44:58.355177, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-08-16 12:44:58.355294, UID : 4 Access토큰 발급
+[16/Aug/2022 21:44:58] "POST /v1/auth/refresh HTTP/1.1" 200 222
+Unauthorized: /v1/home
+[16/Aug/2022 21:44:58] "GET /v1/home HTTP/1.1" 401 159
+[16/Aug/2022 21:45:01] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:45:03] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:45:03] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:45:59.242047, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:45:59] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:45:59] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:46:00] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:46:01] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:46:02] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:46:23.021866, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:46:23] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:46:23] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:46:24] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:46:25] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:46:26] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:48:06.454251, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:48:06] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:48:06] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:48:12] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:48:14] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:48:14] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:48:33.426291, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:48:33] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:48:33] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:48:34] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:48:36] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:48:37] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:49:11.579120, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:49:11] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:49:11] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:49:12] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:49:14] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:49:15] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:49:25.130213, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:49:25] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:49:25] "GET /v1/home HTTP/1.1" 200 15359
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:49:32.775214, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:49:32] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:49:32] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:49:35] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:49:37] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:49:37] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:50:54.583344, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:50:54] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:50:54] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:50:58] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:50:59] "GET /v1/community/postdetail/0/224 HTTP/1.1" 200 974
+[16/Aug/2022 21:51:02] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:51:02] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:51:03] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[code_64_re_generate_Token] 시간 : 2022-08-16 12:53:40.654266, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+[16/Aug/2022 21:53:40] "POST /v1/auth/refresh HTTP/1.1" 400 104
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+[16/Aug/2022 21:53:40] "GET /v1/home HTTP/1.1" 200 15359
+[16/Aug/2022 21:53:41] "GET /v1/community/postlist/0?page=1 HTTP/1.1" 200 1926
+[16/Aug/2022 21:53:43] "GET /v1/community/hotcommunity HTTP/1.1" 200 713
+[16/Aug/2022 21:53:44] "GET /v1/community/postlist/2?page=1 HTTP/1.1" 200 3404
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:53:45] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:53:49] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNjU0NDk4LCJVSUQiOjR9.pRVlp-AiArBlTYI3j1DnwUJvZXXIlCUh1qExHYEBV6s
+[16/Aug/2022 21:53:53] "GET /v1/community/postdetail/2/79 HTTP/1.1" 200 2134
+[16/Aug/2022 22:15:20] "GET /swagger HTTP/1.1" 200 1643
+[16/Aug/2022 22:15:20] "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+[16/Aug/2022 22:15:20] "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+[16/Aug/2022 22:15:20] "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+[16/Aug/2022 22:15:20] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 200 143074
+[16/Aug/2022 22:15:20] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 329649
+[16/Aug/2022 22:15:20] "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 14715
+[16/Aug/2022 22:15:20] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1038857
+[16/Aug/2022 22:15:20] "GET /static/drf-yasg/url-polyfill.min.js HTTP/1.1" 200 6092
+[16/Aug/2022 22:15:20] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[16/Aug/2022 22:15:21] "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 200 628
+[16/Aug/2022 22:15:21] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/serializers/reportserializer.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 22:22:43
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 22:25:57
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/communityviews.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 22:27:22
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+/home/hyeok/dev/BookkyProject_BackEnd/bookky/models.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 16, 2022 - 22:36:28
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+[code_64_re_generate_Token] 시간 : 2022-08-16 13:43:31.926522, UID : 4 갱신 토큰 만료
+Unauthorized: /v1/auth/refresh
+[16/Aug/2022 22:43:31] "POST /v1/auth/refresh HTTP/1.1" 401 104
+Unauthorized: /v1/home
+[16/Aug/2022 22:43:31] "GET /v1/home HTTP/1.1" 401 159
+[16/Aug/2022 22:43:39] "GET /v1/books/search?keyword=%EC%9D%B8%ED%84%B0%EB%84%B7&quantity=20&page=1 HTTP/1.1" 200 28436
+[code_64_re_generate_Token] 시간 : 2022-08-16 13:43:46.794990, UID : 4 갱신 토큰 만료
+Unauthorized: /v1/auth/refresh
+[16/Aug/2022 22:43:46] "POST /v1/auth/refresh HTTP/1.1" 401 104
+Unauthorized: /v1/home
+[16/Aug/2022 22:43:46] "GET /v1/home HTTP/1.1" 401 159
+[16/Aug/2022 22:43:56] "GET /v1/books/search?keyword=internet&quantity=20&page=1 HTTP/1.1" 200 6136
+Not Found: /v1/
+[16/Aug/2022 23:43:53] "GET /v1/ HTTP/1.1" 404 9604
+Not Found: /v1/
+[17/Aug/2022 16:20:36] "GET /v1/ HTTP/1.1" 404 9604
+[17/Aug/2022 19:23:10] "OPTIONS /v1/home HTTP/1.1" 200 0
+[17/Aug/2022 19:23:10] "OPTIONS /v1/auth/refresh HTTP/1.1" 200 0
+Forbidden: /v1/auth/refresh
+[17/Aug/2022 19:23:10] "POST /v1/auth/refresh HTTP/1.1" 403 123
+[17/Aug/2022 19:23:10] "GET /v1/community/home HTTP/1.1" 200 1103
+[17/Aug/2022 19:23:10] "GET /v1/home HTTP/1.1" 200 17678
+Bad Request: /v1/user/signin
+[17/Aug/2022 19:23:57] "POST /v1/user/signin HTTP/1.1" 400 116
+[code_25_get_access] 시간 : 2022-08-17 10:24:13.839929, UID : 3 Access토큰 발급
+[code_47_get_refreshToken] 시간 : 2022-08-17 10:24:13.849179, UID : 3 갱신토큰 발급
+[17/Aug/2022 19:24:13] "POST /v1/user/signin HTTP/1.1" 200 767
+6개 갯수 =  0
+5,6개 갯수 =  2
+4,5,6개 갯수 =  13
+[code_25_get_access] 시간 : 2022-08-17 10:24:14.225116, UID : 3 Access토큰 발급
+[17/Aug/2022 19:24:14] "POST /v1/user/signin HTTP/1.1" 200 767
+[17/Aug/2022 19:24:14] "GET /v1/home HTTP/1.1" 200 49470
+6개 갯수 =  0
+5,6개 갯수 =  2
+4,5,6개 갯수 =  13
+[17/Aug/2022 19:24:14] "GET /v1/home HTTP/1.1" 200 49476
+Forbidden: /v1/auth/refresh
+[17/Aug/2022 19:24:18] "POST /v1/auth/refresh HTTP/1.1" 403 123
+[17/Aug/2022 19:24:18] "GET /v1/community/home HTTP/1.1" 200 1103
+[17/Aug/2022 19:24:18] "GET /v1/home HTTP/1.1" 200 17678
+[code_25_get_access] 시간 : 2022-08-17 10:24:18.382322, UID : 3 Access토큰 발급
+[17/Aug/2022 19:24:18] "POST /v1/user/signin HTTP/1.1" 200 767
+6개 갯수 =  0
+5,6개 갯수 =  2
+4,5,6개 갯수 =  13
+[17/Aug/2022 19:24:18] "OPTIONS /v1/user/signout HTTP/1.1" 200 0
+[17/Aug/2022 19:24:18] "GET /v1/home HTTP/1.1" 200 49474
+[17/Aug/2022 19:24:18] "POST /v1/user/signout HTTP/1.1" 200 53
+[17/Aug/2022 19:24:19] "GET /v1/home HTTP/1.1" 200 17678
+[code_25_get_access] 시간 : 2022-08-17 10:24:21.613971, UID : 3 Access토큰 발급
+[code_47_get_refreshToken] 시간 : 2022-08-17 10:24:21.624712, UID : 3 갱신토큰 발급
+[17/Aug/2022 19:24:21] "POST /v1/user/signin HTTP/1.1" 200 767
+6개 갯수 =  0
+5,6개 갯수 =  2
+4,5,6개 갯수 =  13
+[code_25_get_access] 시간 : 2022-08-17 10:24:21.954758, UID : 3 Access토큰 발급
+[17/Aug/2022 19:24:21] "POST /v1/user/signin HTTP/1.1" 200 767
+[17/Aug/2022 19:24:22] "GET /v1/home HTTP/1.1" 200 49416
+[17/Aug/2022 19:24:24] "GET /v1/community/home?count=6 HTTP/1.1" 200 1103
+[17/Aug/2022 19:24:25] "GET /v1/community/postlist/0?quantity=10&page=1 HTTP/1.1" 200 1033
+[17/Aug/2022 19:24:25] "OPTIONS /v1/community/postdetail/0/224 HTTP/1.1" 200 0
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjYwNzMyNDYxLCJVSUQiOjN9.Ph2xibUESalAVjAJuh2BOmWBluzNJwUOZkHMLnTPyEA
+[17/Aug/2022 19:24:25] "GET /v1/community/postdetail/0/224 HTTP/1.1" 200 977
+[17/Aug/2022 19:24:26] "GET /v1/community/postlist/0?quantity=10&page=1 HTTP/1.1" 200 1033
+[17/Aug/2022 19:24:31] "GET /v1/community/postlist/0?quantity=10&page=1 HTTP/1.1" 200 1033
+[code_64_re_generate_Token] 시간 : 2022-08-17 10:24:31.755538, UID : 3유효기간 남음
+Bad Request: /v1/auth/refresh
+[17/Aug/2022 19:24:31] "POST /v1/auth/refresh HTTP/1.1" 400 104
+[17/Aug/2022 19:24:31] "GET /v1/community/home HTTP/1.1" 200 1103
+6개 갯수 =  0
+5,6개 갯수 =  2
+4,5,6개 갯수 =  13
+[17/Aug/2022 19:24:32] "GET /v1/home HTTP/1.1" 200 49495
+[17/Aug/2022 19:24:32] "OPTIONS /v1/user/favoritebook/0 HTTP/1.1" 200 0
+[17/Aug/2022 19:24:32] "OPTIONS /v1/myprofile HTTP/1.1" 200 0
+[17/Aug/2022 19:24:32] "GET /v1/user/favoritebook/0 HTTP/1.1" 200 273
+[17/Aug/2022 19:24:32] "GET /v1/myprofile HTTP/1.1" 200 4546
+[17/Aug/2022 19:24:34] "GET /v1/user/favoritebook/0 HTTP/1.1" 200 273
+[17/Aug/2022 19:24:35] "OPTIONS /v1/community/postlist/3?quantity=10&page=1 HTTP/1.1" 200 0
+[17/Aug/2022 19:24:35] "GET /v1/community/postlist/3?quantity=10&page=1 HTTP/1.1" 200 2479
+[17/Aug/2022 19:24:35] "GET /v1/user/favoritebook/0 HTTP/1.1" 200 273
+[17/Aug/2022 19:24:35] "GET /v1/myprofile HTTP/1.1" 200 4546
+[code_64_re_generate_Token] 시간 : 2022-08-17 10:24:38.089603, UID : 3유효기간 남음
+Bad Request: /v1/auth/refresh
+[17/Aug/2022 19:24:38] "POST /v1/auth/refresh HTTP/1.1" 400 104
+[17/Aug/2022 19:24:38] "GET /v1/community/home HTTP/1.1" 200 1103
+6개 갯수 =  0
+5,6개 갯수 =  2
+4,5,6개 갯수 =  13
+[17/Aug/2022 19:24:38] "GET /v1/home HTTP/1.1" 200 49570
+[17/Aug/2022 19:54:11] "GET /swagger HTTP/1.1" 200 1643
+[17/Aug/2022 19:54:12] "GET /swagger HTTP/1.1" 200 1643
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1038857
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/url-polyfill.min.js HTTP/1.1" 200 6092
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 14715
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 200 143074
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 329649
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 329649
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/url-polyfill.min.js HTTP/1.1" 200 6092
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 14715
+[17/Aug/2022 19:54:12] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1038857
+[17/Aug/2022 19:54:13] "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+[17/Aug/2022 19:54:13] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 200 143074
+[17/Aug/2022 19:54:13] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[17/Aug/2022 19:54:13] "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+[17/Aug/2022 19:54:13] "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+[17/Aug/2022 19:54:13] "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 200 628
+[17/Aug/2022 19:54:13] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[17/Aug/2022 19:54:13] "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 200 628
+[17/Aug/2022 19:54:14] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[17/Aug/2022 19:54:14] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[17/Aug/2022 19:54:21] "GET /swagger HTTP/1.1" 200 1643
+[17/Aug/2022 19:54:21] "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+[17/Aug/2022 19:54:21] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 200 143074
+[17/Aug/2022 19:54:21] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1038857
+[17/Aug/2022 19:54:21] "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 329649
+[17/Aug/2022 19:54:22] "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 14715
+[17/Aug/2022 19:54:22] "GET /static/drf-yasg/url-polyfill.min.js HTTP/1.1" 200 6092
+[17/Aug/2022 19:54:22] "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+[17/Aug/2022 19:54:22] "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+[17/Aug/2022 19:54:22] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[17/Aug/2022 19:54:22] "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 200 628
+[17/Aug/2022 19:54:23] "GET /swagger?format=openapi HTTP/1.1" 200 53949
+[17/Aug/2022 20:37:44] code 400, message Bad HTTP/0.9 request type ("\x03\x00\x00,'à\x00\x00\x00\x00\x00Cookie:")
+[17/Aug/2022 20:37:44] "  ,'à     Cookie: mstshash=eltons" 400 -
+[17/Aug/2022 20:37:51] code 400, message Bad request version ('0.12\x00\x02\x00')
+[17/Aug/2022 20:37:51] "   1ÿSMBr                            NT LM 0.12  " 400 -
+[17/Aug/2022 20:37:55] code 400, message Bad request syntax ('\x00\x00\x00nþSMB@\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00$\x00\x04\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x02\x10\x02\x00\x03\x02\x03\x11\x03')
+[17/Aug/2022 20:37:55] "   nþSMB@                                                           $                                  " 400 -
+[17/Aug/2022 20:38:01] code 400, message Bad HTTP/0.9 request type ('\x12\x01\x00\x1a\x00\x00\x00\x00\x00\x00')
+[17/Aug/2022 20:38:01] "          ÿ U  " 400 -
+Not Found: /
+[17/Aug/2022 20:38:06] "GET / HTTP/1.1" 404 2595
+Not Found: /
+[18/Aug/2022 04:42:19] "GET / HTTP/1.1" 404 2595
+[18/Aug/2022 04:42:20] code 505, message Invalid HTTP version (2.0)
+[18/Aug/2022 04:42:20] "PRI * HTTP/2.0" 505 -
+Not Found: /
+[18/Aug/2022 07:33:15] "HEAD / HTTP/1.0" 404 2593
+Not Found: /system_api.php
+[18/Aug/2022 07:33:17] "GET /system_api.php HTTP/1.1" 404 2655
+Not Found: /c/version.js
+[18/Aug/2022 07:33:19] "GET /c/version.js HTTP/1.1" 404 2649
+Not Found: /streaming/clients_live.php
+[18/Aug/2022 07:33:22] "GET /streaming/clients_live.php HTTP/1.1" 404 2691
+Not Found: /stalker_portal/c/version.js
+[18/Aug/2022 07:33:25] "GET /stalker_portal/c/version.js HTTP/1.1" 404 2694
+Not Found: /stream/live.php
+[18/Aug/2022 07:33:27] "GET /stream/live.php HTTP/1.1" 404 2658
+Not Found: /flu/403.html
+[18/Aug/2022 07:33:30] "GET /flu/403.html HTTP/1.1" 404 2649
+Not Found: /
+[18/Aug/2022 07:33:32] "GET / HTTP/1.1" 404 2595

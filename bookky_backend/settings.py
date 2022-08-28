@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from . import dbsetting, emailsetting
 import os
+import firebase_admin
+from firebase_admin import credentials
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,11 +65,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_db_views',
     'rest_framework',
     'drf_yasg',
     'bookky',
 ]
-
+cred_path = os.path.join(BASE_DIR, "seniorproject-bookky-firebase-adminsdk-b1s48-35524abba7.json")
+print(cred_path)
+cred = credentials.Certificate(cred_path)
+firebase_admin.initialize_app(cred)
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -103,7 +109,7 @@ TEMPLATES = [
         },
     },
 ]
-
+ASGI_APPLICATION = 'bookky_backend.asgi.application'
 WSGI_APPLICATION = 'bookky_backend.wsgi.application'
 
 
@@ -130,7 +136,7 @@ SWAGGER_SETTINGS = {
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -151,9 +157,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = emailsetting.EMAIL_BACKEND
-EMAIL_HOST = emailsetting.EMAIL_HOST
-EMAIL_USE_TLS = emailsetting.EMAIL_USE_TLS
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_USE_TLS = True
 EMAIL_PORT = emailsetting.EMAIL_PORT
 EMAIL_HOST_USER = emailsetting.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = emailsetting.EMAIL_HOST_PASSWORD

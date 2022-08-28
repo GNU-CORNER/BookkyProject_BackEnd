@@ -59,12 +59,19 @@ def get_refreshToken(uid):
             print("[code_47_get_refreshToken] 시간 : " + str(datetime.datetime.utcnow())+", UID : "+str(uid)+" 오류 : "+ authSerializer.errors)
             return 500
     else:
-        refresh_token = jwtEncoder(None,2)
-        tempQuery = RefreshTokenStorage.objects.get(UID = uid)
-        tempQuery.refresh_token = refresh_token
-        tempQuery.save()
-        print("[code_47_get_refreshToken] 시간 : " + str(datetime.datetime.utcnow())+", UID : "+str(uid)+" 갱신토큰 발급") #로그 처리
+        try:
+            data = jwtDecoder(tempData[0].refresh_token)
+            if data['token_type'] == "refresh_token":
+                return tempData[0].refresh_token
+        except jwt.ExpiredSignatureError:
+            refresh_token = jwtEncoder(None,2)
+            tempQuery = RefreshTokenStorage.objects.get(UID = uid)
+            tempQuery.refresh_token = refresh_token
+            tempQuery.save()
+            print("[code_47_get_refreshToken] 시간 : " + str(datetime.datetime.utcnow())+", UID : "+str(uid)+" 갱신토큰 발급") #로그 처리
         return refresh_token
+        
+
     
 #AT토큰 갱신
 def re_generate_Token(request):
