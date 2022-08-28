@@ -1,5 +1,5 @@
 from django.urls import path
-from bookky.views import views, userviews, bookviews, socialview, userfunctionviews, communityviews, reviewviews, uploadView,recommendview
+from bookky.views import views, userviews, bookviews, socialview, userfunctionviews, communityviews, reviewviews, uploadView, recommendview, userReport, pushsystem
 from rest_framework import permissions
 
 #url(r'^pnsApp/(?P<slug>[-a-zA-Z0-9_]+)$', views.pns_detail),
@@ -19,6 +19,8 @@ urlpatterns = [ #POST형식으로 바꿔야함
     path('user/myreview',userfunctionviews.getUserReview),
     path('user/myprofile',userfunctionviews.updateUserProfile_nickname),
     path('user/mypost',userfunctionviews.getUserPost),
+    path('user/push/registration', userviews.registPush),
+    path('user/push/check', userviews.checkPush),
     path('books/detail/<slug:slug>', bookviews.book), #GET
     path('books/tag/<slug:slug>',bookviews.getBooksByTag),
     path('books/reviews/<int:pk>',reviewviews.bookReviews),
@@ -44,5 +46,6 @@ urlpatterns = [ #POST형식으로 바꿔야함
     path('community/post/book', bookviews.communityAddBooks),
     path('community/modifycomment/<slug:slug>',communityviews.modifyCommunityComment), # PUT
     path('community/likecomment/<slug:slug1>/<slug:slug2>',communityviews.commentLike), # POST
-    
+    path('community/report', userReport.userReport),
+    path('report', userReport.printReport)
 ]

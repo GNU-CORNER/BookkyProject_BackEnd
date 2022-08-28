@@ -28,12 +28,7 @@ import os
 #         print(fileupload)
 #         print(type(img))
 #         fileupload.save()
-
-        
-
 #         return JsonResponse({"success":True})
-
-
 
 @api_view(['POST'])
 def userThumbnailPost(request):

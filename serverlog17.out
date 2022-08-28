@@ -1,0 +1,663 @@
+/home/hyeok/dev/BookkyProject_BackEnd
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+July 16, 2022 - 16:03:56
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting ASGI/Channels version 3.0.5 development server at http://0:8002/
+Quit the server with CONTROL-C.
+HTTP GET /swagger 200 [0.01, 223.39.201.157:45675]
+HTTP GET /swagger?format=openapi 200 [0.07, 223.39.201.157:63089]
+HTTP GET /swagger?format=openapi 200 [0.02, 44.196.175.104:41990]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.01, 35.85.146.186:59257]
+Not Found: /robots.txt
+HTTP GET /robots.txt 404 [0.01, 66.249.66.8:59374]
+Not Found: /v1/
+HTTP GET /v1/?p=1506 404 [0.01, 66.249.66.148:38265]
+Not Found: /v1/
+HTTP GET /v1/?tag=%E5%8C%97%E4%BA%AC%E5%93%AA%E4%B8%AA%E5%9B%A2%E8%B4%AD%E7%BD%91%E5%A5%BD 404 [0.01, 66.249.66.148:40947]
+HTTP OPTIONS /v1/home 200 [0.01, 220.77.42.208:4225]
+HTTP OPTIONS /v1/auth/refresh 200 [0.01, 220.77.42.208:4226]
+HTTP GET /v1/community/home 200 [0.02, 220.77.42.208:4227]
+Forbidden: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 403 [0.00, 220.77.42.208:4226]
+HTTP GET /v1/home 200 [0.12, 220.77.42.208:4225]
+[code_25_get_access] 시간 : 2022-07-16 16:27:12.050562, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.21, 220.77.42.208:4225]
+[code_25_get_access] 시간 : 2022-07-16 16:27:12.430508, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.24, 220.77.42.208:4225]
+6개 갯수 =  0
+5,6개 갯수 =  2
+4,5,6개 갯수 =  13
+HTTP GET /v1/home 200 [0.53, 220.77.42.208:4226]
+HTTP OPTIONS /v1/books/detail/3957 200 [0.01, 220.77.42.208:4226]
+HTTP OPTIONS /v1/books/reviews/3957 200 [0.01, 220.77.42.208:4225]
+[code_25_get_access] 시간 : 2022-07-16 16:27:16.280587, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.21, 220.77.42.208:4225]
+HTTP GET /v1/books/detail/3957 200 [0.06, 220.77.42.208:4225]
+6개 갯수 =  0
+5,6개 갯수 =  2
+4,5,6개 갯수 =  13
+HTTP GET /v1/home 200 [0.32, 220.77.42.208:4225]
+HTTP GET /v1/community/home 200 [0.02, 220.77.42.208:4227]
+[code_64_re_generate_Token] 시간 : 2022-07-16 16:27:17.107998, UID : 3유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.03, 220.77.42.208:4226]
+HTTP GET /v1/community/home?count=6 200 [0.02, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.02, 220.77.42.208:4225]
+HTTP OPTIONS /v1/community/postdetail/0/196 200 [0.00, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/196 200 [0.05, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.02, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/196 200 [0.01, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.02, 220.77.42.208:4225]
+HTTP OPTIONS /v1/community/postdetail/0/195 200 [0.00, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/195 200 [0.02, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.02, 220.77.42.208:4225]
+HTTP OPTIONS /v1/community/postdetail/0/193 200 [0.00, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/193 200 [0.02, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.02, 220.77.42.208:4225]
+HTTP OPTIONS /v1/community/postdetail/0/174 200 [0.00, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/174 200 [0.01, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.06, 220.77.42.208:4225]
+HTTP OPTIONS /v1/community/postdetail/0/192 200 [0.00, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/192 200 [0.03, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.06, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/196 200 [0.01, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.04, 220.77.42.208:4225]
+HTTP OPTIONS /v1/community/postdetail/0/191 200 [0.00, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/191 200 [0.02, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.02, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/191 200 [0.01, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.05, 220.77.42.208:4225]
+HTTP OPTIONS /v1/community/postdetail/0/100 200 [0.00, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/100 200 [0.04, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.01, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/191 200 [0.01, 220.77.42.208:4225]
+HTTP OPTIONS /v1/community/modifypost/0 200 [0.00, 220.77.42.208:4225]
+HTTP PUT /v1/community/modifypost/0 200 [0.02, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/191 200 [0.02, 220.77.42.208:4225]
+HTTP GET /v1/community/hotcommunity?quantity=10&page=1 200 [0.02, 220.77.42.208:4225]
+HTTP GET /v1/community/home?count=6 200 [0.06, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.02, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/191 200 [0.02, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.02, 220.77.42.208:4225]
+HTTP GET /v1/community/hotcommunity?quantity=10&page=1 200 [0.02, 220.77.42.208:4225]
+HTTP OPTIONS /v1/community/postdetail/0/120 200 [0.00, 220.77.42.208:4225]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTg5NDM2LCJVSUQiOjN9.ZuCGEtADeYGywcza1eqSSFYDiLTpR7uFUDQel8KkABw
+HTTP GET /v1/community/postdetail/0/120 200 [0.03, 220.77.42.208:4225]
+HTTP GET /v1/community/home?count=6 200 [0.02, 220.77.42.208:4225]
+HTTP GET /v1/community/postlist/0?quantity=10&page=1 200 [0.02, 220.77.42.208:4225]
+[code_25_get_access] 시간 : 2022-07-16 16:28:43.708990, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.19, 220.77.42.208:4225]
+[code_25_get_access] 시간 : 2022-07-16 16:28:52.902395, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.19, 220.77.42.208:4225]
+6개 갯수 =  0
+5,6개 갯수 =  2
+4,5,6개 갯수 =  13
+HTTP GET /v1/home 200 [0.32, 220.77.42.208:4225]
+[code_64_re_generate_Token] 시간 : 2022-07-16 16:28:58.970575, UID : 3유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.25, 220.77.42.208:4376]
+HTTP GET /v1/community/home 200 [0.26, 220.77.42.208:4377]
+HTTP OPTIONS /v1/books/reviews/2087 200 [0.00, 220.77.42.208:4377]
+HTTP OPTIONS /v1/books/detail/2087 200 [0.00, 220.77.42.208:4225]
+HTTP GET /v1/books/detail/2087 200 [0.03, 220.77.42.208:4225]
+HTTP GET /v1/books/reviews/2087 204 [0.03, 220.77.42.208:4377]
+[code_25_get_access] 시간 : 2022-07-16 16:29:43.924760, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.20, 220.77.42.208:4225]
+HTTP GET /v1/books/detail/2087 200 [0.04, 220.77.42.208:4225]
+[code_25_get_access] 시간 : 2022-07-16 16:31:39.237565, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.21, 220.77.42.208:4551]
+HTTP GET /v1/books/detail/2087 200 [0.03, 220.77.42.208:4551]
+[code_25_get_access] 시간 : 2022-07-16 16:33:14.552467, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.20, 220.77.42.208:4675]
+HTTP GET /v1/books/detail/2087 200 [0.06, 220.77.42.208:4675]
+[code_25_get_access] 시간 : 2022-07-16 16:33:22.300236, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.20, 220.77.42.208:4675]
+HTTP GET /v1/books/detail/2087 200 [0.07, 220.77.42.208:4675]
+[code_25_get_access] 시간 : 2022-07-16 16:34:39.942935, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.20, 220.77.42.208:4831]
+HTTP GET /v1/books/detail/2087 200 [0.03, 220.77.42.208:4831]
+[code_25_get_access] 시간 : 2022-07-16 16:35:56.882150, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.19, 220.77.42.208:4914]
+HTTP GET /v1/books/detail/2087 200 [0.05, 220.77.42.208:4914]
+[code_25_get_access] 시간 : 2022-07-16 16:37:46.149145, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.21, 220.77.42.208:5031]
+HTTP GET /v1/books/detail/2087 200 [0.07, 220.77.42.208:5031]
+[code_25_get_access] 시간 : 2022-07-16 16:37:55.517927, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.19, 220.77.42.208:5031]
+HTTP GET /v1/books/detail/2087 200 [0.07, 220.77.42.208:5031]
+HTTP GET /v1/community/home?count=6 200 [0.02, 220.77.42.208:5031]
+HTTP GET /v1/community/home?count=6 200 [0.02, 220.77.42.208:5165]
+[code_25_get_access] 시간 : 2022-07-16 16:39:29.793059, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.24, 220.77.42.208:5165]
+HTTP GET /v1/community/home?count=6 200 [0.02, 220.77.42.208:5165]
+[code_25_get_access] 시간 : 2022-07-16 16:39:33.002812, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.20, 220.77.42.208:5164]
+HTTP GET /v1/community/home?count=6 200 [0.02, 220.77.42.208:5164]
+[code_25_get_access] 시간 : 2022-07-16 16:39:56.851825, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.20, 220.77.42.208:5165]
+HTTP GET /v1/community/home?count=6 200 [0.02, 220.77.42.208:5377]
+[code_25_get_access] 시간 : 2022-07-16 16:42:57.378701, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.20, 220.77.42.208:5378]
+HTTP GET /v1/community/home?count=6 200 [0.02, 220.77.42.208:5378]
+[code_25_get_access] 시간 : 2022-07-16 16:43:02.292202, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.19, 220.77.42.208:5377]
+HTTP OPTIONS /v1/community/postdetail/2/19 200 [0.00, 220.77.42.208:5377]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTkwMzgyLCJVSUQiOjN9.6n7i3Pr7fDkPGXVEfBx08EaaNu7AhmImtkrZ0G3B0G8
+HTTP GET /v1/community/postdetail/2/19 200 [0.02, 220.77.42.208:5377]
+[code_25_get_access] 시간 : 2022-07-16 16:43:14.129977, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.21, 220.77.42.208:5377]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTkwMzk0LCJVSUQiOjN9._NNNsqfIqJRIsHtCyPDi-18EWSQKzM5EKso-dIpJqTg
+HTTP GET /v1/community/postdetail/2/19 200 [0.01, 220.77.42.208:5377]
+[code_25_get_access] 시간 : 2022-07-16 16:43:17.490868, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.19, 220.77.42.208:5377]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTkwMzk3LCJVSUQiOjN9.ABT1GqJczbEjOioYCE5FSh_HDlaf6K3cI14Iicz0XK0
+HTTP GET /v1/community/postdetail/2/19 200 [0.01, 220.77.42.208:5377]
+[code_25_get_access] 시간 : 2022-07-16 16:43:18.706755, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.19, 220.77.42.208:5377]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTkwMzk4LCJVSUQiOjN9.d5LCk-QmOeD7JUXqiUt5QX0keWk1qt8tJtfPbPvMKWQ
+HTTP GET /v1/community/postdetail/2/19 200 [0.01, 220.77.42.208:5377]
+[code_25_get_access] 시간 : 2022-07-16 16:43:20.708689, UID : 3 Access토큰 발급
+HTTP POST /v1/user/signin 200 [0.21, 220.77.42.208:5377]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU3OTkwNDAwLCJVSUQiOjN9.sBnYqtlAxxTbhecq5eeJcheAAmQnd4ChE5zXPALYRzA
+HTTP GET /v1/community/postdetail/2/19 200 [0.01, 220.77.42.208:5377]
+Not Found: /v1/wp-content/uploads/2011/06/0430340366480_1520.pdf
+HTTP GET /v1/wp-content/uploads/2011/06/0430340366480_1520.pdf 404 [0.01, 66.249.66.72:64237]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.01, 34.66.247.6:33492]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.01, 124.135.253.18:63734]
+HTTP GET /v1/robots.txt 301 [0.00, 54.36.149.99:55981]
+HTTP GET /v1/robots.txt/ 200 [0.01, 54.36.149.99:27227]
+Not Found: /
+HTTP GET / 404 [0.01, 88.80.186.144:38818]
+Not Found: /
+HTTP OPTIONS / 404 [0.04, 88.80.186.144:39332]
+Not Found: /
+HTTP OPTIONS / 404 [0.01, 88.80.186.144:39828]
+Not Found: /nice ports,/Trinity.txt.bak
+HTTP GET /nice%20ports%2C/Tri%6Eity.txt%2ebak 404 [0.01, 88.80.186.144:40274]
+Not Found: sip:nm
+HTTP OPTIONS sip:nm 404 [0.01, 88.80.186.144:41232]
+Not Found: *
+HTTP OPTIONS * 404 [0.00, 88.80.186.144:56128]
+Not Found: /
+HTTP GET / 404 [0.01, 88.80.186.144:56130]
+Not Found: /
+HTTP GET / 404 [0.01, 185.220.101.138:14502]
+Not Found: /
+HTTP GET / 404 [0.01, 167.94.138.62:54836]
+Not Found: /
+HTTP GET / 404 [0.01, 167.94.138.62:44888]
+Not Found: *
+HTTP PRI * 404 [0.01, 167.94.138.62:56912]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:06:29.560742, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-07-18 10:06:29.560859, UID : 4 Access토큰 발급
+HTTP POST /v1/auth/refresh 200 [0.01, 211.251.2.210:49986]
+Unauthorized: /v1/home
+HTTP GET /v1/home 401 [0.00, 211.251.2.210:49987]
+HTTP GET /v1/myprofile 200 [0.07, 211.251.2.210:49991]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:49995]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:06:41.173851, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.04, 211.251.2.210:49998]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.22, 211.251.2.210:49999]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50001]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50002]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTM5Mzg5LCJVSUQiOjR9.Ekwe0dJIeAXjomfOBOTwtQpa6vpcXjMAMf7Saj_BPqo
+HTTP GET /v1/community/postdetail/2/69 200 [0.01, 211.251.2.210:50003]
+HTTP GET /v1/community/comment/2/70 200 [0.01, 211.251.2.210:50033]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTM5Mzg5LCJVSUQiOjR9.Ekwe0dJIeAXjomfOBOTwtQpa6vpcXjMAMf7Saj_BPqo
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50036]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:07:35.114883, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.03, 211.251.2.210:50040]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.26, 211.251.2.210:50041]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.02, 211.251.2.210:50043]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50044]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTM5Mzg5LCJVSUQiOjR9.Ekwe0dJIeAXjomfOBOTwtQpa6vpcXjMAMf7Saj_BPqo
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50045]
+HTTP GET /v1/community/comment/2/70 200 [0.01, 211.251.2.210:50046]
+HTTP POST /v1/community/writecomment/2 200 [0.03, 211.251.2.210:50047]
+HTTP GET /v1/community/comment/2/70 200 [0.01, 211.251.2.210:50049]
+HTTP GET /v1/community/comment/2/70 200 [0.02, 211.251.2.210:50048]
+HTTP GET /v1/community/comment/2/70 200 [0.01, 211.251.2.210:50056]
+HTTP POST /v1/community/writecomment/2 200 [0.04, 211.251.2.210:50057]
+HTTP GET /v1/community/comment/2/70 200 [0.01, 211.251.2.210:50058]
+HTTP GET /v1/community/comment/2/70 200 [0.01, 211.251.2.210:50059]
+HTTP PUT /v1/community/modifycomment/2 200 [0.02, 211.251.2.210:50061]
+HTTP GET /v1/community/comment/2/70 200 [0.02, 211.251.2.210:50062]
+HTTP GET /v1/community/comment/2/70 200 [0.01, 211.251.2.210:50063]
+HTTP PUT /v1/community/modifycomment/2 200 [0.05, 211.251.2.210:50064]
+HTTP GET /v1/community/comment/2/70 200 [0.01, 211.251.2.210:50065]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTM5Mzg5LCJVSUQiOjR9.Ekwe0dJIeAXjomfOBOTwtQpa6vpcXjMAMf7Saj_BPqo
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50066]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:17:41.429889, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-07-18 10:17:41.429989, UID : 4 Access토큰 발급
+HTTP POST /v1/auth/refresh 200 [0.02, 211.251.2.210:50090]
+Unauthorized: /v1/home
+HTTP GET /v1/home 401 [0.00, 211.251.2.210:50091]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:20:33.885615, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.01, 211.251.2.210:50193]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.24, 211.251.2.210:50194]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.02, 211.251.2.210:50197]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.09, 211.251.2.210:50204]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQwMDYxLCJVSUQiOjR9.LzBCDFx9kBdLnQF2bP-ldAieNelACFZsY0sqeqn5e4k
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50206]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50212]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.02, 211.251.2.210:50213]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQwMDYxLCJVSUQiOjR9.LzBCDFx9kBdLnQF2bP-ldAieNelACFZsY0sqeqn5e4k
+HTTP GET /v1/community/postdetail/0/191 200 [0.02, 211.251.2.210:50214]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50216]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.02, 211.251.2.210:50222]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQwMDYxLCJVSUQiOjR9.LzBCDFx9kBdLnQF2bP-ldAieNelACFZsY0sqeqn5e4k
+HTTP GET /v1/community/postdetail/0/191 200 [0.01, 211.251.2.210:50241]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50246]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:39:01.986128, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-07-18 10:39:01.986313, UID : 4 Access토큰 발급
+HTTP POST /v1/auth/refresh 200 [0.01, 211.251.2.210:50336]
+Unauthorized: /v1/home
+HTTP GET /v1/home 401 [0.00, 211.251.2.210:50337]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.07, 211.251.2.210:50360]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.09, 211.251.2.210:50364]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxMzQxLCJVSUQiOjR9.eahuV_Rurn94G9qScx1ZLGlndhO1XPm8DbtbCQ_HNYE
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50366]
+HTTP GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC 200 [0.36, 211.251.2.210:50367]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:42:27.922834, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.02, 211.251.2.210:50373]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.21, 211.251.2.210:50374]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50376]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50377]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxMzQxLCJVSUQiOjR9.eahuV_Rurn94G9qScx1ZLGlndhO1XPm8DbtbCQ_HNYE
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50378]
+HTTP GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC 200 [0.32, 211.251.2.210:50379]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:44:02.285599, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.01, 211.251.2.210:50382]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.21, 211.251.2.210:50383]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50385]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50387]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxMzQxLCJVSUQiOjR9.eahuV_Rurn94G9qScx1ZLGlndhO1XPm8DbtbCQ_HNYE
+HTTP GET /v1/community/postdetail/2/69 200 [0.04, 211.251.2.210:50388]
+HTTP GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC 200 [0.32, 211.251.2.210:50389]
+HTTP GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC 200 [0.32, 211.251.2.210:50390]
+HTTP GET /v1/.env 301 [0.00, 20.38.45.151:55128]
+HTTP GET /v1/.env/ 200 [0.01, 20.38.45.151:55128]
+HTTP GET /v1/xmlrpc.php 301 [0.00, 20.38.45.151:60967]
+HTTP GET /v1/xmlrpc.php/ 200 [0.01, 20.38.45.151:60967]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:47:46.742180, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.03, 211.251.2.210:50397]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.20, 211.251.2.210:50398]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.04, 211.251.2.210:50401]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.09, 211.251.2.210:50402]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxMzQxLCJVSUQiOjR9.eahuV_Rurn94G9qScx1ZLGlndhO1XPm8DbtbCQ_HNYE
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50403]
+HTTP GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC 200 [0.32, 211.251.2.210:50404]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:49:52.846616, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-07-18 10:49:52.846715, UID : 4 Access토큰 발급
+HTTP POST /v1/auth/refresh 200 [0.02, 211.251.2.210:50406]
+Unauthorized: /v1/home
+HTTP GET /v1/home 401 [0.00, 211.251.2.210:50407]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50408]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.09, 211.251.2.210:50410]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50411]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:50:45.598587, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.02, 211.251.2.210:50412]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.20, 211.251.2.210:50413]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.07, 211.251.2.210:50415]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/0/191 200 [0.01, 211.251.2.210:50416]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50418]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50419]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50422]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:53:03.677952, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.02, 211.251.2.210:50425]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.20, 211.251.2.210:50426]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50428]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.03, 211.251.2.210:50429]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50430]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:53:29.046118, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.02, 211.251.2.210:50431]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.20, 211.251.2.210:50432]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.07, 211.251.2.210:50434]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50435]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50436]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:54:01.738492, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.03, 211.251.2.210:50437]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.21, 211.251.2.210:50438]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50440]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50441]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50442]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50444]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50445]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:54:41.691270, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.02, 211.251.2.210:50448]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.24, 211.251.2.210:50449]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:54:57.862034, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.01, 211.251.2.210:50451]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.21, 211.251.2.210:50452]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.07, 211.251.2.210:50454]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.08, 211.251.2.210:50460]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50461]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50462]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:57:22.077472, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.01, 211.251.2.210:50479]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.20, 211.251.2.210:50480]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50482]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50483]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50484]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:57:53.784430, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.01, 211.251.2.210:50485]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.21, 211.251.2.210:50486]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50488]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.06, 211.251.2.210:50489]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50490]
+[code_64_re_generate_Token] 시간 : 2022-07-18 10:58:12.263773, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.02, 211.251.2.210:50491]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.19, 211.251.2.210:50492]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50494]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/0/191 200 [0.01, 211.251.2.210:50495]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50497]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50498]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.09, 211.251.2.210:50499]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQxOTkyLCJVSUQiOjR9.Gq5J1Iapggwz9F_j-ipIzFmifwJtHBrr6rVlCA7QxdU
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50500]
+[code_64_re_generate_Token] 시간 : 2022-07-18 11:01:43.414380, UID : 4 토큰 재발급
+[code_25_get_access] 시간 : 2022-07-18 11:01:43.414956, UID : 4 Access토큰 발급
+HTTP POST /v1/auth/refresh 200 [0.03, 211.251.2.210:50508]
+Unauthorized: /v1/home
+HTTP GET /v1/home 401 [0.00, 211.251.2.210:50509]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.04, 211.251.2.210:50510]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.09, 211.251.2.210:50511]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQyNzAzLCJVSUQiOjR9.wDNEEwtihobp-aU-QWAo9lmG5io9IcE32dBshhRb7Yo
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50512]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.21, 211.251.2.210:50582]
+[code_64_re_generate_Token] 시간 : 2022-07-18 11:05:50.936132, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.22, 211.251.2.210:50581]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.03, 211.251.2.210:50584]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50585]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQyNzAzLCJVSUQiOjR9.wDNEEwtihobp-aU-QWAo9lmG5io9IcE32dBshhRb7Yo
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50586]
+[code_64_re_generate_Token] 시간 : 2022-07-18 11:06:09.865003, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.01, 211.251.2.210:50587]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.20, 211.251.2.210:50588]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.07, 211.251.2.210:50590]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.09, 211.251.2.210:50591]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQyNzAzLCJVSUQiOjR9.wDNEEwtihobp-aU-QWAo9lmG5io9IcE32dBshhRb7Yo
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50592]
+HTTP GET /v1/community/post/book?keyword=%ED%8C%8C%EC%9D%B4%EC%8D%AC 200 [0.31, 211.251.2.210:50593]
+HTTP POST /v1/community/writepost/2 201 [0.02, 211.251.2.210:50595]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQyNzAzLCJVSUQiOjR9.wDNEEwtihobp-aU-QWAo9lmG5io9IcE32dBshhRb7Yo
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50596]
+[code_64_re_generate_Token] 시간 : 2022-07-18 11:08:05.617382, UID : 4유효기간 남음
+Bad Request: /v1/auth/refresh
+HTTP POST /v1/auth/refresh 400 [0.03, 211.251.2.210:50601]
+6개 갯수 =  0
+5,6개 갯수 =  0
+4,5,6개 갯수 =  0
+HTTP GET /v1/home 200 [0.23, 211.251.2.210:50602]
+HTTP GET /v1/community/postlist/0?page=1 200 [0.02, 211.251.2.210:50604]
+HTTP GET /v1/community/postlist/2?page=1 200 [0.04, 211.251.2.210:50605]
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNjU4MTQyNzAzLCJVSUQiOjR9.wDNEEwtihobp-aU-QWAo9lmG5io9IcE32dBshhRb7Yo
+HTTP GET /v1/community/postdetail/2/69 200 [0.02, 211.251.2.210:50606]
+Not Found: /
+HTTP GET / 404 [0.01, 206.189.87.0:61953]
+HTTP GET /v1/robots.txt 301 [0.00, 40.77.167.97:34560]
+HTTP GET /v1/robots.txt/ 200 [0.01, 40.77.167.97:34560]
+Not Found: /robots.txt
+HTTP GET /robots.txt 404 [0.01, 207.46.13.230:44928]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.01, 40.77.167.30:1344]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.02, 147.78.47.233:59304]
+HTTP GET /v1/wp-login.php 301 [0.00, 147.78.47.233:34214]
+HTTP GET /v1/wp-login.php/ 200 [0.01, 147.78.47.233:37568]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.01, 154.218.91.2:60534]
+HTTP GET /v1/robots.txt 301 [0.00, 93.158.91.205:10919]
+HTTP GET /v1/robots.txt/ 200 [0.01, 93.158.91.231:2855]
+HTTP GET /v1/humans.txt 301 [0.00, 93.158.91.208:7353]
+HTTP GET /v1/humans.txt/ 200 [0.01, 93.158.91.228:14351]
+HTTP GET /v1/ads.txt 301 [0.00, 93.158.91.230:57501]
+HTTP GET /v1/ads.txt/ 200 [0.01, 93.158.91.205:26495]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.01, 93.158.91.206:14307]
+Not Found: /
+HTTP GET / 404 [0.01, 162.142.125.213:38810]
+Not Found: *
+HTTP PRI * 404 [0.01, 162.142.125.213:54946]
+HTTP GET /v1/.env 301 [0.00, 20.38.40.48:61045]
+HTTP GET /v1/.env/ 200 [0.01, 20.38.40.48:61045]
+HTTP GET /v1/xmlrpc.php 301 [0.00, 20.38.40.48:61090]
+HTTP GET /v1/xmlrpc.php/ 200 [0.01, 20.38.40.48:61090]
+HTTP GET /v1/wp-login.php 301 [0.00, 103.42.58.102:38282]
+HTTP GET /v1/wp-login.php/ 200 [0.01, 103.42.58.102:38326]
+HTTP GET /v1/robots.txt 301 [0.00, 40.77.167.97:35648]
+HTTP GET /v1/robots.txt/ 200 [0.01, 40.77.167.97:35648]
+Not Found: /robots.txt
+HTTP GET /robots.txt 404 [0.01, 157.55.39.86:58560]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.01, 40.77.167.30:3264]
+Not Found: /
+HTTP GET / 404 [0.00, 185.220.101.149:22860]
+Not Found: /
+HTTP HEAD / 404 [0.01, 159.223.59.153:36724]
+Not Found: /system_api.php
+HTTP GET /system_api.php 404 [0.01, 159.223.59.153:36892]
+Not Found: /c/version.js
+HTTP GET /c/version.js 404 [0.01, 159.223.59.153:37194]
+Not Found: /streaming/clients_live.php
+HTTP GET /streaming/clients_live.php 404 [0.01, 159.223.59.153:37524]
+Not Found: /stalker_portal/c/version.js
+HTTP GET /stalker_portal/c/version.js 404 [0.01, 159.223.59.153:37832]
+Not Found: /stream/live.php
+HTTP GET /stream/live.php 404 [0.01, 159.223.59.153:38102]
+Not Found: /flu/403.html
+HTTP GET /flu/403.html 404 [0.01, 159.223.59.153:38346]
+Not Found: /
+HTTP GET / 404 [0.01, 159.223.59.153:38572]
+/usr/lib/python3/dist-packages/jwt/algorithms.py changed, reloading.
+/home/hyeok/dev/BookkyProject_BackEnd
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+July 21, 2022 - 15:03:32
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting ASGI/Channels version 3.0.5 development server at http://0:8002/
+Quit the server with CONTROL-C.
+HTTP GET /swagger 200 [0.02, 220.77.42.208:12254]
+HTTP GET /static/drf-yasg/style.css 200 [0.00, 220.77.42.208:12254]
+HTTP GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css 200 [0.00, 220.77.42.208:12256]
+HTTP GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js 200 [0.01, 220.77.42.208:12254]
+HTTP GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js 200 [0.01, 220.77.42.208:12259]
+HTTP GET /static/drf-yasg/immutable.min.js 200 [0.01, 220.77.42.208:12257]
+HTTP GET /static/drf-yasg/insQ.min.js 200 [0.02, 220.77.42.208:12258]
+HTTP GET /static/drf-yasg/url-polyfill.min.js 200 [0.01, 220.77.42.208:12258]
+HTTP GET /static/drf-yasg/swagger-ui-init.js 200 [0.00, 220.77.42.208:12258]
+HTTP GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png 200 [0.01, 220.77.42.208:12258]
+HTTP GET /swagger?format=openapi 200 [0.03, 220.77.42.208:12258]
+HTTP GET /swagger 200 [0.01, 172.226.94.45:47603]
+HTTP GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css 200 [0.00, 172.226.94.45:47603]
+HTTP GET /static/drf-yasg/style.css 200 [0.00, 172.226.94.45:48802]
+HTTP GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js 200 [0.00, 172.226.94.45:50133]
+HTTP GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js 200 [0.00, 172.226.94.45:49106]
+HTTP GET /static/drf-yasg/immutable.min.js 200 [0.01, 172.226.94.45:45345]
+HTTP GET /static/drf-yasg/insQ.min.js 200 [0.01, 172.226.94.45:51058]
+HTTP GET /static/drf-yasg/url-polyfill.min.js 200 [0.02, 172.226.94.45:48802]
+HTTP GET /static/drf-yasg/swagger-ui-init.js 200 [0.00, 172.226.94.45:47603]
+HTTP GET /swagger?format=openapi 200 [0.02, 172.226.94.45:48802]
+HTTP GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png 200 [0.00, 172.226.94.45:46001]
+HTTP GET /swagger 200 [0.01, 220.77.42.208:12312]
+HTTP GET /swagger?format=openapi 200 [0.06, 220.77.42.208:12312]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.01, 5.188.62.26:62800]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.01, 54.191.12.122:37401]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.01, 185.181.60.189:57580]
+HTTP GET /v1/.env 301 [0.00, 5.62.58.233:6808]
+HTTP GET /v1/.env/ 200 [0.01, 5.62.58.233:6808]
+Not Found: /
+HTTP GET / 404 [0.01, 167.248.133.46:52450]
+Not Found: *
+HTTP PRI * 404 [0.01, 167.248.133.46:36022]
+Not Found: /v1/
+HTTP GET /v1/ 404 [0.01, 141.22.28.16:50844]
+HTTP GET /swagger 200 [0.01, 172.226.95.45:16738]
+HTTP GET /static/drf-yasg/style.css 200 [0.00, 172.226.95.45:15564]
+HTTP GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css 200 [0.00, 172.226.95.45:16738]
+HTTP GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js 200 [0.00, 172.226.95.45:16894]
+HTTP GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js 200 [0.00, 172.226.95.45:13849]
+HTTP GET /static/drf-yasg/insQ.min.js 200 [0.00, 172.226.95.45:13996]
+HTTP GET /static/drf-yasg/immutable.min.js 200 [0.00, 172.226.95.45:14011]
+HTTP GET /static/drf-yasg/url-polyfill.min.js 200 [0.00, 172.226.95.45:15564]
+HTTP GET /static/drf-yasg/swagger-ui-init.js 200 [0.00, 172.226.95.45:13996]
+HTTP GET /swagger?format=openapi 200 [0.03, 172.226.95.45:13849]
+HTTP GET /swagger?format=openapi 200 [0.02, 44.196.175.104:15142]
+Not Found: /
+HTTP GET / 404 [0.01, 205.185.115.33:59108]

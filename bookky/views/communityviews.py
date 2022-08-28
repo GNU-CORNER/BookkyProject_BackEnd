@@ -14,7 +14,9 @@ from bookky.serializers.communityserializers import *
 from bookky.serializers.bookserializers import *
 from bookky.auth.auth import authValidation
 from bookky.views.uploadView import decodeBase64
+from bookky.views.pushsystem import send_push_alert, PushMessageObject
 from django.db.models import Q
+from django.db import connection
 
 from urllib import parse
 import requests
@@ -296,14 +298,14 @@ def getCommunityPostdetail(request,slug1,slug2):
             if slug1 == "0":
                 PostData = AnyCommunity.objects.filter(APID = slug2)
                 serializer = AnyCommunityDetailSerializer(PostData,many=True)
-                commentData = AnyComment.objects.filter(APID = PostData[0].APID).order_by('createAt')
+                commentData = AnyComment.objects.filter(APID = PostData[0].APID).order_by('updateAt')
                 commentserializer = AnyCommentSerializer(commentData,many=True)
                 
 
             elif slug1 == "1":
                 PostData = MarketCommunity.objects.filter(MPID = slug2)
                 serializer = MarketCommunityDetailSerializer(PostData,many=True)
-                commentData = MarketComment.objects.filter(MPID = PostData[0].MPID).order_by('createAt')
+                commentData = MarketComment.objects.filter(MPID = PostData[0].MPID).order_by('updateAt')
                 commentserializer = MarketCommentSerializer(commentData,many=True)
             
 
@@ -311,7 +313,7 @@ def getCommunityPostdetail(request,slug1,slug2):
                 PostData = QnACommunity.objects.filter(QPID = slug2)
                 serializer = QnACommunityDetailSerializer(PostData,many=True)
                 replyData = QnACommunity.objects.filter(parentQPID = slug2)
-                commentData = QnAComment.objects.filter(QPID = PostData[0].QPID).order_by('createAt')
+                commentData = QnAComment.objects.filter(QPID = PostData[0].QPID).order_by('updateAt')
                 commentserializer = QnACommentSerializer(commentData,many=True)
             else:
                 return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"잘못된 slug 입니다."}, status=status.HTTP_404_NOT_FOUND)
@@ -721,23 +723,27 @@ def writeCommunityComment(request,slug):
                 
                 if len(postData) != 0 and len(userData) !=0:
                     userNickname = userData[0].nickname
+                    token = ""
                     data['UID']=userData[0].UID
                     data['createAt']=str(datetime.datetime.utcnow())
                     del data['PID']
                     if slug == "0":
                         data['APID']=postData[0].APID
                         postSerializer = AnyCommentSerializer(data = data)
-
+                        postQuery = AnyCommunity.objects.get(APID = data['APID'])
                     elif slug == "1":
                         data['MPID']=postData[0].MPID
                         postSerializer = MarketCommentSerializer(data = data)
-
+                        postQuery = MarketCommunity.objects.get(MPID = data['MPID'])
                     elif slug == "2":
                         data['QPID']=postData[0].QPID
                         postSerializer = QnACommentSerializer(data = data)
-
+                        postQuery = QnACommunity.objects.get(QPID = data['QPID'])
 
                     if postSerializer.is_valid():
+                        postman_id = find_post_master(postQuery)
+                        messageObject = PushMessageObject(str(postQuery.title) , data['comment'])
+                        send_push_alert(postman_id, messageObject)
                         postSerializer.save()
                         return JsonResponse({
                         'success':True,
@@ -764,6 +770,14 @@ def writeCommunityComment(request,slug):
                         'errorMessage':"Post가 아님"
                         })
 
+
+def find_post_master(objects):
+    postMasterQuery = objects.UID.UID
+    print(postMasterQuery)
+    postMasterToken = objects.UID.pushToken
+    print(postMasterToken)
+    #UserQuery = User.objects.UID
+    return postMasterQuery
 
 @swagger_auto_schema(
     method='delete',  
@@ -984,29 +998,44 @@ def modifyCommunityPost(request,slug):
                 if len(userData) != 0 and postData[0].UID.UID == userID:
                     data['UID']=userData[0].UID
                     data['updateAt']=str(datetime.datetime.utcnow())
-
+                    
                     if slug == "0":
                         postSerializer = AnyCommunityDetailSerializer(postData[0],data = data)
                         Path = settings.MEDIA_ROOT+'/thumbnail/AnyCommunity/'+str(data['PID'])+'/'
+                        TYPE = '"bookky_anycommunity"'
+                        TYPEPID = '"APID"'
 
                     elif slug == "1":
                         postSerializer = MarketCommunityDetailSerializer(postData[0],data = data)
                         Path = settings.MEDIA_ROOT+'/thumbnail/MarketCommunity/'+str(data['PID'])+'/'
+                        TYPE = '"bookky_marketcommunity"'
+                        TYPEPID = '"MPID"'
 
                     elif slug == "2":
                         data['parentQPID'] = postData[0].parentQPID
                         postSerializer = QnACommunityDetailSerializer(postData[0],data = data)
                         Path = settings.MEDIA_ROOT+'/thumbnail/QnACommunity/'+str(data['PID'])+'/'
+                        TYPE = '"bookky_qnacommunity"'
+                        TYPEPID = '"QPID"'
 
+                    if data['TBID'] == 0:
+                        data['TBID']=None
+                                          
                     if len(postData[0].postImage) !=0 or (len(imageArray)!=0 and imageArray[0].find(';') != -1):
-                        print("rodrod")
+                        # 이미지가 있거나                   들어온 이미지가 있고    형식도 맞으면! 
                         try:
                         #     # for image_string in self.context.get("images"):
                             num = 1
                             tempfilenames = list()
+                            # 이미지가 기존에 있는 경우는 고려하지 않음.
+
+                            #if os.path.exists(Path):
+                                #shutil.rmtree(Path)
+                            #우선 해당 영역을 지운 뒤, 생각!
+
                             for Image in imageArray:
                                 
-                                if len(Image) ==0 or Image.find(';') == -1:
+                                if len(Image) == 0 or Image.find(';') == -1:
                                     continue
 
                                 #Image = imagedata
@@ -1036,10 +1065,17 @@ def modifyCommunityPost(request,slug):
                             })
                             
                         #이미지 경로 설정 = 경로,경로,경로 -> string 형태
+                        
                         data['postImage'] = tempfilenames
+                        
                         if len(tempfilenames) == 0: # 빈 배열 이슈 해결 해야함.
+                            postData[0].postImage.clear()
                             data['postImage'] = []
-                            del data['postImage']
+                            #postData[0].save()
+                            #print("@")
+
+                        
+
 
                         if slug == "0":
                             postSerializer = AnyCommunityDetailSerializer(postData[0],data = data)
@@ -1051,9 +1087,8 @@ def modifyCommunityPost(request,slug):
                             postSerializer = QnACommunityDetailSerializer(postData[0],data = data)
 
                     
-                    if data['TBID'] == 0:
-                        del data['TBID']
-                         
+
+                
                     if postSerializer.is_valid():
                         postSerializer.save()
                         return JsonResponse({
@@ -1446,15 +1481,15 @@ def getCommunityComment(request,slug1,slug2):
     if request.method == 'GET':
         try:
             if slug1 == "0":
-                commentData = AnyComment.objects.filter(APID = slug2).order_by('createAt')
+                commentData = AnyComment.objects.filter(APID = slug2).order_by('updateAt')
                 commentserializer = AnyCommentSerializer(commentData,many=True)
 
             elif slug1 == "1":
-                commentData = MarketComment.objects.filter(MPID = slug2).order_by('createAt')
+                commentData = MarketComment.objects.filter(MPID = slug2).order_by('updateAt')
                 commentserializer = MarketCommentSerializer(commentData,many=True)     
 
             elif slug1 == "2":
-                commentData = QnAComment.objects.filter(QPID = slug2).order_by('createAt')
+                commentData = QnAComment.objects.filter(QPID = slug2).order_by('updateAt')
                 commentserializer = QnACommentSerializer(commentData,many=True)
             else:
                 return JsonResponse({'success':False, 'result': exceptDict, 'errorMessage':"잘못된 slug 입니다."}, status=status.HTTP_404_NOT_FOUND)
@@ -1471,6 +1506,10 @@ def getCommunityComment(request,slug1,slug2):
         k = 0
                     
         for i in commentserializer.data:
+            if (int(flag) in i['like']) == True:
+                i["isLiked"]=True
+            else:
+                i["isLiked"]=False
             i["nickname"]=commentData[k].UID.nickname
             i["thumbnail"]=commentData[k].UID.thumbnail
             if commentData[k].UID.UID == flag:

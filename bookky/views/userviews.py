@@ -753,3 +753,92 @@ def authenticateEmail(request):
                 return JsonResponse({'success':True, 'result':{'email' : data}, 'errorMessage':""}, status=status.HTTP_200_OK)
         else:
             return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"email 입력 값이 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@swagger_auto_schema(
+    method='post',  
+    manual_parameters=[
+        openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING),
+        ],
+    # 필수값을 지정 할 Schema를 입력해주면 된다.
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema('푸쉬알림 허용여부',type=openapi.TYPE_BOOLEAN),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
+#push알림 허용
+@api_view(['POST'])
+def checkPush(request):
+    exceptDict = None
+    if request.method == "POST":
+        if request.headers.get('access_token') is None:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            userID = checkAuth_decodeToken(request)
+            if userID == -1:
+                return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+            elif userID == -2:
+                return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
+            else: 
+                userQuery = User.objects.get(UID = userID)
+                if userQuery.pushNoti == True :
+                    userQuery.pushNoti = False
+                else:
+                    userQuery.pushNoti = True
+                userQuery.save()
+                
+                return JsonResponse({'success':True, 'result':userQuery.pushNoti, 'errorMessage':""}, status = status.HTTP_200_OK)
+
+@swagger_auto_schema(
+    method='post',  
+    manual_parameters=[
+        openapi.Parameter('access-token', openapi.IN_HEADER, description="접근 토큰", type=openapi.TYPE_STRING),
+        ],
+    request_body=openapi.Schema(
+        '푸쉬알림 토큰 등록, 재등록도 포함',
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'pushToken': openapi.Schema('FCM 푸쉬 토큰', type=openapi.TYPE_STRING),
+        },
+        required=['pushToken']  # 필수값을 지정 할 Schema를 입력해주면 된다.
+    ),
+    # 필수값을 지정 할 Schema를 입력해주면 된다.
+    responses={
+        200: openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'success': openapi.Schema('호출 성공여부', type=openapi.TYPE_BOOLEAN),
+                'result': openapi.Schema('푸쉬토큰',type=openapi.TYPE_STRING),
+                'errorMessage': openapi.Schema('에러 메시지', type=openapi.TYPE_STRING)
+            }
+        )
+    }
+)
+#push토큰 등록
+@api_view(['POST'])
+def registPush(request):
+    exceptDict = None
+    if request.method == "POST":
+        if request.headers.get('access_token') is None:
+            return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"형식이 잘못되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            userID = checkAuth_decodeToken(request)
+            if userID == -1:
+                return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"잘못된 AT토큰입니다."}, status = status.HTTP_403_FORBIDDEN)
+            elif userID == -2:
+                return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"만료된 토큰입니다."}, status = status.HTTP_401_UNAUTHORIZED)
+            else: 
+                parsedData = JSONParser().parse(request)
+                userQuery = User.objects.get(UID = userID)
+                if parsedData['pushToken'] is not None:
+                    userQuery.pushToken = parsedData['pushToken']
+                    userQuery.save()
+                    return JsonResponse({'success':True, 'result':userQuery.pushToken, 'errorMessage':""}, status = status.HTTP_200_OK)
+                else:
+                    return JsonResponse({'success':False, 'result':exceptDict, 'errorMessage':"푸쉬토큰이 없습니다 Body를 확인하세요."}, status = status.HTTP_400_BAD_REQUEST)

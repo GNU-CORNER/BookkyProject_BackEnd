@@ -1,0 +1,135 @@
+/home/hyeok/dev/BookkyProject_BackEnd
+init
+Performing system checks...
+
+System check identified some issues:
+
+WARNINGS:
+bookky.AnyComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.AnyCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.MarketCommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnAComment.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.QnACommunity.postImage: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.Review.like: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+bookky.TempBook.TAG: (fields.E010) ArrayField default should be a callable instead of an instance so that it's not shared between all field instances.
+	HINT: Use a callable instead, e.g., use `list` instead of `[]`.
+
+System check identified 11 issues (0 silenced).
+August 26, 2022 - 20:55:22
+Django version 4.0.3, using settings 'bookky_backend.settings'
+Starting development server at http://0:8002/
+Quit the server with CONTROL-C.
+Internal Server Error: /v1/push/noti
+Traceback (most recent call last):
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/generic/base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/pushsystem.py", line 60, in send_push_alert
+    response = messaging.send(message)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/messaging.py", line 116, in send
+    return _get_messaging_service(app).send(message, dry_run)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/messaging.py", line 96, in _get_messaging_service
+    return _utils.get_app_service(app, _MESSAGING_ATTRIBUTE, _MessagingService)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/_utils.py", line 98, in get_app_service
+    return app._get_service(name, initializer) # pylint: disable=protected-access
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/__init__.py", line 295, in _get_service
+    self._services[name] = initializer(self)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/messaging.py", line 322, in __init__
+    project_id = app.project_id
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/__init__.py", line 241, in project_id
+    self._project_id = self._lookup_project_id()
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/__init__.py", line 259, in _lookup_project_id
+    project_id = self._credential.project_id
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/credentials.py", line 154, in project_id
+    self._load_credential()
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/credentials.py", line 159, in _load_credential
+    self._g_credential, self._project_id = google.auth.default(scopes=_scopes)
+  File "/usr/local/lib/python3.8/dist-packages/google/auth/_default.py", line 583, in default
+    credentials, project_id = checker()
+  File "/usr/local/lib/python3.8/dist-packages/google/auth/_default.py", line 576, in <lambda>
+    lambda: _get_explicit_environ_credentials(quota_project_id=quota_project_id),
+  File "/usr/local/lib/python3.8/dist-packages/google/auth/_default.py", line 225, in _get_explicit_environ_credentials
+    credentials, project_id = load_credentials_from_file(
+  File "/usr/local/lib/python3.8/dist-packages/google/auth/_default.py", line 119, in load_credentials_from_file
+    raise exceptions.DefaultCredentialsError(
+google.auth.exceptions.DefaultCredentialsError: File /home/hyeok/dev/BookkyProject_BackEnd/seniorproject-bookky-firebase-adminsdk-b1s48-c141c78797.json was not found.
+[26/Aug/2022 20:55:24] "GET /v1/push/noti HTTP/1.1" 500 19525
+Internal Server Error: /v1/push/noti
+Traceback (most recent call last):
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/django/views/generic/base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/hyeok/.local/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/bookky/views/pushsystem.py", line 60, in send_push_alert
+    response = messaging.send(message)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/messaging.py", line 116, in send
+    return _get_messaging_service(app).send(message, dry_run)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/messaging.py", line 96, in _get_messaging_service
+    return _utils.get_app_service(app, _MESSAGING_ATTRIBUTE, _MessagingService)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/_utils.py", line 98, in get_app_service
+    return app._get_service(name, initializer) # pylint: disable=protected-access
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/__init__.py", line 295, in _get_service
+    self._services[name] = initializer(self)
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/messaging.py", line 322, in __init__
+    project_id = app.project_id
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/__init__.py", line 241, in project_id
+    self._project_id = self._lookup_project_id()
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/__init__.py", line 259, in _lookup_project_id
+    project_id = self._credential.project_id
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/credentials.py", line 154, in project_id
+    self._load_credential()
+  File "/home/hyeok/dev/BookkyProject_BackEnd/firebase_admin/credentials.py", line 159, in _load_credential
+    self._g_credential, self._project_id = google.auth.default(scopes=_scopes)
+  File "/usr/local/lib/python3.8/dist-packages/google/auth/_default.py", line 583, in default
+    credentials, project_id = checker()
+  File "/usr/local/lib/python3.8/dist-packages/google/auth/_default.py", line 576, in <lambda>
+    lambda: _get_explicit_environ_credentials(quota_project_id=quota_project_id),
+  File "/usr/local/lib/python3.8/dist-packages/google/auth/_default.py", line 225, in _get_explicit_environ_credentials
+    credentials, project_id = load_credentials_from_file(
+  File "/usr/local/lib/python3.8/dist-packages/google/auth/_default.py", line 119, in load_credentials_from_file
+    raise exceptions.DefaultCredentialsError(
+google.auth.exceptions.DefaultCredentialsError: File /home/hyeok/dev/BookkyProject_BackEnd/seniorproject-bookky-firebase-adminsdk-b1s48-c141c78797.json was not found.
+[26/Aug/2022 20:55:26] "GET /v1/push/noti HTTP/1.1" 500 19525

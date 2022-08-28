@@ -27,11 +27,11 @@ class User(models.Model):
 
 class AnyCommunity(models.Model):                                                                                           #자유게시판
     APID                    = models.BigAutoField(primary_key=True)                                                         #Primary Key
-    TBID                     = models.ForeignKey("TempBook", on_delete=models.CASCADE ,null=True)                                #책 외래키
+    TBID                    = models.ForeignKey("TempBook", on_delete=models.CASCADE ,null=True, blank=True)                                #책 외래키
     UID                     = models.ForeignKey("User", on_delete=models.CASCADE ,null=False)                               #유저 외래키
     contents                = models.TextField(verbose_name='내용')                                                          #내용
     title                   = models.CharField(max_length=255, null=False)                                                   #제목
-    postImage               = ArrayField(models.TextField(null=True), size = 6, null=True, default = list())                                   # 이미지, 배열
+    postImage               = ArrayField(models.TextField(null=True), size = 6, null=True, default = list(), blank=True)                                   # 이미지, 배열
     createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
     updateAt                = models.DateTimeField(auto_now=True, null=False)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
@@ -43,11 +43,11 @@ class AnyCommunity(models.Model):                                               
 
 class MarketCommunity(models.Model):                                                                                        #장터게시판 자게와 동일
     MPID                    = models.BigAutoField(primary_key=True)                                                         #Primary Key
-    TBID                     = models.ForeignKey("TempBook", on_delete=models.CASCADE ,null=True)                                #책 외래키
+    TBID                     = models.ForeignKey("TempBook", on_delete=models.CASCADE ,null=True, blank=True)                                #책 외래키
     UID                     = models.ForeignKey("User", on_delete=models.CASCADE ,null=False)                               #유저 외래키
     contents                = models.TextField(verbose_name='내용')                                                          #내용
     title                   = models.CharField(max_length=255, null=False)                                                   #제목
-    postImage               = ArrayField(models.TextField(null=True), size = 6, null=True, default = list())                                   # 이미지, 배열
+    postImage               = ArrayField(models.TextField(null=True), size = 6, null=True, default = list(), blank=True)                                   # 이미지, 배열
     createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
     updateAt                = models.DateTimeField(auto_now=True, null=False)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
@@ -59,11 +59,11 @@ class MarketCommunity(models.Model):                                            
 
 class QnACommunity(models.Model):                                                                                           #QnA게시판
     QPID                    = models.BigAutoField(primary_key=True)                                                         #Primary Key
-    TBID                     = models.ForeignKey("TempBook", on_delete=models.CASCADE ,null=True)                                #책 외래키
+    TBID                     = models.ForeignKey("TempBook", on_delete=models.CASCADE ,null=True, blank=True)                                #책 외래키
     UID                     = models.ForeignKey("User", on_delete=models.CASCADE ,null=False)                               #유저 외래키
     contents                = models.TextField(verbose_name='내용')                                                          #내용
     title                   = models.CharField(max_length=255, null=False)                                                   #제목
-    postImage               = ArrayField(models.TextField(null=True), size = 6, null=True, default = list())                                   # 이미지, 배열
+    postImage               = ArrayField(models.TextField(null=True), size = 6, null=True, default = list(), blank=True)                                   # 이미지, 배열
     createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
     updateAt                = models.DateTimeField(auto_now=True, null=False)                                                                   #수정날짜
     views                   = models.IntegerField(null=False, default = 0)                                                  #뷰
@@ -213,3 +213,41 @@ class TempBook(models.Model):
     
     def __str__(self):
         return self.TBID
+
+class ReportingTable(models.Model):
+    ReportId                = models.BigAutoField(primary_key=True)
+    UID                     = models.ForeignKey("User", on_delete=models.CASCADE, null=False)
+    #커뮤니티 글을 외래키로 두어서 좋을게 무엇이 있을까? // 관리자 테이블에서 삭제하기 위해서? -> communityType과 PID가 있지만 각각의 케이스를 코드로 써야함 -> 불필요 그냥 테이블에 컬럼을 추가하는게 추가적인 코드가 덜 필요하다.
+    QPID                    = models.ForeignKey("QnACommunity", on_delete=models.CASCADE ,null=True)                        
+    APID                    = models.ForeignKey("AnyCommunity", on_delete=models.CASCADE ,null=True)                        
+    MPID                    = models.ForeignKey("MarketCommunity", on_delete=models.CASCADE ,null=True)                     #게시판 외래키
+    QCID                    = models.ForeignKey("QnAComment", on_delete=models.CASCADE ,null=True)                        
+    ACID                    = models.ForeignKey("AnyComment", on_delete=models.CASCADE ,null=True)                        
+    MCID                    = models.ForeignKey("MarketComment", on_delete=models.CASCADE ,null=True)                     #게시판 외래키
+    TYPE                    = models.IntegerField(null=False)
+    reportType              = models.IntegerField(null=False)                                                               #리포트 종류
+    createAt                = models.DateTimeField(auto_now_add=True, null=False)                                                   #생성날짜
+    #커뮤니티 글을 자동 삭제는 쉽지만 엉뚱한 글 삭제가 일어날 수 있다. -> 즉, 수동으로 관리해야 한다. -> 관리자가 계속해서 검토해야 한다. -> 관리자 페이지를 작성해야 한다. 으악.
+
+    def __str__(self):
+        return self.ReportId 
+
+class SuperUser(models.Model):
+    SUID                    = models.BigAutoField(primary_key=True)
+    UID                     = models.ForeignKey("User", on_delete=models.CASCADE, null=False)
+    authority               = models.IntegerField(null=False, default = 5)   # 1:최상위 권한, 2:관리자, 5: 일반 사용자
+    def __str__(self):
+        if self.authority == 1:
+            return "Master"
+        elif self.authority ==2 :
+            return "Manager"
+        elif self.authority ==5 :
+            return "Common"
+class BlackList(models.Model):
+    BLACKID                 = models.BigAutoField(primary_key=True)
+    UID                     = models.ForeignKey("User", on_delete=models.CASCADE, null=False)
+    createAt                = models.DateTimeField(auto_now_add=True, null=False)
+    releaseAt               = models.DateTimeField(auto_now_add=True, null=False)
+    ReportId                = models.ForeignKey("ReportingTable", on_delete=models.CASCADE, null=False)
+    def __str__(self):
+        return self.BLACKID

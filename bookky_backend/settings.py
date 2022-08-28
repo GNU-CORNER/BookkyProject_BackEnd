@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from . import dbsetting, emailsetting
 import os
+import firebase_admin
+from firebase_admin import credentials
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -68,7 +70,10 @@ INSTALLED_APPS = [
     'drf_yasg',
     'bookky',
 ]
-
+cred_path = os.path.join(BASE_DIR, "seniorproject-bookky-firebase-adminsdk-b1s48-35524abba7.json")
+print(cred_path)
+cred = credentials.Certificate(cred_path)
+firebase_admin.initialize_app(cred)
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -104,7 +109,7 @@ TEMPLATES = [
         },
     },
 ]
-
+ASGI_APPLICATION = 'bookky_backend.asgi.application'
 WSGI_APPLICATION = 'bookky_backend.wsgi.application'
 
 
